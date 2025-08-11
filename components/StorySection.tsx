@@ -9,14 +9,14 @@ const StorySection = () => {
                 alt="Restaurant background"
                 fill
                 priority
-                className="object-cover object-center -z-10 opacity-40"
+                className="object-cover object-center -z-10 opacity-20"
             />
             <div className="container grid md:grid-cols-2 gap-10 items-start">
                 <div>
                     <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">
                         Our Story
                     </h2>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed text-justify">
                         Gojo is a celebration of Ethiopian hospitality. We share meals
                         on injera, gather with friends, and slow down for the coffee
                         ceremony. Every dish is prepared with heritage spices and care.

@@ -1,6 +1,9 @@
+'use client'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/Tabs";
 import { Badge } from "./ui/Badge";
 import Image from 'next/image'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export type MenuItem = {
   name: string;
@@ -47,7 +50,38 @@ const fullMenu: { category: string; items: MenuItem[] }[] = [
   },
 ];
 
+interface Dish {
+  id: string;
+  name: string;
+  description?: string;
+  category_id?: string;
+  image_url?: string;
+}
+
 export default function MenuTabs() {
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchData=async()=>{      
+      try {
+        const response = await axios.get('/api/dish');        
+        setDishes(response.data);
+      } catch (error: any) {        
+        setError(error.message || 'Failed to fetch dishes');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) return <div>Loading dishes...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+
   return (
     <Tabs
       defaultValue="daily"
