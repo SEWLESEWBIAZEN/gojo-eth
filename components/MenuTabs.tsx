@@ -1,6 +1,6 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs";
-import { Badge } from "./Badge";
-
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/Tabs";
+import { Badge } from "./ui/Badge";
+import Image from 'next/image'
 
 export type MenuItem = {
   name: string;
@@ -49,52 +49,93 @@ const fullMenu: { category: string; items: MenuItem[] }[] = [
 
 export default function MenuTabs() {
   return (
-    <Tabs defaultValue="daily" className="w-full">
-      <TabsList className="mb-4">
-        <TabsTrigger value="daily">Daily Specials</TabsTrigger>
-        <TabsTrigger value="full">Full Menu</TabsTrigger>
+    <Tabs
+      defaultValue="daily"
+      className="w-full relative pb-4"
+    >
+      <Image
+        src="/menu-bg-1.jpg"
+        alt="Restaurant background"
+        fill
+        priority
+        className="object-cover object-center -z-10 opacity-40"
+      />
+
+      {/* Tabs List */}
+      <TabsList className="mb-6 flex flex-wrap justify-center gap-2 rounded-none">
+        <TabsTrigger value="daily" className="px-6 py-4 text-sm md:text-base">
+          Daily Specials
+        </TabsTrigger>
+        <TabsTrigger value="full" className="px-6 py-4 text-sm md:text-base">
+          Full Menu
+        </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="daily" className="animate-enter">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dailySpecials.map((item) => (
-            <article key={item.name} className="rounded-xl border p-5 bg-card shadow-sm">
-              <header className="flex items-start justify-between gap-3 mb-2">
-                <h3 className="text-lg font-semibold">{item.name}</h3>
-                <div className="flex gap-2">
-                  {item.vegan && <Badge variant="secondary">Vegan</Badge>}
-                  {item.spicy && <Badge variant="destructive">Spicy</Badge>}
+      {/* Daily Specials */}
+      <TabsContent value="daily" className="animate-enter py-14">
+        <section className="space-y-8 p-6 bg-transparent backdrop-blur-sm rounded-xl">
+          <ul className="flex flex-col sm:flex-row sm:flex-wrap sm:gap-x-6 gap-y-4">
+            {dailySpecials?.map((item) => (
+              <li
+                key={item?.name}
+                className="w-full sm:max-w-[calc(50%-0.75rem)] hover:cursor-pointer"
+              >
+                <div className="flex items-start justify-between gap-4 p-3 bg-white/50 rounded-lg shadow-sm hover:shadow-md transition">
+                  <div>
+                    <p className="font-medium text-orange-900">{item?.name}</p>
+                    {item?.description && (
+                      <p className="text-muted-foreground text-sm">{item?.description}</p>
+                    )}
+                    <div className="mt-1 flex gap-2 flex-wrap">
+                      {item?.vegan && <Badge variant="secondary">Vegan</Badge>}
+                      {item?.spicy && <Badge variant="destructive">Spicy</Badge>}
+                    </div>
+                  </div>
+                  {item?.price && (
+                    <p className="font-semibold text-orange-700 whitespace-nowrap">
+                      {item?.price}
+                    </p>
+                  )}
                 </div>
-              </header>
-              {item.description && (
-                <p className="text-muted-foreground text-sm mb-3">{item.description}</p>
-              )}
-              {item.price && <p className="font-medium">{item.price}</p>}
-            </article>
-          ))}
-        </div>
+              </li>
+            ))}
+          </ul>
+        </section>
       </TabsContent>
 
+      {/* Full Menu */}
       <TabsContent value="full" className="animate-enter">
-        <div className="space-y-8">
-          {fullMenu.map((group) => (
-            <section key={group.category}>
-              <h3 className="text-xl font-semibold mb-3">{group.category}</h3>
-              <ul className="divide-y">
-                {group.items.map((item) => (
-                  <li key={item.name} className="py-3">
-                    <div className="flex items-start justify-between gap-4">
+        <div className="space-y-8 rounded-xl bg-transparent shadow-sm ">
+          {fullMenu?.map((group) => (
+            <section
+              key={group?.category}
+              className="p-6 bg-transparent backdrop-blur-sm rounded-xl"
+            >
+              <h3 className="text-2xl font-bold mb-4 text-orange-800 drop-shadow-sm">
+                {group?.category}
+              </h3>
+              <ul className="flex flex-col sm:flex-row sm:flex-wrap sm:gap-x-6 gap-y-4">
+                {group.items?.map((item) => (
+                  <li
+                    key={item?.name}
+                    className="w-full sm:max-w-[calc(50%-0.75rem)] hover:cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between gap-4 p-3 bg-white/50 rounded-lg shadow-sm hover:shadow-md transition">
                       <div>
-                        <p className="font-medium">{item.name}</p>
-                        {item.description && (
-                          <p className="text-muted-foreground text-sm">{item.description}</p>
+                        <p className="font-medium text-orange-900">{item?.name}</p>
+                        {item?.description && (
+                          <p className="text-muted-foreground text-sm">{item?.description}</p>
                         )}
-                        <div className="mt-1 flex gap-2">
-                          {item.vegan && <Badge variant="secondary">Vegan</Badge>}
-                          {item.spicy && <Badge variant="destructive">Spicy</Badge>}
+                        <div className="mt-1 flex gap-2 flex-wrap">
+                          {item?.vegan && <Badge variant="secondary">Vegan</Badge>}
+                          {item?.spicy && <Badge variant="destructive">Spicy</Badge>}
                         </div>
                       </div>
-                      {item.price && <p className="font-medium whitespace-nowrap">{item.price}</p>}
+                      {item?.price && (
+                        <p className="font-semibold text-orange-700 whitespace-nowrap">
+                          {item?.price}
+                        </p>
+                      )}
                     </div>
                   </li>
                 ))}

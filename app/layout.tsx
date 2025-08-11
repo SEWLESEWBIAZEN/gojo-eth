@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
-      <body>
+      <body className="bg-slate-100">
         {children}
       </body>
     </html>
