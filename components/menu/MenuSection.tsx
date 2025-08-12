@@ -2,6 +2,7 @@ import MenuTabs from "./MenuTabs";
 import React from 'react'
 import { Button } from "../ui/Button";
 import { ArmchairIcon } from "lucide-react";
+import Reservation from "../Reservation";
 const MenuSection = () => {
     return (
         <section id="menu" className="py-12 px-4 border-t">
@@ -15,7 +16,7 @@ const MenuSection = () => {
                             Browse our daily specials or the full menu.
                         </p>
                     </div>
-                    <Button> <ArmchairIcon /> Reserve a Table</Button>
+                    <Reservation/>
                 </div>
                 <MenuTabs />
             </div>

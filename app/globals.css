@@ -55,6 +55,8 @@
   /* Shadows & gradients */
   --shadow-elevated: 0 10px 30px -10px hsl(var(--primary) / 0.25);
   --shadow-glow: 0 0 36px hsl(var(--accent) / 0.35);
+
+  --spacing-8: 4rem; /* adjust to match your spacing scale */
 }
 
 @theme inline {

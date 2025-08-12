@@ -155,9 +155,7 @@ export default function MenuTabs() {
       } catch (error: any) {
         setError(error.message || 'Failed to fetch dishes');
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
+        setLoading(false);
       }
     }
     fetchData();
@@ -170,9 +168,7 @@ export default function MenuTabs() {
   return (
     <Tabs
       defaultValue="daily"
-      className="w-full relative pb-4"
-    >
-
+      className="w-full relative pb-4">
       <Image
         src="/menu-bg-1.jpg"
         // src="/og-gojo.jpg"
@@ -181,7 +177,6 @@ export default function MenuTabs() {
         priority
         className="object-cover object-center -z-10 opacity-20"
       />
-
       {/* Tabs List */}
       <TabsList className="mb-6 flex flex-wrap justify-center gap-2 rounded-none">
         <TabsTrigger value="daily" className="px-6 py-4 text-sm md:text-base">
@@ -192,7 +187,6 @@ export default function MenuTabs() {
         </TabsTrigger>
       </TabsList>
 
-
       {/* Daily Specials */}
       <TabsContent value="daily" className="animate-enter py-14">
         <section className="space-y-8 p-6 bg-transparent backdrop-blur-sm rounded-xl">
@@ -201,7 +195,6 @@ export default function MenuTabs() {
               <DishCard key={item?.id} dish={item} />
             ))}
           </ul>
-
         </section>
       </TabsContent>
 
