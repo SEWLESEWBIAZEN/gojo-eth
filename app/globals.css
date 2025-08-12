@@ -140,3 +140,34 @@ body {
     @apply animate-fade-in;
   }
 }
+
+@keyframes border-blink {
+  0% {
+    border-color: #eb2727; 
+  }
+  25% {
+    border-color: #e4d619; 
+  }
+  50% {
+    border-color: #14b94b; 
+  }
+  75% {
+    border-color: #0f12bb; 
+  }
+  100% {
+    border-color: #d4b112;
+  }
+}
+
+.border-blink {
+  border-width: 3px;
+  border-style: solid;
+  animation: border-blink 2s infinite;
+}
+
+.badge-featured {
+  animation: 1.5s infinite ease-in-out;
+}
+
+
+

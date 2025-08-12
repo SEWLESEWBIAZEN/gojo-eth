@@ -22,3 +22,8 @@ export function formatResponse({data=null, message="", isError=false, statusCode
 }
 
 
+export function truncateText(text: string | undefined, maxLength: number) {
+  if (!text) return "";
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+}
+

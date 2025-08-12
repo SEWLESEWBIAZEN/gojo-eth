@@ -1,10 +1,24 @@
-import { Clock, MapPin, Phone } from 'lucide-react'
-import React from 'react'
+'use client'
+import { Clock, MapPin, Phone, Clipboard, Copy } from 'lucide-react'
+import React, { useState } from 'react'
 import { Button } from './ui/Button'
 import Image from 'next/image'
 import MapEmbed from './MapEmbed'
 
 const VisitUsSection = () => {
+  const [copied, setCopied] = useState(false);
+  const textToCopy = "+14082959546"; // Phone number to copy
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reset after 2s
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
   return (
     <section id="visit" className="py-12 px-4 border-t">
       <div className="container grid md:grid-cols-3 gap-8">
@@ -22,19 +36,18 @@ const VisitUsSection = () => {
 
           {/* Contact Info */}
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border p-4 flex items-start gap-3">
-              <MapPin className="mt-1 text-brand" />
+            <div className="border-blink rounded-lg shadow-2xl p-4 flex items-start gap-3">
+              <MapPin className="mt-1 text-primary" />
               <div>
                 <p>1261 W San Carlos St</p>
                 <p>San Jose, CA 95126</p>
                 <p>(408) 295-9546</p>
               </div>
             </div>
-
-            <div className="rounded-lg border p-4 flex items-start gap-3">
-              <Clock className="mt-1 text-brand" />
+            <div className="border-blink rounded-lg shadow-2xl p-4 flex items-start gap-3">
+              <Clock className="mt-1 text-primary " />
               <div>
-                <p>Tues–Sun: 11:00 AM – 9:00 PM</p>
+                <p>Tuesday – Sunday:  <span className="text-muted-foreground">11:00 AM – 9:00 PM</span></p>
               </div>
             </div>
           </div>
@@ -46,10 +59,11 @@ const VisitUsSection = () => {
 
           {/* Buttons */}
           <div className="flex flex-wrap gap-3 pt-2">
-            <Button variant="brand" size="lg" asChild>
-              <a href="tel:+14082959546">
-                <Phone className="mr-2 w-4 h-4" /> Reserve by Phone
-              </a>
+            <Button variant="brand" size="lg" asChild onClick={handleCopy}>
+              {copied ? <span className="text-green-500"><Copy /> Phone number copied!</span>
+                : <a href="tel:+14082959546">
+                  <Phone className="mr-2 w-4 h-4" /> Reserve by Phone
+                </a>}
             </Button>
             <Button variant="outline" size="lg" asChild>
               <a href="#menu">Explore Menu</a>

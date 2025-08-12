@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import HeroSection from "@/components/HeroSection";
-import MenuSection from "@/components/MenuSection";
+import MenuSection from "@/components/menu/MenuSection";
 import StorySection from "@/components/StorySection";
 import VisitUsSection from "@/components/VisitUsSection";
 import Header from "@/components/Header";

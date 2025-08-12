@@ -1,26 +1,27 @@
-import supabase from "@/lib/supabase";
-import { formatResponse } from "@/lib/utils";
+import { signUp, signIn } from "@/lib/auth";
 
-export const signUp = async (email: string, password: string, role='user') => {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        role
-      }
+export async function POST(request: Request): Promise<Response> {
+  const body = await request.json();
+  const { email, password, action, role } = body;
+
+  let result;
+  if (action === 'signup') {
+    result = await signUp(email, password, role);
+  } else if (action === 'signin') {
+    result = await signIn(email, password);
+  } else {
+    return new Response(
+      JSON.stringify({ message: 'Invalid action' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // If signUp/signIn returns an object, wrap it in Response:
+  return new Response(
+    JSON.stringify(result),
+    {
+      status: result.statusCode || 200,
+      headers: { 'Content-Type': 'application/json' },
     }
-  });
-  if (error) return formatResponse({ data: null, message: error.message || 'Failed to sign up', isError: true, statusCode: 500 });
-  return formatResponse({ data, message: "User signed up successfully", isError: false, statusCode: 201 });
-};
-
-export const signIn = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (error) return formatResponse({ data: null, message: error.message || 'Failed to sign in', isError: true, statusCode: 500 });
-  return formatResponse({ data, message: "User signed in successfully", isError: false, statusCode: 200 });
-};
-
+  );
+}

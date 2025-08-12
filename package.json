@@ -12,6 +12,7 @@
     "@fontsource/geist-mono": "^5.2.6",
     "@prisma/client": "^6.13.0",
     "@prisma/extension-accelerate": "^2.0.2",
+    "@radix-ui/react-collapsible": "^1.1.11",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.12",
     "@supabase/supabase-js": "^2.54.0",
