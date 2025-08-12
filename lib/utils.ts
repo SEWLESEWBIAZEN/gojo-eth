@@ -1,25 +1,35 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+import { NextResponse } from "next/server";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-interface FormatResponse {
-  data: any;
-  message: string;
-  isError: boolean;
-  statusCode: number;
+export type FormatResponse = {
+  data?: any;
+  message?: string;
+  isError?: boolean;
+  status?: number;
+};
+
+export function formatResponse({
+  data = null,
+  message = "",
+  isError = false,
+  status = 200,
+}: FormatResponse) {
+  return NextResponse.json(
+    {
+      data,
+      message,
+      isError,
+    },
+    { status }
+  );
 }
 
-export function formatResponse({data=null, message="", isError=false, statusCode=200}: FormatResponse) {
-  return {
-    data,
-    message,
-    isError,
-    statusCode
-  };
-}
 
 
 export function truncateText(text: string | undefined, maxLength: number) {

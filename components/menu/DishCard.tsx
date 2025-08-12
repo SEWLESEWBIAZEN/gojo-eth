@@ -21,12 +21,14 @@ interface DishProps {
         featured?: boolean;
         rating?: number;
     }
+  
 }
 const DishCard: React.FC<DishProps> = ({ dish }) => {
+    const [expandedOne, setExpandedOne] = React.useState("");  
     return (
         <li className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-0.75rem)]">
-            <Collapsible>
-                <CollapsibleTrigger className="w-full">
+            <Collapsible open={expandedOne === dish?.id} onOpenChange={(open) => { setExpandedOne(open ? dish?.id : "") }}>
+                <CollapsibleTrigger className="w-full" onClick={() => setExpandedOne(dish?.id)}>
                     <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white/60 rounded-xl shadow-sm hover:shadow-lg hover:bg-white/80 transition-all duration-200 border border-orange-100">
                         {/* Dish Info */}
                         <div className="flex-1">
@@ -44,26 +46,22 @@ const DishCard: React.FC<DishProps> = ({ dish }) => {
                                 {dish?.spicy && <Badge variant="destructive">Spicy</Badge>}
                             </div>
                         </div>
-
                         {/* Price */}
                         {dish?.price && (
                             <p className="font-bold text-orange-700 text-lg sm:text-xl whitespace-nowrap">
                                 ${dish?.price}
                             </p>
                         )}
-
                         {/* featured? */}
                         {dish?.featured && (
                             <Badge className="badge-featured bg-transparent absolute top-0 left-0">
-                               <Stars className='text-primary shadow-glow'/> 
+                                <Stars className='text-primary shadow-glow' />
                             </Badge>
                         )}
-
                     </div>
                 </CollapsibleTrigger>
-
                 {/* Collapsible Content */}
-                <CollapsibleContent className="mt-2 px-4 pb-3 text-sm text-gray-600 leading-relaxed">
+                <CollapsibleContent className="mt-2 px-4 pb-3 text-sm text-gray-600 leading-relaxed" >
                     <DishImages dish={dish} />
                 </CollapsibleContent>
             </Collapsible>

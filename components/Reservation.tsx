@@ -43,7 +43,7 @@ const Reservation = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="space-y-3 flex flex-col md:flex-row gap-6 md:items-end">
                         <div className="space-y-2">
-                            <Label htmlFor="name">Name<span>*</span></Label>
+                            <Label htmlFor="name">Full Name<span>*</span></Label>
                             <Input id="name" type="text" placeholder="Enter your name....." />
                         </div>
 

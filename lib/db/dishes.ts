@@ -5,14 +5,14 @@ export interface DishInput {
   name: string;
   description?: string;
   category_id?: string;
-  image_url?: string;
+  images?: File[];
 }
 
 export async function createDish(dish: DishInput) {
-  const { name, description, category_id, image_url } = dish;
+  const { name, description, category_id, images } = dish;
   const { data, error } = await supabase
     .from('dishes')
-    .insert([{ name, description, category_id, image_url }])
+    .insert([{ name, description, category_id, images }])
     .select()
     .single();
 
@@ -21,43 +21,57 @@ export async function createDish(dish: DishInput) {
       data: null,
       message: error.message || 'Failed to create dish',
       isError: true,
-      statusCode: 500
+      status: 500
     });
   }
   return formatResponse({
     data,
     message: "Dish created successfully",
     isError: false,
-    statusCode: 201
+    status: 201
   });
 }
 
 
 export async function getAllDishes() {
   const { data, error } = await supabase.from('dishes').select('*');
-  if (error) return formatResponse({data: null, message: error.message || 'Failed to fetch dishes', isError: true, statusCode: 500});
-  return formatResponse({
+  if (error) {
+    return {
+      data: null,
+      message: error.message || 'Failed to fetch dishes',
+      isError: true,
+      status: 500,
+    };
+  }
+
+  return {
     data,
-    message: "Dishes fetched successfully",
+    message: 'Dishes fetched successfully',
     isError: false,
-    statusCode: 200
-  });
+    status: 200,
+  };
 }
+
 
 export async function getDishById(id: string) {
   const { data, error } = await supabase.from('dishes').select('*').eq('id', id).single();
-  if (error) {    
-    return formatResponse({
+  if (error) {
+    return {
       data: null,
       message: error.message || 'Failed to fetch dish',
       isError: true,
-      statusCode:  500
-    });
+      status: 500,
+    };
   }
-  return formatResponse({
+  return {
     data,
     message: "Dish fetched successfully",
     isError: false,
-    statusCode: 200
-  });
+    status: 200
+  };
 }
+
+  
+
+
+

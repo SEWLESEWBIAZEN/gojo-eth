@@ -1,19 +1,31 @@
-// lib/auth.ts
-import supabase from "@/lib/supabase";
-import { formatResponse } from "@/lib/utils";
+import supabase from "./supabase";
 
-export const signUp = async (email: string, password: string, role='user') => {
+export const signUp = async (email: string, password: string, role = 'user') => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
-        role
-      }
-    }
+        role,
+      },
+    },
   });
-  if (error) return formatResponse({ data: null, message: error.message || 'Failed to sign up', isError: true, statusCode: 500 });
-  return formatResponse({ data, message: "User signed up successfully", isError: false, statusCode: 201 });
+
+  if (error) {
+    return {
+      data: null,
+      message: error.message || 'Failed to sign up',
+      isError: true,
+      status: 500,
+    };
+  }
+
+  return {
+    data,
+    message: "User signed up successfully",
+    isError: false,
+    status: 201,
+  };
 };
 
 export const signIn = async (email: string, password: string) => {
@@ -21,6 +33,20 @@ export const signIn = async (email: string, password: string) => {
     email,
     password,
   });
-  if (error) return formatResponse({ data: null, message: error.message || 'Failed to sign in', isError: true, statusCode: 500 });
-  return formatResponse({ data, message: "User signed in successfully", isError: false, statusCode: 200 });
+
+  if (error) {
+    return {
+      data: null,
+      message: error.message || 'Failed to sign in',
+      isError: true,
+      status: 500,
+    };
+  }
+
+  return {
+    data,
+    message: "User signed in successfully",
+    isError: false,
+    status: 200,
+  };
 };

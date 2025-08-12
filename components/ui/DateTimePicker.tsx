@@ -24,7 +24,7 @@ export const DateTimePicker = ({date,setDate}: DateTimePickerProps) => {
     <div className="flex gap-4">
       <div className="flex flex-col gap-3">
         <Label htmlFor="date-picker" className="px-1">
-          Date
+          Date<span>*</span>
         </Label>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
@@ -52,7 +52,7 @@ export const DateTimePicker = ({date,setDate}: DateTimePickerProps) => {
       </div>
       <div className="flex flex-col gap-3">
         <Label htmlFor="time-picker" className="px-1">
-          Time
+          Time<span>*</span>
         </Label>
         <Input
           type="time"

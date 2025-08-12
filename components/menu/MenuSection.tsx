@@ -1,7 +1,5 @@
 import MenuTabs from "./MenuTabs";
 import React from 'react'
-import { Button } from "../ui/Button";
-import { ArmchairIcon } from "lucide-react";
 import Reservation from "../Reservation";
 const MenuSection = () => {
     return (

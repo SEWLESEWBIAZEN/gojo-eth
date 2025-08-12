@@ -54,7 +54,7 @@ export default function DishImages({ dish }: Props) {
       {/* Fullscreen Modal */}
       {fullscreenSrc && (
         <div
-          className="fixed inset-0 bg-primary bg-opacity-90 flex items-center justify-center z-50 cursor-zoom-out"
+          className="fixed inset-0 backdrop-blur-2xl bg-opacity-90 flex items-center justify-center z-50 cursor-zoom-out"
           onClick={() => setFullscreenSrc(null)}
           role="dialog"
           aria-modal="true"
@@ -63,11 +63,10 @@ export default function DishImages({ dish }: Props) {
             src={fullscreenSrc}
             alt={dish.name || "Fullscreen image"}
             width={800}
-            height={600}
+            height={800}
             className="object-contain max-h-full max-w-full"
             unoptimized
-          />
-         
+          />         
           <Button
             variant="outline"
             className="absolute top-4 right-4"

@@ -130,8 +130,7 @@ const fullMenu: { category: string; items: Dish[] }[] = [
 interface Dish {
   id: string;
   name: string;
-  description?: string;
-  image_url?: string;
+  description?: string;  
   price?: number;
   spicy?: boolean;
   vegan?: boolean;
@@ -144,6 +143,7 @@ export default function MenuTabs() {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [expandedOne, setExpandedOne] = useState("");  
 
   useEffect(() => {
     setLoading(true);
@@ -211,7 +211,9 @@ export default function MenuTabs() {
               </h3>
               <ul className="flex flex-wrap gap-6 justify-center">
                 {group.items?.map((item) => (
-                  <DishCard key={item?.id} dish={item} />
+                  <DishCard key={item?.id} dish={item}
+                  //  onClick={() => setExpandedOne(expandedOne === item?.id ? "" : item?.id)}
+                    />
                 ))}
               </ul>
             </section>
