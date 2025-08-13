@@ -11,6 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Gojo Ethiopian Restaurant",
   description: "Authentic Ethiopian cuisine in the heart of the city",
+  keywords: ["Ethiopian", "Restaurant", "Cuisine","Cultural", "Food Gallery"],
 };
 
 export default function RootLayout({

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Footer = () => {
@@ -7,15 +8,21 @@ const Footer = () => {
         <div className="container text-sm text-muted-foreground flex flex-col md:flex-row items-center justify-between gap-4 px-4">
           <p>© {new Date().getFullYear()} Gojo Ethiopian Restaurant</p>
           <nav className="flex gap-4">
-            <a href="#menu" className="hover:underline">
+            <Link href="/#menu" className="hover:underline">
               Menu
-            </a>
-            <a href="#about" className="hover:underline">
+            </Link>
+            <Link href="/#about" className="hover:underline">
               About
-            </a>
-            <a href="#visit" className="hover:underline">
+            </Link>
+            <Link href="/#visit" className="hover:underline">
               Visit
-            </a>
+            </Link>
+            <Link
+              href="/gallery"
+              className="text-sm inline-block bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm transition-colors duration-200"
+            >
+              Gallery
+            </Link>
           </nav>
         </div>
       </footer>
