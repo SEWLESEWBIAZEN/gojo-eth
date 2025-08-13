@@ -1,7 +1,122 @@
 import supabase from "../supabase";
-import { DishCategory } from "../utils";
+import { DishCategory, FormatResponse } from "../utils";
 
-export async function createDishCategory(categoryData: DishCategory) {
+export async function getAllDishCategories(): Promise<FormatResponse> {
+  try {
+    const { data, error } = await supabase.from("dish_category").select("*");
+
+    if (error) {
+      let status = 500;
+      let message = error.message || "Failed to retrieve dish categories";
+
+      switch (error.code) {
+        case "PGRST116": // No rows found
+          status = 404;
+          message = "No dish categories found";
+          break;
+        case "22P02": // Invalid input syntax
+          status = 400;
+          message = "Invalid request parameters";
+          break;
+      }
+
+      return {
+        data: null,
+        message,
+        isError: true,
+        status,
+      };
+    }
+
+    // If data is empty, optionally return 404 or empty array
+    if (!data || data.length === 0) {
+      return {
+        data: [],
+        message: "No dish categories available",
+        isError: false,
+        status: 200,
+      };
+    }
+
+    return {
+      data,
+      message: "Dish categories retrieved successfully",
+      isError: false,
+      status: 200,
+    };
+  } catch (err: any) {
+    return {
+      data: null,
+      message: err?.message || "Unexpected error retrieving dish categories",
+      isError: true,
+      status: 500,
+    };
+  }
+}
+
+export async function getDishCategoryById(id: string): Promise<FormatResponse> {
+  // 1️⃣ Validate input
+  if (!id || !id.trim()) {
+    return {
+      data: null,
+      message: "Dish category ID is required",
+      isError: true,
+      status: 400,
+    };
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("dish_category")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    // 2️⃣ Handle Supabase errors
+    if (error) {
+      let status = 500;
+      let message = error.message || "Failed to retrieve dish category";
+
+      switch (error.code) {
+        case "PGRST116": // No rows found for .single()
+          status = 404;
+          message = "Dish category not found";
+          break;
+        case "22P02": // Invalid UUID / input syntax
+          status = 400;
+          message = "Invalid category ID format";
+          break;
+      }
+
+      return {
+        data: null,
+        message,
+        isError: true,
+        status,
+      };
+    }
+
+    // 3️⃣ Success
+    return {
+      data,
+      message: "Dish category retrieved successfully",
+      isError: false,
+      status: 200,
+    };
+  } catch (err: any) {
+    // 4️⃣ Unexpected errors
+    return {
+      data: null,
+      message: err?.message || "Unexpected error retrieving dish category",
+      isError: true,
+      status: 500,
+    };
+  }
+}
+
+
+
+export async function createDishCategory(categoryData: DishCategory): Promise<FormatResponse> {
   // 1️⃣ Validate input
   if (!categoryData.name || !categoryData.name.trim()) {
     return {
