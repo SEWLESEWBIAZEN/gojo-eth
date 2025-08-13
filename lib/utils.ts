@@ -44,4 +44,28 @@ export interface Dish {
   featured?: boolean;
   rating?: number;
   images?: string[];
+
+}
+export interface DishToBeUpdated {
+  id: string;
+  name?: string;
+  description?: string;  
+  price?: number;
+  spicy?: boolean;
+  vegan?: boolean;
+  featured?: boolean;
+  rating?: number;  
+  images?: string[];
+}
+
+export interface NewDish {
+  category_id: string;
+  name: string;
+  description: string;
+  price: number;
+  spicy: boolean;
+  vegan: boolean;
+  featured: boolean;
+  rating: number;
+  images: string[];
 }
