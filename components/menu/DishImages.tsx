@@ -50,32 +50,43 @@ export default function DishImages({ dish }: Props) {
           </div>
         ))}
       </div>
-
-      {/* Fullscreen Modal */}
+      {/* Overlay */}
       {fullscreenSrc && (
         <div
-          className="fixed inset-0 backdrop-blur-2xl bg-opacity-90 flex items-center justify-center z-50 cursor-zoom-out"
+          className="fixed inset-0 z-[9999] flex items-center justify-center 
+               bg-black/70 backdrop-blur-2xl cursor-zoom-out h-auto w-auto max-h-[90vh] max-w-[90vw]"
           onClick={() => setFullscreenSrc(null)}
           role="dialog"
           aria-modal="true"
         >
-          <Image
-            src={fullscreenSrc}
-            alt={dish.name || "Fullscreen image"}
-            width={800}
-            height={800}
-            className="object-contain max-h-full max-w-full"
-            unoptimized
-          />         
-          <Button
-            variant="outline"
-            className="absolute top-4 right-4"
-            onClick={() => setFullscreenSrc(null)}
+          {/* Container that sizes to image */}
+          <div
+            className="relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X />
-          </Button>
+            <Image
+              src={fullscreenSrc}
+              alt={dish.name || "Fullscreen image"}
+              width={0} // Let Next.js Image size dynamically
+              height={0}
+              sizes="100vw"
+              className="h-auto w-auto max-h-[90vh] max-w-[90vw] animate-scaleIn"
+              unoptimized
+              onClick={() => setFullscreenSrc(null)}
+            />
+
+            <Button
+              variant="outline"
+              className="absolute top-2 right-2 bg-red-800 text-white"
+            onClick={() => setFullscreenSrc(null)}
+            >
+              <X />
+            </Button>
+          </div>
         </div>
       )}
+
+
     </>
   );
 }
