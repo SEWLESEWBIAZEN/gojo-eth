@@ -13,7 +13,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <nav className="container flex h-16 items-center justify-between px-4">
-        <Link href="#home" className="flex items-center gap-2">
+        <Link href="/#home" className="flex items-center gap-2">
 
           <Image
             src="/logo.png"

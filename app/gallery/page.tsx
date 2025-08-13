@@ -1,78 +1,40 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Image from "next/image";
+import Link from "next/link";
+import ImageGallery from "@/components/gallery/ImageGallery";
+import VideoGallery from "@/components/gallery/VideoGallery";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import { Image, Video } from "lucide-react";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  useEffect(() => {
-    const menuSection = document.getElementById("menu");
-    if (menuSection) {
-      menuSection.scrollIntoView({ behavior: "auto" });
-    }
-  }, []);
 
   return (
     <div className="font-sans flex flex-col min-h-screen">
-      <a
+      <Link
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:p-2 focus:bg-secondary focus:text-secondary-foreground"
       >
         Skip to content
-      </a>
-
-      {/* Header */}
+      </Link>
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-      {/* Main */}
-      <main id="main" className="flex-1">
-        <div className="container py-6">
-          <h1 className="text-4xl font-bold mb-2">Gallery</h1>
-          <p className="mb-4">
-            Explore our delicious Ethiopian dishes and vibrant restaurant atmosphere.
-          </p>
-          {/* Gallery images will be displayed here */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Image
-              src="/images/gallary1.jpg"
-              alt="Ethiopian dish 1"
-              width={500}
-              height={300}
-              className="object-cover"
-            />
-            <Image
-              src="/images/gallary1.jpg"
-              alt="Ethiopian dish 1"
-              width={500}
-              height={300}
-              className="object-cover"
-            />
-            <Image
-              src="/images/gallary1.jpg"
-              alt="Ethiopian dish 1"
-              width={500}
-              height={300}
-              className="object-cover"
-            />
-            <Image
-              src="/images/gallary1.jpg"
-              alt="Ethiopian dish 1"
-              width={500}
-              height={300}
-              className="object-cover"
-            />
-            <Image
-              src="/images/gallary1.jpg"
-              alt="Ethiopian dish 1"
-              width={500}
-              height={300}
-              className="object-cover"
-            />
-          </div>
-        </div>
+      <main id="main" className="flex-1 container mx-auto px-4">
+        <Tabs defaultValue="image-gallery" className="w-full relative mt-4">
+          <TabsList>
+            <TabsTrigger value="image-gallery"><Image className="text-primary mr-2 h-6 w-5" /> Image Gallery</TabsTrigger>
+            <TabsTrigger value="video-gallery"><Video className="text-primary mr-2 h-6 w-5" /> Video Gallery</TabsTrigger>
+          </TabsList>
+          <br />
+          <TabsContent value="image-gallery" className="animate-enter py-4">
+            <ImageGallery />
+          </TabsContent>
+          <TabsContent value="video-gallery" className="animate-enter py-4">
+            <VideoGallery />
+          </TabsContent>
+        </Tabs>
       </main>
-
-      {/* Footer */}
       <Footer />
     </div>
   );

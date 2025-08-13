@@ -6,6 +6,7 @@ import axios from "axios"
 import DishCard from "./DishCard";
 import MenuLoading from "./MenuLoading";
 import { Dish } from "@/lib/utils";
+import NotFound from "../NotFound";
 
 export type MenuItem = {
   name: string;
@@ -126,12 +127,23 @@ const fullMenu: { category: string; items: Dish[] }[] = [
   },
 ];
 
+interface MenuTabsProps {
+  searchText: string;
+}
 
-
-export default function MenuTabs() {
+export default function MenuTabs({ searchText }: MenuTabsProps) {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  {/* Helper function to filter items
+   * Returns true if there are any items matching the searchText
+   */}
+  const hasMatches = (items: any[]) =>
+    items?.some((item) =>
+      item?.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+      item?.description?.toLowerCase().includes(searchText.toLowerCase())
+    );
 
   useEffect(() => {
     setLoading(true);
@@ -151,19 +163,17 @@ export default function MenuTabs() {
   if (loading) return <MenuLoading />;
   if (error) return <div>Error: {error}</div>;
 
-
   return (
-    <Tabs
-      defaultValue="daily"
-      className="w-full relative pb-4">
+    <Tabs defaultValue="daily" className="w-full relative pb-4">
+      {/* Background Image */}
       <Image
         src="/bg-new.jpg"
-        // src="/og-gojo.jpg"
         alt="Restaurant background"
         fill
         priority
         className="object-cover object-center -z-10 opacity-100"
       />
+
       {/* Tabs List */}
       <TabsList className="mb-6 flex flex-wrap justify-center gap-2 rounded-none">
         <TabsTrigger value="daily" className="px-6 py-4 text-sm md:text-base">
@@ -178,35 +188,41 @@ export default function MenuTabs() {
       <TabsContent value="daily" className="animate-enter py-14">
         <section className="space-y-8 p-6 bg-transparent backdrop-blur-sm rounded-xl">
           <ul className="flex flex-wrap gap-6 justify-center">
-            {dailySpecials?.map((item) => (
-              <DishCard key={item?.id} dish={item} />
-            ))}
+            {dailySpecials
+              ?.filter((item) => hasMatches([item]))
+              .map((item) => (
+                <DishCard key={item?.id} dish={item} />
+              ))}
           </ul>
         </section>
+
+        {!hasMatches(dailySpecials) && <NotFound message="Cuisine" menu />}
       </TabsContent>
 
       {/* Full Menu */}
       <TabsContent value="full" className="animate-enter">
-        <div className="space-y-8 rounded-xl bg-transparent shadow-sm ">
-          {fullMenu?.map((group) => (
-            <section
-              key={group?.category}
-              className="p-6 bg-transparent  rounded-xl"
-            >
-              <h3 className="text-2xl font-bold mb-4 text-center ms-[40%] drop-shadow-sm inline-block px-2 py-1 bg-white/20 rounded backdrop-blur-lg">
-                {group?.category}
-              </h3>
-              <ul className="flex flex-wrap gap-6 justify-center">
-                {group.items?.map((item) => (
-                  <DishCard key={item?.id} dish={item}
-                  //  onClick={() => setExpandedOne(expandedOne === item?.id ? "" : item?.id)}
-                  />
-                ))}
-              </ul>
-            </section>
-          ))}
+        <div className="space-y-8 rounded-xl bg-transparent shadow-sm">
+          {fullMenu
+            ?.filter((group) => hasMatches(group.items))
+            .map((group) => (
+              <section key={group?.category} className="p-6 bg-transparent rounded-xl">
+                <h3 className="text-2xl font-bold mb-4 text-center inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
+                  {group?.category}
+                </h3>
+                <ul className="flex flex-wrap gap-6 justify-center">
+                  {group.items?.filter((item) => hasMatches([item])).map((item) => (
+                    <DishCard key={item?.id} dish={item} />
+                  ))}
+                </ul>
+              </section>
+            ))}
+
+          {!fullMenu?.some((group) => hasMatches(group.items)) && (
+            <NotFound message="Cuisine" menu />
+          )}
         </div>
       </TabsContent>
     </Tabs>
+
   );
 }

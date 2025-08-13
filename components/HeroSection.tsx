@@ -30,9 +30,10 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className="order-1 md:order-2 relative rounded-xl overflow-hidden border shadow-md">
+        <div className="order-1 md:order-2 relative rounded-xl overflow-hidden ">
           <Image
-            src="/og-gojo.jpg"
+            // src="/og-gojo.jpg"
+            src="/images/image-2c.jpg"
             // src="/uploads/e06rg4g9yaua7bp9ud0gpgk4u.jpg"
             alt="Authentic Ethiopian platter"
             width={800}
