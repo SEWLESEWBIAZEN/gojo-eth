@@ -60,12 +60,7 @@ export async function POST(request: Request) : Promise<NextResponse<FormatRespon
 const response = await createDish(dishData);
 
 
-  return resolve(formatResponse({
-    data: response.data,
-    message: response?.message,
-    isError: response.isError,
-    status: response.status,
-  }));
+  return resolve(formatResponse(response));
     });
   });
 }

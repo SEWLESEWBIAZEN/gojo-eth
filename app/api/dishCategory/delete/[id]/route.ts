@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
-import { deleteDish } from '../../../../../lib/db/dishes'; // assuming you have this
-import { formatResponse, FormatResponse } from '@/lib/utils';
+import { deleteDishCategory } from "@/lib/db/dishCategory";
+import { formatResponse, FormatResponse } from "@/lib/utils";
+import { NextResponse } from "next/server";
 
 export async function DELETE(
   _request: Request,
@@ -9,10 +9,7 @@ export async function DELETE(
   const awaitedParams = await params;
   const { id } = awaitedParams;
 
-  const response = await deleteDish(id);
+  const response = await deleteDishCategory(id);
 
   return formatResponse(response);
 }
-
-
-

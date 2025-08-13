@@ -4,11 +4,6 @@ import { formatResponse, FormatResponse } from '@/lib/utils';
 
 export async function GET():Promise<NextResponse<FormatResponse>> {
   const response = await getAllDishes();
-  return formatResponse({
-    data: response.data,
-    message: response.data?.length === 0 ? 'No dishes found' : response.message,
-    isError: response.isError,
-    status: response.status,
-  });
+  return formatResponse(response);
 }
 

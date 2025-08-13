@@ -59,7 +59,6 @@ export async function createDish(dishData: NewDish) {
 }
 
 export async function updateDish(dish: DishToBeUpdated) {
-
   const { data, error } = await supabase
     .from('dishes')
     .update(dish)

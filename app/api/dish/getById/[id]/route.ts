@@ -11,12 +11,7 @@ export async function GET(
 
   const response = await getDishById(id);
 
-  return formatResponse({
-    data: response.data,
-    message: response.data ? 'Dish found' : 'Dish not found',
-    isError: response.isError,
-    status: response.status,
-  });
+  return formatResponse(response);
 }
 
 

@@ -48,14 +48,8 @@ export async function PUT(request: Request): Promise<NextResponse<FormatResponse
             const allFiles = Object.values(files).flat();
             const imagePaths = allFiles.map((file) => getPublicImagePath(file?.filepath));
             const dishId = fields?.id?.[0];
-            const response = await uploadImageToDish(imagePaths, dishId);            
-          
-            return resolve(formatResponse({
-                data: response.data,
-                message: response.data ? 'Images uploaded successfully!' : 'Dish not found',
-                isError: response.isError,
-                status: response.status,
-            }));
+            const response = await uploadImageToDish(imagePaths, dishId);
+            return resolve(formatResponse(response));
         });
     });
 }

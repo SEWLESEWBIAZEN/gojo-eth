@@ -69,3 +69,9 @@ export interface NewDish {
   rating: number;
   images: string[];
 }
+
+export interface DishCategory {
+  id?: string;
+  name: string;
+  description?: string;
+}
