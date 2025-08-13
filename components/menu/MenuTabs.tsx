@@ -1,13 +1,11 @@
 'use client'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/Tabs";
-import { Badge } from "../ui/Badge";
 import Image from 'next/image'
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Button } from "../ui/Button";
-import { Table2 } from "lucide-react";
+import axios from "axios"
 import DishCard from "./DishCard";
 import MenuLoading from "./MenuLoading";
+import { Dish } from "@/lib/utils";
 
 export type MenuItem = {
   name: string;
@@ -23,6 +21,7 @@ const dailySpecials: Dish[] = [
       "/images/image-1a.jpg",
       "/images/image-2a.jpg",
       "/images/image-3a.jpg",
+      "/bg-new.jpg"
     ]
   },
   {
@@ -51,7 +50,7 @@ const dailySpecials: Dish[] = [
 const fullMenu: { category: string; items: Dish[] }[] = [
   {
     category: "Appetizers",
-    items: [                        
+    items: [
       {
         id: "4", name: "Sambusa", description: "Crispy pastry with lentils", price: 8, vegan: true, images: [
           "/images/image-1a.jpg",
@@ -127,31 +126,19 @@ const fullMenu: { category: string; items: Dish[] }[] = [
   },
 ];
 
-interface Dish {
-  id: string;
-  name: string;
-  description?: string;  
-  price?: number;
-  spicy?: boolean;
-  vegan?: boolean;
-  featured?: boolean;
-  rating?: number;
-  images?: string[];
-}
+
 
 export default function MenuTabs() {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [expandedOne, setExpandedOne] = useState("");  
 
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/dish');
+        const response = await axios.get('/api/dish/getAll');
         setDishes(response.data);
-
       } catch (error: any) {
         setError(error.message || 'Failed to fetch dishes');
       } finally {
@@ -170,12 +157,12 @@ export default function MenuTabs() {
       defaultValue="daily"
       className="w-full relative pb-4">
       <Image
-        src="/menu-bg-1.jpg"
+        src="/bg-new.jpg"
         // src="/og-gojo.jpg"
         alt="Restaurant background"
         fill
         priority
-        className="object-cover object-center -z-10 opacity-20"
+        className="object-cover object-center -z-10 opacity-100"
       />
       {/* Tabs List */}
       <TabsList className="mb-6 flex flex-wrap justify-center gap-2 rounded-none">
@@ -204,16 +191,16 @@ export default function MenuTabs() {
           {fullMenu?.map((group) => (
             <section
               key={group?.category}
-              className="p-6 bg-transparent backdrop-blur-sm rounded-xl"
+              className="p-6 bg-transparent  rounded-xl"
             >
-              <h3 className="text-2xl font-bold mb-4 text-orange-800 drop-shadow-sm text-center">
+              <h3 className="text-2xl font-bold mb-4 text-center ms-[40%] drop-shadow-sm inline-block px-2 py-1 bg-white/20 rounded backdrop-blur-lg">
                 {group?.category}
               </h3>
               <ul className="flex flex-wrap gap-6 justify-center">
                 {group.items?.map((item) => (
                   <DishCard key={item?.id} dish={item}
                   //  onClick={() => setExpandedOne(expandedOne === item?.id ? "" : item?.id)}
-                    />
+                  />
                 ))}
               </ul>
             </section>

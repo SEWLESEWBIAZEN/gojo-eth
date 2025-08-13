@@ -37,3 +37,14 @@ export function truncateText(text: string | undefined, maxLength: number) {
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 }
 
+export interface Dish {
+  id: string;
+  name: string;
+  description?: string;  
+  price?: number;
+  spicy?: boolean;
+  vegan?: boolean;
+  featured?: boolean;
+  rating?: number;
+  images?: string[];
+}

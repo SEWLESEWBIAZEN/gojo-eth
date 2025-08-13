@@ -3,11 +3,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "../ui/Button";
 import { X } from "lucide-react";
-
-interface Dish {
-  name?: string;
-  images?: string[];
-}
+import { Dialog, DialogClose,DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/Dialog";
+import { Dish } from "@/lib/utils";
 
 interface Props {
   dish: Dish;
@@ -27,66 +24,60 @@ export default function DishImages({ dish }: Props) {
 
   return (
     <>
+      {/* Scrollable thumbnails */}
       <div
         className="mt-2 px-4 pb-3 text-sm text-gray-600 leading-relaxed
-          overflow-x-auto flex gap-4 snap-x snap-mandatory scrollbar-thin
-          scrollbar-thumb-orange-400 scrollbar-track-orange-100"
+        overflow-x-auto flex gap-4 snap-x snap-mandatory scrollbar-thin
+        scrollbar-thumb-orange-400 scrollbar-track-orange-100"
       >
-        {dish?.images?.map((src, i) => (
-          <div
-            key={i}
-            className="snap-center flex-shrink-0 w-64 h-40 rounded-lg overflow-hidden cursor-pointer shadow-md"
-            onClick={() => setFullscreenSrc(src)}
-          >
-            <Image
-              src={src}
-              alt={`${dish.name} image ${i + 1}`}
-              width={256}
-              height={160}
-              className="object-cover w-full h-full"
-              loading="lazy"
-              unoptimized
-            />
-          </div>
+        {dish?.images?.map((src: string, i: number) => (
+          <Dialog key={i} open={fullscreenSrc === src} onOpenChange={(open) => setFullscreenSrc(open ? src : null)}>
+            <DialogTrigger asChild>
+              <div
+                className="snap-center flex-shrink-0 w-64 h-40 rounded-lg overflow-hidden cursor-pointer shadow-md"
+              >
+                <Image
+                  src={src}
+                  alt={`${dish.name} image ${i + 1}`}
+                  width={256}
+                  height={160}
+                  className="object-cover w-full h-full"
+                  loading="lazy"
+                  unoptimized
+                />
+              </div>
+            </DialogTrigger>
+
+            {/* Fullscreen Dialog */}
+            <DialogContent className="bg-primary backdrop-blur-2xl border-none shadow-none p-0 flex flex-col items-center justify-center pt-6 text-white">
+              <DialogTitle>{dish?.name || "Fullscreen image"}</DialogTitle>
+              <DialogDescription className="text-white">{dish?.description}</DialogDescription>
+              <div className="relative mt-4">
+                <Image
+                  src={src}
+                  alt={dish.name || "Fullscreen image"}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="h-auto w-auto max-h-[90vh] max-w-[90vw] animate-scaleIn"
+                  unoptimized
+                />
+
+                <DialogClose asChild >
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="absolute top-2 right-2 bg-red-800 text-white"
+                    onClick={() => setFullscreenSrc(null)}
+                  >
+                    <X />
+                  </Button>
+                </DialogClose>
+              </div>
+            </DialogContent>
+          </Dialog>
         ))}
       </div>
-      {/* Overlay */}
-      {fullscreenSrc && (
-        <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center 
-               bg-black/70 backdrop-blur-2xl cursor-zoom-out h-auto w-auto max-h-[90vh] max-w-[90vw]"
-          onClick={() => setFullscreenSrc(null)}
-          role="dialog"
-          aria-modal="true"
-        >
-          {/* Container that sizes to image */}
-          <div
-            className="relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={fullscreenSrc}
-              alt={dish.name || "Fullscreen image"}
-              width={0} // Let Next.js Image size dynamically
-              height={0}
-              sizes="100vw"
-              className="h-auto w-auto max-h-[90vh] max-w-[90vw] animate-scaleIn"
-              unoptimized
-              onClick={() => setFullscreenSrc(null)}
-            />
-
-            <Button
-              variant="outline"
-              className="absolute top-2 right-2 bg-red-800 text-white"
-            onClick={() => setFullscreenSrc(null)}
-            >
-              <X />
-            </Button>
-          </div>
-        </div>
-      )}
-
-
     </>
   );
 }

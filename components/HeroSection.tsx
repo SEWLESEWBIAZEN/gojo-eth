@@ -15,6 +15,9 @@ const HeroSection = () => {
             Experience the flavors of Ethiopia: warm injera, rich stews, and
             a welcoming table. Dine-in, takeout, or catering.
           </p>
+          <p className=" my-2 border border-md rounded-md py-2 px-4 bg-gradient-to-r from-primary via-orange-600 to-red-800 bg-clip-text text-transparent font-semibold">
+            Craving something new? Check out today’s specials or explore our full menu — your perfect dish awaits!
+          </p>
           <div className="flex flex-wrap gap-3">
             <Button variant="hero" size="lg" asChild>
               <a href="#menu">

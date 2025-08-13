@@ -8,13 +8,15 @@ const MenuSection = () => {
                 <div className="flex flex-col md:flex-row justify-between items-end">
                     <div>
                         <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">
-                            Menu
+                            Cuisine Collection
                         </h2>
                         <p className="text-muted-foreground mb-6">
-                            Browse our daily specials or the full menu.
+                            Explore our carefully curated daily specials, crafted to bring you something new and exciting every time you visit.
+                            Take a leisurely tour through our full menu, where each dish is thoughtfully prepared to satisfy every craving — from comforting classics to bold, adventurous flavors.
+                            Whether you’re in the mood for a quick, flavorful bite or a hearty, indulgent feast, your perfect meal is only a click away.
                         </p>
                     </div>
-                    <Reservation/>
+                    <Reservation />
                 </div>
                 <MenuTabs />
             </div>

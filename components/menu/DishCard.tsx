@@ -29,14 +29,14 @@ const DishCard: React.FC<DishProps> = ({ dish }) => {
         <li className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-0.75rem)]">
             <Collapsible open={expandedOne === dish?.id} onOpenChange={(open) => { setExpandedOne(open ? dish?.id : "") }}>
                 <CollapsibleTrigger className="w-full" onClick={() => setExpandedOne(dish?.id)}>
-                    <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white/60 rounded-xl shadow-sm hover:shadow-lg hover:bg-white/80 transition-all duration-200 border border-orange-100">
+                    <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white/70 rounded-xl shadow-sm hover:shadow-lg hover:bg-white/80 transition-all duration-200 border border-orange-100">
                         {/* Dish Info */}
                         <div className="flex-1">
                             <p className="font-semibold text-orange-900 text-lg leading-tight">
                                 {dish?.name}
                             </p>
                             {dish?.description && (
-                                <p className="text-muted-foreground text-sm mt-1 leading-snug">
+                                <p className="text-gray-800 text-sm mt-1 leading-snug">
                                     {truncateText(dish?.description, 100)}
                                 </p>
                             )}

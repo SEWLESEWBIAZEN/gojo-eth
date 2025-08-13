@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const StorySection = () => {
     return (
-        <section id="about" className="py-12 px-4 relative">
+        <section id="about" className="py-12 px-4 relative z-0">
             <Image
                 src="/images/bg-1.png"
                 alt="Restaurant background"
