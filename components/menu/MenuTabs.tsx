@@ -177,7 +177,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
         <div className="space-y-8 p-6 rounded-xl bg-transparent shadow-sm">
           {groupedPaginatedFullMenu.map((group) => (
             <section key={group.categoryId} className="bg-transparent rounded-xl">
-              <h3 className="text-2xl font-bold mb-2 text-center text-white inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
+              <h3 className="text-lg md:text-xl xl:text-2xl font-semibold xl:font-bold mb-2 text-center text-white inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
                 {group.categoryName}
               </h3>
               {group.description && (
