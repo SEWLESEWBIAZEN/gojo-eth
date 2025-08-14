@@ -5,7 +5,6 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "../ui/Collapsible"
-import { truncateText } from '@/lib/utils';
 import DishImages from './DishImages';
 import { Stars } from 'lucide-react';
 
@@ -20,24 +19,33 @@ interface DishProps {
         vegan?: boolean;
         featured?: boolean;
         rating?: number;
+        images?: string[];
     }
-  
+
 }
 const DishCard: React.FC<DishProps> = ({ dish }) => {
-    const [expandedOne, setExpandedOne] = React.useState("");  
+    const [expandedOne, setExpandedOne] = React.useState("");
     return (
-        <li className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-0.75rem)]">
-            <Collapsible open={expandedOne === dish?.id} onOpenChange={(open) => { setExpandedOne(open ? dish?.id : "") }}>
+        <li className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(45.333%-0.75rem)]">
+            <Collapsible open={expandedOne === dish?.id && dish?.images && dish?.images.length > 0} onOpenChange={(open) => { setExpandedOne(open ? dish?.id : "") }}>
                 <CollapsibleTrigger className="w-full" onClick={() => setExpandedOne(dish?.id)}>
-                    <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white/70 rounded-xl shadow-sm hover:shadow-lg hover:bg-white/80 transition-all duration-200 border border-orange-100">
+                    <div className="relative flex flex-col md:flex-row md:items-start md:justify-between gap-3 p-4 bg-transparent  shadow-sm hover:shadow-lg  hover:border-x transition-all duration-200 border-y border-accent">
                         {/* Dish Info */}
                         <div className="flex-1">
-                            <p className="font-semibold text-orange-900 text-lg leading-tight">
+                            <div className={`${dish?.featured && "mt-2"} flex justify-between items-start`}>
+                            <p className="font-semibold text-orange-900 text-lg leading-tight text-left">
                                 {dish?.name}
                             </p>
+                            {/* Price */}
+                            {dish?.price && (
+                                <p className="font-bold text-orange-700 text-lg sm:text-xl whitespace-nowrap">
+                                    ${dish?.price}
+                                </p>
+                            )}
+                            </div>
                             {dish?.description && (
-                                <p className="text-gray-800 text-sm mt-1 leading-snug">
-                                    {truncateText(dish?.description, 100)}
+                                <p className="text-gray-800 text-sm mt-1 leading-snug text-justify">
+                                    {dish?.description}
                                 </p>
                             )}
                             {/* Badges */}
@@ -46,15 +54,10 @@ const DishCard: React.FC<DishProps> = ({ dish }) => {
                                 {dish?.spicy && <Badge variant="destructive">Spicy</Badge>}
                             </div>
                         </div>
-                        {/* Price */}
-                        {dish?.price && (
-                            <p className="font-bold text-orange-700 text-lg sm:text-xl whitespace-nowrap">
-                                ${dish?.price}
-                            </p>
-                        )}
+
                         {/* featured? */}
                         {dish?.featured && (
-                            <Badge className="badge-featured bg-transparent absolute top-0 left-0">
+                            <Badge className="badge-featured bg-transparent absolute top-0 left-0 ">
                                 <Stars className='text-primary shadow-glow' />
                             </Badge>
                         )}

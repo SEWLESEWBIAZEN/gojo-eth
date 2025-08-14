@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Input } from "../ui/Input";
 import NotFound from "../NotFound";
+import { Button } from "../ui/Button";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 interface VideoGalleryProps {
     videos?: {
         src: string;
@@ -12,13 +14,34 @@ interface VideoGalleryProps {
 export default function VideoGallery() {
     const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
     const [searchText, setSearchText] = useState<string>("");
+    const [page, setPage] = useState(1);
+    const ITEMS_PER_PAGE = 8;
+
+    // Pagination indexes
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
 
     const videos: VideoGalleryProps["videos"] = [
         { src: "/videos/video1.mp4", title: "Ethiopian Coffee Ceremony" },
         { src: "/videos/video1.mp4", title: "Traditional Injera Making" },
         { src: "/videos/video1.mp4", title: "Doro Wat Cooking" },
         { src: "/videos/video1.mp4", title: "Ethiopian Cultural Dance" },
+        { src: "/videos/video1.mp4", title: "Ethiopian Coffee Ceremony" },
+        { src: "/videos/video1.mp4", title: "Traditional Injera Making" },
+        { src: "/videos/video1.mp4", title: "Doro Wat Cooking" },
+        { src: "/videos/video1.mp4", title: "Ethiopian Cultural Dance" },
+        { src: "/videos/video1.mp4", title: "Ethiopian Coffee Ceremony" },
+        { src: "/videos/video1.mp4", title: "Traditional Injera Making" },
+        { src: "/videos/video1.mp4", title: "Doro Wat Cooking" },
+        { src: "/videos/video1.mp4", title: "Ethiopian Cultural Dance" },
+
     ];
+  
+    // Filter videos once instead of multiple times
+    const filteredVideos = videos?.filter((video) =>
+        video?.title?.toLowerCase().includes(searchText.toLowerCase())
+    ) ?? [];
+    const paginatedVideos = filteredVideos.slice(startIndex, endIndex);
 
     return (
         <div className="container mx-auto px-4">
@@ -33,13 +56,11 @@ export default function VideoGallery() {
                     placeholder="Search videos..."
                     className="border border-primary"
                     value={searchText}
-                     autoFocus
+                    autoFocus
                     onChange={(e) => setSearchText(e.target.value)} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {videos?.filter(video =>
-                    video?.title?.toLowerCase().includes(searchText.toLowerCase())
-                )?.map((video, idx) => (
+                {paginatedVideos?.map((video, idx) => (
                     <div
                         key={idx}
                         className="cursor-pointer relative overflow-hidden rounded-lg shadow-md hover:scale-105 transition-transform duration-200"
@@ -65,11 +86,33 @@ export default function VideoGallery() {
                 ))}
             </div>
             {videos?.filter(video =>
-                        video?.title?.toLowerCase().includes(searchText.toLowerCase())
-                    ).length === 0 &&
-                        <NotFound message='Video'/>
-                    }
+                video?.title?.toLowerCase().includes(searchText.toLowerCase())
+            ).length === 0 &&
+                <NotFound message='Video' />
+            }
 
+
+            {/* Pagination Controls */}
+            {filteredVideos.length > ITEMS_PER_PAGE && (
+                <div className="flex flex-col md:flex-row justify-center gap-4 mt-6">
+                    <Button
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        <ArrowLeft /> Show Previous
+                    </Button>
+                    <Button
+                        onClick={() =>
+                            setPage((p) =>
+                                endIndex >= filteredVideos.length ? p : p + 1
+                            )
+                        }
+                        disabled={endIndex >= filteredVideos.length}
+                    >
+                        <ArrowRight /> Show Next
+                    </Button>
+                </div>
+            )}
             {/* Modal */}
             {selectedVideo && (
                 <div

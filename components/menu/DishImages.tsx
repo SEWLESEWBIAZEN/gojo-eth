@@ -50,8 +50,8 @@ export default function DishImages({ dish }: Props) {
 
             {/* Fullscreen Dialog */}
             <DialogContent className="bg-primary backdrop-blur-2xl border-none shadow-none p-0 flex flex-col items-center justify-center pt-6 text-white">
-              <DialogTitle>{dish?.name || "Fullscreen image"}</DialogTitle>
-              <DialogDescription className="text-white">{dish?.description}</DialogDescription>
+              <DialogTitle className="">{dish?.name || "Fullscreen image"}</DialogTitle>
+              <DialogDescription className="text-white text-justify px-4">{dish?.description}</DialogDescription>
               <div className="relative mt-4">
                 <Image
                   src={src}

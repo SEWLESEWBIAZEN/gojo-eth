@@ -45,16 +45,16 @@ export async function POST(request: Request) : Promise<NextResponse<FormatRespon
       // Flatten and parse file paths
       const allFiles = Object.values(files).flat();
       const imagePaths = allFiles.map((file) => getPublicImagePath(file?.filepath));
-      // Build the dish object
+        
       const dishData = {
         category_id:"c83e566c-0a88-429e-85c6-1a5e33f2092b",//hard-coded category id
         name: fields?.name?.[0] ?? "",
         description: fields?.description?.[0] ?? "",
-        price: Number(fields?.price?.[0]) || 0,
-        spicy: Boolean(fields?.spicy?.[0]) === true,
-        vegan: Boolean(fields?.vegan?.[0]) === true,
-        featured: Boolean(fields?.featured?.[0]) === true,
-        rating: Number(fields?.rating?.[0]) || 0,
+        price: parseFloat(fields?.price?.[0]??"0.000") || 0,
+        spicy: (fields?.spicy?.[0]) === "true",
+        vegan: (fields?.vegan?.[0]) === "true",
+        featured: (fields?.featured?.[0]) === "true",
+        rating: parseFloat(fields?.rating?.[0]??"0.000") || 0,
         images: imagePaths,
       };
 const response = await createDish(dishData);

@@ -36,9 +36,13 @@ export async function reserveTable(reservation: Reservation): Promise<FormatResp
     const dateObj = new Date(reservation_date);
     if (isNaN(dateObj.getTime())) {
         return { message: "Invalid reservation date.", isError: true, status: 400 };
-    }
-    const now = new Date();
-    if (dateObj < now) {
+    }   
+    const combined = `${reservation_date}T${reservation_time}:00`;
+    const dateTime = new Date(combined);
+    // Check if in the past
+    const isPast = dateTime.getTime() < new Date().getTime();
+    console.log(combined)
+    if (isPast) {
         return { message: "Reservation date cannot be in the past.", isError: true, status: 400 };
     }
     const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
@@ -88,7 +92,6 @@ export async function reserveTable(reservation: Reservation): Promise<FormatResp
 }
 
 export async function cancelReservation(email: string): Promise<FormatResponse> {
-    console.log(email)
     if (!email?.trim()) {
         return {
             message: "Email is required to cancel a reservation.",

@@ -23,21 +23,21 @@ const StorySection = () => {
                     </p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-                    <div className="rounded-lg border p-4 text-center">
-                        <span className="block text-3xl font-semibold">100%</span>
-                        <span className="text-muted-foreground text-sm">
+                    <div className="rounded-lg border p-4 text-center border border-accent border-2">
+                        <span className="block text-3xl font-bold">100%</span>
+                        <span className="text-muted-foreground text-xl font-semibold">
                             Halal meats
                         </span>
                     </div>
-                    <div className="rounded-lg border p-4 text-center">
-                        <span className="block text-3xl font-semibold">Vegan</span>
-                        <span className="text-muted-foreground text-sm">
+                    <div className="rounded-lg border p-4 text-center border border-accent border-2">
+                        <span className="block text-3xl font-bold">Vegan</span>
+                        <span className="text-muted-foreground text-xl font-semibold">
                             friendly options
                         </span>
                     </div>
-                    <div className="rounded-lg border p-4 text-center">
-                        <span className="block text-3xl font-semibold">Catering</span>
-                        <span className="text-muted-foreground text-sm">
+                    <div className="rounded-lg border p-4 text-center border border-accent border-2">
+                        <span className="block text-3xl font-bold">Catering</span>
+                        <span className="text-muted-foreground text-xl font-semibold">
                             for events
                         </span>
                     </div>

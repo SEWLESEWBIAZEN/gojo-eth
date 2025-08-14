@@ -14,10 +14,12 @@ import {
 
 
 interface DateTimePickerProps{
-    date: Date | undefined;
-    setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+    date: Date;
+    setDate: React.Dispatch<React.SetStateAction<Date>>;
+    time: string;
+    setTime: React.Dispatch<React.SetStateAction<string>>;
 }
-export const DateTimePicker = ({date,setDate}: DateTimePickerProps) => {
+export const DateTimePicker = ({date,setDate,time ,setTime}: DateTimePickerProps) => {
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -43,7 +45,7 @@ export const DateTimePicker = ({date,setDate}: DateTimePickerProps) => {
               selected={date}
               captionLayout="dropdown"
               onSelect={(date) => {
-                setDate(date)
+                setDate(date ?? new Date())
                 setOpen(false)
               }}
             />
@@ -57,9 +59,10 @@ export const DateTimePicker = ({date,setDate}: DateTimePickerProps) => {
         <Input
           type="time"
           id="time-picker"
-          step="1"
-          defaultValue="10:30:00"
+          step="1"          
           className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
         />
       </div>
     </div>

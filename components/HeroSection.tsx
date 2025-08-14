@@ -6,6 +6,13 @@ import { Utensils } from 'lucide-react'
 const HeroSection = () => {
   return (
     <section id="home" className="relative">
+      <Image
+        src="/images/bg-2.png"
+        alt="Restaurant background"
+        fill
+        priority
+        className="object-cover object-center -z-10"
+      />
       <div className="container grid md:grid-cols-2 gap-8 items-center py-12 md:py-20 px-4">
         <div className="order-2 md:order-1">
           <h1 className="font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-semibold mb-4">
@@ -40,7 +47,7 @@ const HeroSection = () => {
             height={600}
             className="w-full h-64 sm:h-80 md:h-[420px] object-cover"
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-background/10" />
+
         </div>
       </div>
     </section>

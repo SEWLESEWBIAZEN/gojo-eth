@@ -30,13 +30,7 @@ export default function Home() {
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       {/* Main */}
       <main id="main" className="flex-1">
-        <Image
-          src="/images/bg-2.png"
-          alt="Restaurant background"
-          fill
-          priority
-          className="object-cover object-center -z-10"
-        />
+   
         {/* Hero */}
         <HeroSection />
 

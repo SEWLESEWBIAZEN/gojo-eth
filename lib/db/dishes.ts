@@ -25,7 +25,7 @@ export async function createDish(dishData: NewDish) {
     };
   }
 
-  if (existingDish) {
+  if (existingDish?.length > 0) {
     return {
       data: null,
       message: "A dish with this name already exists",
