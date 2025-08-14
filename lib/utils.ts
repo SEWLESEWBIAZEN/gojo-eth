@@ -24,6 +24,7 @@ export function formatResponse({
       data,
       message,
       isError,
+      status
     },
     { status }
   );

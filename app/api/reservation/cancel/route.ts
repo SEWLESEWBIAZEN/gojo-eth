@@ -2,7 +2,7 @@ import { cancelReservation } from "@/lib/db/reservation";
 import { formatResponse, FormatResponse } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-export async function DELETE(request: Request): Promise<NextResponse<FormatResponse>> {
+export async function PUT(request: Request): Promise<NextResponse<FormatResponse>> {
     try {
         const { email } = await request.json();
         const response = await cancelReservation(email);

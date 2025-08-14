@@ -87,7 +87,6 @@ export async function reserveTable(reservation: Reservation): Promise<FormatResp
     };
 }
 
-
 export async function cancelReservation(email: string): Promise<FormatResponse> {
     console.log(email)
     if (!email?.trim()) {
@@ -109,11 +108,12 @@ export async function cancelReservation(email: string): Promise<FormatResponse> 
         .from("table_reservations")
         .select()
         .eq("email", email)
+        .neq("status", "cancelled")
         .maybeSingle();
 
     if (!existingReservation) {
         return {
-            message: "No reservation found for this email.",
+            message: "Your reservation not found or already cancelled.",
             isError: true,
             status: 404,
         };
@@ -128,7 +128,9 @@ export async function cancelReservation(email: string): Promise<FormatResponse> 
     }
     const { data, error } = await supabase
         .from("table_reservations")
-        .delete()
+        .update({
+            status: "cancelled"
+        })
         .eq("email", email)
         .maybeSingle();
 
