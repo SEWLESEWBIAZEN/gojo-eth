@@ -6,7 +6,7 @@ import {
     CollapsibleTrigger,
 } from "../ui/Collapsible"
 import DishImages from './DishImages';
-import { Stars } from 'lucide-react';
+import { Star, Stars } from 'lucide-react';
 
 interface DishProps {
     dish: {
@@ -58,8 +58,8 @@ const DishCard: React.FC<DishProps> = ({ dish }) => {
 
                         {/* featured? */}
                         {dish?.featured && (
-                            <Badge className="badge-featured bg-transparent absolute top-0 left-0 ">
-                                <Stars className='text-primary shadow-glow' />
+                            <Badge className="badge-featured bg-transparent absolute top-0 right-0 ">
+                                <Star className='text-accent shadow-glow' />
                             </Badge>
                         )}
                     </div>
