@@ -80,3 +80,17 @@ export interface DailyMenu{
   id?:string;
   date: Date;  
 }
+
+export interface Reservation{
+  id?: string;
+  email: string;
+  full_name: string;
+  reservation_date: Date;
+  reservation_time: string;
+  partySize?: number;
+  phone_number:string;
+}
+
+export interface ReservationCancellation{
+ email: string;
+}
