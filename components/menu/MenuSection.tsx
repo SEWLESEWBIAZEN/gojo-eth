@@ -35,11 +35,11 @@ const MenuSection = () => {
                     {/* Main content */}
                     <MenuTabs searchText={searchText} />
                     {/* Vertical borders */}
-                    <div className="absolute inset-y-0 left-0 w-[20px] bg-repeat-y" style={{ backgroundImage: "url('/border-vertical.png')" }} />
-                    <div className="absolute inset-y-0 right-0 w-[20px] bg-repeat-y" style={{ backgroundImage: "url('/border-vertical.png')" }} />
+                    <div className="absolute inset-y-0 left-0 w-[20px] bg-repeat-y rounded-lg" style={{ backgroundImage: "url('/border-vertical.png')" }} />
+                    <div className="absolute inset-y-0 right-0 w-[20px] bg-repeat-y rounded-lg" style={{ backgroundImage: "url('/border-vertical.png')" }} />
                     {/* Horizontal borders */}
-                    <div className="absolute inset-x-0 top-0 h-[20px] bg-repeat-x" style={{ backgroundImage: "url('/border-horizontal.png')" }} />
-                    <div className="absolute inset-x-0 bottom-0 h-[20px] bg-repeat-x" style={{ backgroundImage: "url('/border-horizontal.png')" }} />
+                    <div className="absolute inset-x-0 top-0 h-[20px] bg-repeat-x rounded-lg" style={{ backgroundImage: "url('/border-horizontal.png')" }} />
+                    <div className="absolute inset-x-0 bottom-0 h-[20px] bg-repeat-x rounded-lg" style={{ backgroundImage: "url('/border-horizontal.png')" }} />
                 </div>
 
 
