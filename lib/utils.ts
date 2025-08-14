@@ -75,3 +75,8 @@ export interface DishCategory {
   name: string;
   description?: string;
 }
+
+export interface DailyMenu{
+  id?:string;
+  date: Date;  
+}
