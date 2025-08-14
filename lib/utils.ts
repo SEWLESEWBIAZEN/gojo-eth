@@ -45,6 +45,7 @@ export interface Dish {
   featured?: boolean;
   rating?: number;
   images?: string[];
+  category_id:string
 
 }
 export interface DishToBeUpdated {
@@ -57,6 +58,7 @@ export interface DishToBeUpdated {
   featured?: boolean;
   rating?: number;  
   images?: string[];
+  category_id?:string;
 }
 
 export interface NewDish {
