@@ -20,6 +20,7 @@ interface DishProps {
         featured?: boolean;
         rating?: number;
         images?: string[];
+        category_id:string;
     }
 
 }
