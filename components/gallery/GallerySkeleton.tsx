@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Play } from "lucide-react";
+import { Image, Play } from "lucide-react";
 
 const shimmer =
   "relative overflow-hidden bg-neutral-200 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent";
@@ -20,6 +20,12 @@ export default function GallerySkeleton({ gallery, items = 8 }: { gallery: 'imag
                 <Play className="text-neutral-400 w-10 h-10 opacity-70" />
               </div>
             )}
+           {gallery === 'image' && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Image className="text-neutral-400 w-10 h-10 opacity-70" />
+              </div>
+            )}
+            
           </div>
         );
       })}
