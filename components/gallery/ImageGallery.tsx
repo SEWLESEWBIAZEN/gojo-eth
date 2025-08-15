@@ -61,7 +61,7 @@ const ImageGallery = () => {
                     {paginatedImages.map((image, idx) => (
                         <div
                             key={idx}
-                            className="relative w-80 h-60 rounded-lg overflow-hidden cursor-pointer shadow-md"
+                            className="relative w-80 h-60 rounded-lg overflow-hidden cursor-pointer shadow-md mx-auto"
                             onClick={() => setSelectedImage(image?.src)}
                         >
                             {image?.title && (
@@ -74,7 +74,7 @@ const ImageGallery = () => {
                                 src={image?.src}
                                 alt={`Ethiopian dish ${idx + 1}`}
                                 fill
-                                className="object-cover w-full h-full"
+                                className="object-cover w-full h-full mx-auto"
                                 loading="lazy"
                                 unoptimized
                             />

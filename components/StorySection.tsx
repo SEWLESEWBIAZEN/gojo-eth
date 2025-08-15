@@ -1,9 +1,21 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 const StorySection = () => {
-  const [playVideo, setPlayVideo] = React.useState(false)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  useEffect(() => {
+    // Attempt to play video when component mounts
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play()
+      if (playPromise !== undefined) {
+        playPromise.catch((error: Error) => {
+          console.log('Autoplay prevented:', error)
+        })
+      }
+    }
+  }, [])
 
   return (
     <section
@@ -22,50 +34,16 @@ const StorySection = () => {
       <div className="container mx-auto grid md:grid-cols-2 gap-10 items-start">
         {/* Video & Story */}
         <div className="space-y-8">
-          {/* Video Thumbnail */}
-          <div
-            className="cursor-pointer relative overflow-hidden rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300"
-            onClick={() => setPlayVideo(true)}
-          >
-            {/* Overlay play icon */}
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-4xl sm:text-5xl">
-              ▶
-            </div>
-
+          <div className="relative overflow-hidden rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
             <video
-              src="/videos/video1.mp4"
+              ref={videoRef}
+              src="/videos/video2.mp4"
               className="w-full h-full object-cover"
               muted
               loop
               playsInline
             />
           </div>
-
-          {/* Modal video player */}
-          {playVideo && (
-            <div
-              className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
-              onClick={() => setPlayVideo(false)}
-            >
-              <div
-                className="relative w-full max-w-4xl aspect-video"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <video
-                  src="/videos/video1.mp4"
-                  controls
-                  autoPlay
-                  className="w-full h-full rounded-lg"
-                />
-                <button
-                  className="absolute top-2 right-2 text-white text-3xl font-bold hover:scale-110 transition-transform"
-                  onClick={() => setPlayVideo(false)}
-                >
-                  ×
-                </button>
-              </div>
-            </div>
-          )}
 
           {/* Story Text */}
           <div>
@@ -91,7 +69,7 @@ const StorySection = () => {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center rounded-xl border-2 border-accent px-4  w-[140px] sm:w-[160px] md:w-[180px] text-center bg-white shadow-sm hover:shadow-lg transition-shadow"
+                className="flex flex-col items-center rounded-xl border-2 border-accent px-4 w-[140px] sm:w-[160px] md:w-[180px] text-center bg-white shadow-sm hover:shadow-lg transition-shadow"
               >
                 <div className="mb-3">
                   <span className="text-2xl sm:text-3xl font-bold block">{item.title}</span>
@@ -99,7 +77,6 @@ const StorySection = () => {
                     {item.subtitle}
                   </span>
                 </div>
-
                 <div className="relative w-full h-40 rounded-lg overflow-hidden shadow-sm">
                   <Image
                     src={item.img}
