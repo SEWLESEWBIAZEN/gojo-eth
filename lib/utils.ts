@@ -97,3 +97,16 @@ export interface Reservation{
 export interface ReservationCancellation{
  email: string;
 }
+
+export interface Image {
+  id?: string;
+  url: string;
+  title: string;
+}
+
+export interface Video {
+  id?: string;
+  url: string;
+  title: string;
+}
+
