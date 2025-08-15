@@ -21,6 +21,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
             width={32}
             height={32}
             className="rounded-full"
+            priority
           />
           <span className="text-lg font-bold tracking-tight">Gojo</span>
         </Link>
@@ -37,7 +38,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
             Visit
           </Link>
           <Link href="/gallery" className="text-sm  bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm">
-            Gallery
+            Food Gallery
           </Link>
         </div>
 

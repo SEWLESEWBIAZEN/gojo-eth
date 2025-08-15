@@ -13,8 +13,8 @@ const HeroSection = () => {
         priority
         className="object-cover object-center -z-10"
       />
-      <div className="container grid md:grid-cols-2 gap-8 items-center py-12 md:py-20 px-4">
-        <div className="order-2 md:order-1">
+      <div className="container flex flex-col-reverse md:flex-row justify-between gap-8 items-start py-12 md:py-20 px-4 ">
+        <div className="lg:w-[60%]">
           <h1 className="font-display text-3xl sm:text-4xl md:text-5xl leading-tight font-semibold mb-4">
             Gojo Ethiopian Restaurant — Authentic Ethiopian Cuisine
           </h1>
@@ -36,19 +36,19 @@ const HeroSection = () => {
             </Button>
           </div>
         </div>
-
-        <div className="order-1 md:order-2 relative rounded-xl overflow-hidden ">
+        <div className=" relative w-[340px] h-[300px] sm:w-[600px] sm:h-[450px] rounded-xl overflow-hidden mx-auto">
           <Image
-            // src="/og-gojo.jpg"
-            src="/images/image-2c.jpg"
-            // src="/uploads/e06rg4g9yaua7bp9ud0gpgk4u.jpg"
+            src="/foods-picture-200.png"
             alt="Authentic Ethiopian platter"
-            width={800}
-            height={600}
-            className="w-full h-64 sm:h-80 md:h-[420px] object-cover"
+            fill
+            className="object-cover mx-auto"
+            quality={100} // keeps best quality
+            sizes="(max-width: 768px) 100vw, 400px"
+          
           />
-
         </div>
+
+
       </div>
     </section>
   )
