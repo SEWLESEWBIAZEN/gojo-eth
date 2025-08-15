@@ -93,7 +93,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
               href="/gallery"
               className="text-sm inline-block bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm transition-colors duration-200"
             >
-              Gallery
+              Food Gallery
             </Link>
             </div>
 

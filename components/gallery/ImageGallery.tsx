@@ -1,107 +1,109 @@
-'use client'
-import React, { useState } from 'react'
-import Image from "next/image";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Input } from '../ui/Input';
 import NotFound from '../NotFound';
 import { Button } from '../ui/Button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-interface ImageGalleryProps {
-    images: {
-        src: string;
-        title?: string;
-    }[];
-}
-const ImageGallery = () => {
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const [searchText, setSearchText] = useState<string>("");
-    const [page, setPage] = useState(1);
-    const ITEMS_PER_PAGE = 10;
-    
-    // Pagination indexes
-    const startIndex = (page - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
+import axios from 'axios';
+import MenuLoading from '../menu/MenuLoading';
+import GallerySkeleton from './GallerySkeleton';
 
-    const galleryImages: ImageGalleryProps["images"] = [
-        { src: "/images/gallary1.jpg", title: "Ethiopian Dish 1" },
-        { src: "/images/image-1a.jpg", title: "Ethiopian Dish 2" },
-        { src: "/images/image-2c.jpg", title: "Ethiopian Dish 3" },
-        { src: "/images/image-3k.jpg", title: "Ethiopian Dish 4" },
-        { src: "/images/image-4b.jpg", title: "Ethiopian Dish 5" },
-        { src: "/images/image-2c.jpg", title: "Ethiopian Dish 6" },
-        { src: "/images/image-3k.jpg", title: "Ethiopian Dish 7" },
-        { src: "/images/image-4b.jpg", title: "Ethiopian Dish 8" },
-    ];
-    // Filtered data for current view
-    // Filter images once instead of multiple times
-    const filteredImages = galleryImages?.filter((image) =>
-        image?.title?.toLowerCase().includes(searchText.toLowerCase())
-    ) ?? [];
-    const paginatedImages = filteredImages.slice(startIndex, endIndex);
+interface GalleryImage {
+    url: string;
+    title?: string;
+}
+
+const ImageGallery = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [searchText, setSearchText] = useState<string>('');
+    const [page, setPage] = useState<number>(1);
+    const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+    const [totalImages, setTotalImages] = useState<number>(0);
+    const ITEMS_PER_PAGE = 10;
+
+    useEffect(() => {
+        setIsLoading(true);
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get(`/api/gallery/getAllImages?page=${page}&limit=${ITEMS_PER_PAGE}`);
+                setGalleryImages(response.data.data.images);
+                setTotalImages(response.data.data.total);
+
+            } catch (error) {
+                console.error('Error fetching images:', error);
+                setGalleryImages([]);
+                setTotalImages(0);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        };
+        fetchImages();
+    }, [page]);
+
+    // Filter for search
+    const filteredImages = galleryImages.filter(img =>
+        img.title?.toLowerCase().includes(searchText.toLowerCase()) || ''
+    );
+    const totalPages = Math.ceil(totalImages / ITEMS_PER_PAGE);
+
     return (
         <div>
             <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row grid grid-cols-3">
-                    <div className="col-span-2">
+                {/* Header & Search */}
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+                    <div className='w-full'>
                         <h1 className="text-4xl font-bold mb-2">Image Gallery</h1>
-                        <p className="mb-6">
-                            Explore our delicious Ethiopian dishes and vibrant restaurant atmosphere.
-                        </p>
+                        <p>Explore our delicious Ethiopian dishes and vibrant restaurant atmosphere.</p>
                     </div>
                     <Input
                         placeholder="Search images..."
-                        className="border border-primary"
+                        className="border border-primary w-full"
                         value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        autoFocus
+                        onChange={(e) => setSearchText(e.target.value)}                    
                     />
                 </div>
 
+                {isLoading && <div><GallerySkeleton gallery='image'/></div>}
+
                 {/* Image Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {paginatedImages.map((image, idx) => (
-                        <div
-                            key={idx}
-                            className="relative w-80 h-60 rounded-lg overflow-hidden cursor-pointer shadow-md mx-auto"
-                            onClick={() => setSelectedImage(image?.src)}
-                        >
-                            {image?.title && (
-                                <div className="absolute bottom-0 left-0 right-0 bg-transparent backdrop-blur-md text-white text-center py-1 text-md z-10">
-                                    {image?.title}
-                                </div>
-                            )}
-
-                            <Image
-                                src={image?.src}
-                                alt={`Ethiopian dish ${idx + 1}`}
-                                fill
-                                className="object-cover w-full h-full mx-auto"
-                                loading="lazy"
-                                unoptimized
-                            />
-                        </div>
-                    ))}
-                </div>
-
-                {/* Not Found */}
-                {filteredImages.length === 0 && <NotFound message="Image" />}
+                {filteredImages.length > 0 && !isLoading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {filteredImages.map((image, idx) => (
+                            <div
+                                key={idx}
+                                className="relative w-80 h-60 rounded-lg overflow-hidden cursor-pointer shadow-md mx-auto"
+                                onClick={() => setSelectedImage(image.url)}
+                            >
+                                {image.title && (
+                                    <div className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-sm text-white text-center text-lg py-1 text-md z-10">
+                                        {image.title}
+                                    </div>
+                                )}
+                                <Image
+                                    src={image.url}
+                                    alt={image.title || `Ethiopian dish ${idx + 1}`}
+                                    fill
+                                    className="object-cover w-full h-full mx-auto"
+                                    loading="lazy"
+                                    unoptimized
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <NotFound message="Image" />
+                )}
 
                 {/* Pagination Controls */}
-                {filteredImages.length > ITEMS_PER_PAGE && (
+                {totalPages > 1 && (
                     <div className="flex flex-col md:flex-row justify-center gap-4 mt-6">
-                        <Button
-                            onClick={() => setPage((p) => Math.max(1, p - 1))}
-                            disabled={page === 1}
-                        >
+                        <Button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
                             <ArrowLeft /> Show Previous
                         </Button>
-                        <Button
-                            onClick={() =>
-                                setPage((p) =>
-                                    endIndex >= filteredImages.length ? p : p + 1
-                                )
-                            }
-                            disabled={endIndex >= filteredImages.length}
-                        >
+                        <Button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
                             <ArrowRight /> Show Next
                         </Button>
                     </div>
@@ -132,7 +134,7 @@ const ImageGallery = () => {
                 </div>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default ImageGallery
+export default ImageGallery;
