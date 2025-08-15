@@ -44,7 +44,7 @@ const HeroSection = () => {
             className="object-cover mx-auto"
             quality={100} // keeps best quality
             sizes="(max-width: 768px) 100vw, 400px"
-          
+            priority          
           />
         </div>
 
