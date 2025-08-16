@@ -1,7 +1,5 @@
-import { ClockFading } from 'lucide-react';
 import supabase from '../supabase';
 import { DishToBeUpdated, formatResponse, NewDish } from '../utils';
-
 export interface DishInput {
   name: string;
   description?: string;
@@ -57,7 +55,6 @@ export async function createDish(dishData: NewDish) {
     status: 201,
   };
 }
-
 export async function updateDish(dish: DishToBeUpdated) {
   const { data, error } = await supabase
     .from('dishes')
@@ -81,7 +78,6 @@ export async function updateDish(dish: DishToBeUpdated) {
     status: 201
   });
 }
-
 export async function uploadImageToDish(dishImages?: string[], dishId?: string) {
   // Validate required fields
   if (!dishImages?.length) {
@@ -139,28 +135,36 @@ export async function uploadImageToDish(dishImages?: string[], dishId?: string) 
     status: 200,
   };
 }
-
-
 export async function getAllDishes() {
-  const { data, error } = await supabase.from('dishes').select('*');
-  if (error) {
-    return {
-      data: null,
-      message: error.message || 'Failed to fetch dishes',
-      isError: true,
-      status: 500,
-    };
-  }
+  try{
 
-  return {
+    const { data, error } = await supabase.from('dishes').select('*');
+    if (error) {
+      
+      
+      return {
+        data: null,
+        message: error?.code===''? "Connection Lost, check your connection and try again": error.message || 'Failed to fetch dishes',
+        isError: true,
+        status: 500,
+      };
+    }
+
+    return {
     data,
     message: 'Dishes fetched successfully',
     isError: false,
     status: 200,
   };
+  }catch(err){
+    console.log(err)
+    return{
+
+    }
+  }
+
+  
 }
-
-
 export async function getDishById(id: string) {
   const { data, error } = await supabase
     .from("dishes")
@@ -194,7 +198,6 @@ export async function getDishById(id: string) {
     status: 200,
   };
 }
-
 export async function deleteDish(id: string) {
   const { data, error } = await supabase.from('dishes').delete().eq('id', id);
   if (error) {

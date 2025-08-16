@@ -1,14 +1,9 @@
 import React from 'react'
 import { Button } from './ui/Button'
-import { MenuIcon, Phone, X } from 'lucide-react'
+import { LayoutDashboard, MenuIcon, Phone, X } from 'lucide-react'
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface HeaderProps {
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
+import { HeaderProps } from '@/lib/utils';
 const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
@@ -44,6 +39,19 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
 
         {/* Call button & mobile menu toggle */}
         <div className="flex items-center gap-3">
+          <Link
+            href="/dashboard"
+            className="
+                flex items-center text-sm px-4 py-2 rounded
+                bg-primary text-white
+                hover:bg-primary/60 hover:text-slate-700
+                focus:outline-none focus:ring-2 focus:ring-primary/50
+                transition-colors duration-200
+                "
+          >
+            <LayoutDashboard className="w-5 h-5" />
+            <span className="ml-2 hidden sm:block">Dashboard</span>
+          </Link>
           <Button asChild variant="hero" size="sm">
             <Link href="tel:+14082959546">
               <Phone className="mr-1 w-4 h-4" /> Call
@@ -89,12 +97,12 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
               Visit
             </Link>
             <div>
-            <Link
-              href="/gallery"
-              className="text-sm inline-block bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm transition-colors duration-200"
-            >
-              Food Gallery
-            </Link>
+              <Link
+                href="/gallery"
+                className="text-sm inline-block bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm transition-colors duration-200"
+              >
+                Food Gallery
+              </Link>
             </div>
 
           </div>

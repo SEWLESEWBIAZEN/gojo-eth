@@ -2,8 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const Footer = () => {
-  return (
-    <div>
+  return (    
       <footer className="border-t py-8">
         <div className="container text-sm text-muted-foreground flex flex-col md:flex-row items-center justify-between gap-4 px-4">
           <p>© {new Date().getFullYear()} Gojo Ethiopian Restaurant</p>
@@ -25,8 +24,7 @@ const Footer = () => {
             </Link>
           </nav>
         </div>
-      </footer>
-    </div>
+      </footer>    
   )
 }
 

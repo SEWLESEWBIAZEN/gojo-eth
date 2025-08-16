@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -8,7 +7,7 @@ const inter = Inter({
 });
 export const metadata: Metadata = {
     title: "🍴Gojo | Ethiopian | Restaurant",
-    description: "Step into a world of authentic Ethiopian flavors right in the city center. Our menu showcases traditional recipes passed down through generations, including classic stews, savory meats, and fresh, hand-made injera. Perfect for food lovers seeking a genuine cultural experience, our restaurant combines vibrant tastes with a cozy, welcoming environment that captures the essence of Ethiopia’s culinary traditions",
+    description: "Discover the true taste of Ethiopia in the heart of the city. Our restaurant offers an authentic Ethiopian dining experience, featuring traditional dishes crafted from fresh, high-quality ingredients and aromatic spices. From flavorful stews and tender meats to fresh injera and delicious vegetarian options, every meal celebrates Ethiopia’s rich culinary heritage. Immerse yourself in a warm, inviting atmosphere that honors Ethiopian culture and hospitality.",
     keywords: [
         "Ethiopian",
         "Restaurant",
@@ -53,10 +52,7 @@ export const metadata: Metadata = {
         "Ethiopian Food and Cultural Experience",
         "Explore Ethiopian Food and Recipes",
         "Ethiopian Fine Dining and Cultural Cuisine",
-        "Ethiopian Cuisine and Spices for Food Lovers"],
-
-};
-
+        "Ethiopian Cuisine and Spices for Food Lovers"]};
 export default function GalleryLayout({
     children,
 }: Readonly<{

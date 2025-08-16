@@ -110,3 +110,7 @@ export interface Video {
   title: string;
 }
 
+export interface HeaderProps {
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
