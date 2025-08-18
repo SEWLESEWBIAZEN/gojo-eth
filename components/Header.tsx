@@ -54,7 +54,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
           </Link>
           <Button asChild variant="hero" size="sm">
             <Link href="tel:+14082959546">
-              <Phone className="mr-1 w-4 h-4" /> Call
+              <Phone className="mr-1 w-4 h-4" /> <span className="hidden sm:inline">Call</span>
             </Link>
           </Button>
           <button

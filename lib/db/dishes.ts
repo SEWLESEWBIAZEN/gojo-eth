@@ -12,9 +12,9 @@ export async function createDish(dishData: NewDish) {
   const { data: existingDish, error: findError } = await supabase
     .from("dishes")
     .select("*")
-    .eq("name", dishData.name)  
+    .eq("name", dishData.name)
 
-  if (findError) {    
+  if (findError) {
     return {
       data: null,
       message: findError.message || "Error checking dish name",
@@ -136,34 +136,31 @@ export async function uploadImageToDish(dishImages?: string[], dishId?: string) 
   };
 }
 export async function getAllDishes() {
-  try{
-
+  try {
     const { data, error } = await supabase.from('dishes').select('*');
     if (error) {
-      
-      
       return {
         data: null,
-        message: error?.code===''? "Connection Lost, check your connection and try again": error.message || 'Failed to fetch dishes',
+        message: error?.code === '' ? "Connection Lost, check your connection and try again" : error.message || 'Failed to fetch dishes',
         isError: true,
         status: 500,
       };
     }
 
     return {
-    data,
-    message: 'Dishes fetched successfully',
-    isError: false,
-    status: 200,
-  };
-  }catch(err){
+      data,
+      message: 'Dishes fetched successfully',
+      isError: false,
+      status: 200,
+    };
+  } catch (err) {
     console.log(err)
-    return{
+    return {
 
     }
   }
 
-  
+
 }
 export async function getDishById(id: string) {
   const { data, error } = await supabase

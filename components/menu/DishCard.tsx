@@ -6,23 +6,11 @@ import {
     CollapsibleTrigger,
 } from "../ui/Collapsible"
 import DishImages from './DishImages';
-import { Star, Stars } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { Dish } from '@/lib/utils';
 
 interface DishProps {
-    dish: {
-        id: string;
-        name: string;
-        description?: string;
-        image_url?: string;
-        price?: number;
-        spicy?: boolean;
-        vegan?: boolean;
-        featured?: boolean;
-        rating?: number;
-        images?: string[];
-        category_id:string;
-    }
-
+    dish: Dish
 }
 const DishCard: React.FC<DishProps> = ({ dish }) => {
     const [expandedOne, setExpandedOne] = React.useState("");

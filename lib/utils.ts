@@ -39,13 +39,13 @@ export interface Dish {
   id: string;
   name: string;
   description?: string;  
-  price?: number;
-  spicy?: boolean;
-  vegan?: boolean;
-  featured?: boolean;
-  rating?: number;
-  images?: string[];
-  category_id:string
+  price: number;
+  spicy: boolean;
+  vegan: boolean;
+  featured: boolean;
+  rating: number;
+  images: string[];
+  category_id: string;
 
 }
 export interface DishToBeUpdated {

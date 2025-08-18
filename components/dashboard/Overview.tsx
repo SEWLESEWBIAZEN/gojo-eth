@@ -3,7 +3,6 @@ import React from 'react'
 const Overview = () => {
     return (
         <>
-
             <div className="mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
                     Dashboard
@@ -12,9 +11,8 @@ const Overview = () => {
                     Quick overview and controls for menus, inquiries, gallery, reservations, and feedback.
                 </p>
             </div>
-
             {/* Cards grid */}
-            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 cursor-pointer">
                 {[
                     { title: 'Menus', desc: 'Manage your menu items and categories.' },
                     { title: 'User Inquiries', desc: 'View, triage, and respond to messages.' },
@@ -39,7 +37,7 @@ const Overview = () => {
 
                         {/* Subtle progress / accent */}
                         <div className="mt-4 h-1 rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-                            <div className="h-full w-1/3 group-hover:w-2/3 transition-all duration-500 bg-indigo-500/70" />
+                            <div className="h-full w-0 group-hover:w-full transition-all duration-500 bg-indigo-500/70" />
                         </div>
                     </article>
                 ))}

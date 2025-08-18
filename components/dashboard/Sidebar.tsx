@@ -36,7 +36,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       {/* Backdrop for mobile/tablet */}
       <div
         className={`
-          fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity
+          fixed inset-0 pt-4 z-40 bg-black/30 backdrop-blur-sm transition-opacity
           lg:hidden ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
         `}
         aria-hidden={!open}
@@ -46,7 +46,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       {/* Drawer / Static sidebar */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 w-64
+          fixed pt-16 inset-y-0 left-0 z-50 w-64
           bg-white/40 dark:bg-neutral-900/90 backdrop-blur
           border-r border-neutral-200 dark:border-neutral-800
           p-4 overflow-y-auto
