@@ -128,3 +128,14 @@ export interface DailyMenuDish {
   vegan: boolean;
   images: string[];
 }
+
+export interface DishFormData {
+  name: string
+  category: string
+  description: string
+  price: number
+  featured: boolean
+  spicy: boolean
+  vegan: boolean
+  images: File[]
+}

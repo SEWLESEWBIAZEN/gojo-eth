@@ -1,6 +1,4 @@
 "use client";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { CalendarIcon } from "lucide-react";
@@ -20,65 +18,16 @@ import {
   CardDescription,
 } from "@/components/ui/Card";
 import MenuLoading from "../menu/MenuLoading";
-import { DailyMenuDish } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { useDailyMenu } from "@/context/queries/useDailyMenu";
+import { useRemoveDishFromDailyMenu } from "@/context/mutations/useRemoveDishFromDailyMenu";
 
-type DailyMenuResponse = {
-  isError: boolean;
-  data: DailyMenuDish[];
-  message?: string;
-};
-
-// --- API ---
-async function fetchDailyMenu(date: Date): Promise<DailyMenuDish[]> {
-  const { data } = await axios.get<DailyMenuResponse>(
-    `/api/dailyMenu/getDailyMenu?date=${format(date, "yyyy-MM-dd")}`
-  );
-  if (data.isError) throw new Error(data.message || "Error fetching daily menu.");
-  return data.data;
-}
-
-async function removeDish(id: string) {
-  const { data } = await axios.put(`/api/dailyMenu/removeDishFromMenu/${id}`, {});  
-  if (data.isError) throw new Error(data.message || "Error removing dish.");
-  return data.message || "Dish removed successfully.";
-}
-
-// --- Hooks ---
-function useDailyMenu(selectedDate: Date) {
-  return useQuery({
-    queryKey: ["dailyMenu", format(selectedDate, "yyyy-MM-dd")],
-    queryFn: () => fetchDailyMenu(selectedDate),
-    staleTime: 1000 * 60 * 5, // fresh 5 mins
-    gcTime: 1000 * 60 * 10,   // cached 10 mins
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  });
-}
-
-function useRemoveDish(selectedDate: Date) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: removeDish,
-    onSuccess: (message) => {
-      toast.success(message);
-      // invalidate current day's menu so it refreshes
-      queryClient.invalidateQueries({
-        queryKey: ["dailyMenu", format(selectedDate, "yyyy-MM-dd")],
-      });
-    },
-    onError: (error: any) => {
-      toast.error(error.message || "Error removing dish.");
-    },
-  });
-}
 
 // --- Component ---
 export default function DailyMenu() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const { data: dailyMenu = [], isLoading, error } = useDailyMenu(selectedDate);
-  const { mutate: removeDishFromMenu, isPending: removing } = useRemoveDish(selectedDate);
+  const { mutate: removeDishFromMenu, isPending: removing } = useRemoveDishFromDailyMenu(selectedDate);
   const [dishToRemove, setDishToRemove] = useState<string | null>(null);
 
   useEffect(() => {

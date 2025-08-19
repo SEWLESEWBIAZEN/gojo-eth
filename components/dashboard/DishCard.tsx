@@ -20,7 +20,7 @@ export default function DishCard({ dish, setRefetch }: DishCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
   const [addLoading, setAddLoading] = useState(false)
- 
+
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [uploadLoading, setUploadLoading] = useState(false)
 
@@ -119,6 +119,9 @@ export default function DishCard({ dish, setRefetch }: DishCardProps) {
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-white w-[400px] rounded-lg px-6 py-4">
+            <DialogClose className="flex flex-1 justify-end">
+              <X/>
+            </DialogClose>
             <DialogTitle>Delete Dish</DialogTitle>
             <DialogDescription>
               Are you sure you want to delete this dish?
@@ -135,9 +138,6 @@ export default function DishCard({ dish, setRefetch }: DishCardProps) {
                   <Trash2 className="h-4 w-4 mr-1" /> {deleteLoading ? "Moving to trash..." : "Delete"}
                 </Button>
               </form>
-              <DialogClose>
-                Cancel
-              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -222,9 +222,7 @@ export default function DishCard({ dish, setRefetch }: DishCardProps) {
           >
             {addLoading ? "Adding..." : "Add to Today's"}
           </Button>
-        </form> }
-
-
+        </form>}
       </CardFooter>
     </Card>
   );
