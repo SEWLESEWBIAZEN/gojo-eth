@@ -13,7 +13,7 @@ import { Checkbox } from '../ui/Checkbox'
 import { cn } from '@/lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/Select'
 import AddDishCategory from './AddDishCategory'
-import { useAddMenu } from '@/context/mutations/useAddMenu'
+import { useAddMenu } from '@/contexts/mutations/useAddMenu'
 
 interface AddNewMenuProps {
   categories: any[]

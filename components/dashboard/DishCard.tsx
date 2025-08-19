@@ -6,10 +6,10 @@ import { cn, Dish } from '@/lib/utils'
 import { Trash2, Star, Upload, X } from 'lucide-react'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/Dialog'
 import { Input } from '../ui/Input'
-import {  useDeleteDish } from '@/context/mutations/useDishDelete'
+import {  useDeleteDish } from '@/contexts/mutations/useDishDelete'
 import EditDish from './EditDIsh'
-import { useUploadDishImages } from '@/context/mutations/useUploadDishImages'
-import { useAddToDailyMenu } from '@/context/mutations/useAddToDailyMenu'
+import { useUploadDishImages } from '@/contexts/mutations/useUploadDishImages'
+import { useAddToDailyMenu } from '@/contexts/mutations/useAddToDailyMenu'
 
 interface DishCardProps {
   dish: Dish

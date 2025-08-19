@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import Providers from "@/context/providers";
+import Providers from "@/contexts/providers";
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -64,6 +65,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body className="bg-slate-100">

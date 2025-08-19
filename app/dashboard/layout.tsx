@@ -58,6 +58,7 @@ export default function GalleryLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    
     return (
         <div className={`${inter.variable} font-sans`}>
             {children}

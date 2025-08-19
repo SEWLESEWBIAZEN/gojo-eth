@@ -4,7 +4,7 @@ import DishCard from "./DishCard";
 import { useState } from "react";
 import MenuLoading from "../menu/MenuLoading";
 import AddNewMenu from "./AddNewMenu";
-import { useDishesAndCategories } from "@/context/queries/useFetchFullMenu";
+import { useDishesAndCategories } from "@/contexts/queries/useFetchFullMenu";
 import { toast } from "sonner";
 
 export default function FullMenu() {

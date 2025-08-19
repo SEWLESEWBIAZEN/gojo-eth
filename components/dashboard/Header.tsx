@@ -4,6 +4,7 @@ import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import LogoutButton from '../LogoutButton';
 
 const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   return (
@@ -30,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
           </button>
 
           {/* Logo */}
-          <Link href="/">
+          <Link href="/dashboard">
             <Image src="/logo.png" alt="Gojo Logo" width={40} height={40} className="rounded-full" />
           </Link>
 
@@ -54,6 +55,9 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
           >
             Profile
           </Link>
+          <div>            
+            <LogoutButton />
+          </div>
         </nav>
       </div>
     </header>

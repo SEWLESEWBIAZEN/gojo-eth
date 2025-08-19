@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/Card";
 import MenuLoading from "../menu/MenuLoading";
 import { useState, useEffect } from "react";
-import { useDailyMenu } from "@/context/queries/useDailyMenu";
-import { useRemoveDishFromDailyMenu } from "@/context/mutations/useRemoveDishFromDailyMenu";
+import { useDailyMenu } from "@/contexts/queries/useDailyMenu";
+import { useRemoveDishFromDailyMenu } from "@/contexts/mutations/useRemoveDishFromDailyMenu";
 
 
 // --- Component ---
