@@ -1,11 +1,9 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { CalendarIcon } from "lucide-react";
-
 import { Button } from "@/components/ui/Button";
 import { Calendar } from "@/components/ui/Calendar";
 import {
@@ -23,73 +21,69 @@ import {
 } from "@/components/ui/Card";
 import MenuLoading from "../menu/MenuLoading";
 import { DailyMenuDish } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
+type DailyMenuResponse = {
+  isError: boolean;
+  data: DailyMenuDish[];
+  message?: string;
+};
+
+// --- API ---
+async function fetchDailyMenu(date: Date): Promise<DailyMenuDish[]> {
+  const { data } = await axios.get<DailyMenuResponse>(
+    `/api/dailyMenu/getDailyMenu?date=${format(date, "yyyy-MM-dd")}`
+  );
+  if (data.isError) throw new Error(data.message || "Error fetching daily menu.");
+  return data.data;
+}
+
+async function removeDish(id: string) {
+  const { data } = await axios.put(`/api/dailyMenu/removeDishFromMenu/${id}`, {});  
+  if (data.isError) throw new Error(data.message || "Error removing dish.");
+  return data.message || "Dish removed successfully.";
+}
+
+// --- Hooks ---
+function useDailyMenu(selectedDate: Date) {
+  return useQuery({
+    queryKey: ["dailyMenu", format(selectedDate, "yyyy-MM-dd")],
+    queryFn: () => fetchDailyMenu(selectedDate),
+    staleTime: 1000 * 60 * 5, // fresh 5 mins
+    gcTime: 1000 * 60 * 10,   // cached 10 mins
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+  });
+}
+
+function useRemoveDish(selectedDate: Date) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: removeDish,
+    onSuccess: (message) => {
+      toast.success(message);
+      // invalidate current day's menu so it refreshes
+      queryClient.invalidateQueries({
+        queryKey: ["dailyMenu", format(selectedDate, "yyyy-MM-dd")],
+      });
+    },
+    onError: (error: any) => {
+      toast.error(error.message || "Error removing dish.");
+    },
+  });
+}
+
+// --- Component ---
 export default function DailyMenu() {
-  const [dailyMenu, setDailyMenu] = useState<DailyMenuDish[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [removing, setRemoving] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const { data: dailyMenu = [], isLoading, error } = useDailyMenu(selectedDate);
+  const { mutate: removeDishFromMenu, isPending: removing } = useRemoveDish(selectedDate);
+  const [dishToRemove, setDishToRemove] = useState<string | null>(null);
 
-  // Fetch daily menu
   useEffect(() => {
-    const fetchDailyMenu = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(
-          `/api/dailyMenu/getDailyMenu?date=${format(
-            selectedDate,
-            "yyyy-MM-dd"
-          )}`
-        );
-        const { isError, data, message } = response.data;
-
-        if (isError) {
-          toast.error(message || "Error fetching daily menu.");
-          setDailyMenu([]);
-        } else {
-          setDailyMenu(data);
-        }
-      } catch (error: any) {
-        toast.error(
-          error?.response?.data?.message || "Error fetching daily menu."
-        );
-        setDailyMenu([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDailyMenu();
-  }, [selectedDate]);
-
-  // Remove dish from daily menu
-  async function handleRemoveFromDailyMenu(
-    e: React.FormEvent,
-    id: string
-  ) {
-    e.preventDefault();
-    setRemoving(id);
-    try {
-      const response = await axios.put(
-        `/api/dailyMenu/removeDishFromMenu/${id}`,
-        {}
-      );
-      const { isError, message } = response.data;
-
-      if (isError) {
-        toast.error(message || "Error removing dish.");
-      } else {
-        toast.success(message || "Dish removed successfully.");
-        setDailyMenu((prev) => prev.filter((dish) => dish.id !== id));
-      }
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message || "Error removing dish."
-      );
-    } finally {
-      setRemoving(null);
-    }
-  }
+    if (error) toast.error((error as Error).message);
+  }, [error]);
 
   return (
     <>
@@ -118,9 +112,7 @@ export default function DailyMenu() {
       {isLoading && <MenuLoading />}
 
       {!isLoading && dailyMenu.length === 0 ? (
-        <p className="text-gray-500">
-          No items added to this day's menu yet.
-        </p>
+        <p className="text-gray-500">No items added to this day's menu yet.</p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {dailyMenu.map((dish) => (
@@ -144,7 +136,6 @@ export default function DailyMenu() {
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                   {dish.description}
                 </p>
-
                 <div className="flex flex-wrap gap-2">
                   {dish.featured && (
                     <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">
@@ -171,20 +162,21 @@ export default function DailyMenu() {
                   ))}
                 </div>
 
-                <form
-                  onSubmit={(e) => handleRemoveFromDailyMenu(e, dish.id)}
-                >
-                  <Button
-                    type="submit"
-                    size="sm"
-                    aria-label="Remove dish from today's menu"
-                    disabled={removing === dish.id}
-                    className="bg-red-800 hover:bg-red-900 text-white text-sm px-4 py-2 
+                <Button
+                  size="sm"
+                  aria-label="Remove dish from today's menu"
+                  disabled={dishToRemove === dish.id}
+                  onClick={
+                    () => {
+                      removeDishFromMenu(dish.id);
+                      setDishToRemove(dish.id);
+                    }
+                  }
+                  className="bg-red-800 hover:bg-red-900 text-white text-sm px-4 py-2 
                       disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {removing === dish.id ? "Removing..." : "Remove"}
-                  </Button>
-                </form>
+                >
+                  {dishToRemove === dish.id ? "Removing..." : "Remove"}
+                </Button>
               </CardFooter>
             </Card>
           ))}

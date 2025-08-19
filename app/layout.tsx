@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import Providers from "@/context/providers";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -58,7 +59,6 @@ export const metadata: Metadata = {
     "Ethiopian Fine Dining and Cultural Cuisine",
     "Ethiopian Cuisine and Spices for Food Lovers"]
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,7 +67,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body className="bg-slate-100">
-        {children}
+         <Providers>
+          {children}
+         </Providers>
         <Toaster position="top-right" richColors />
       </body>
     </html>

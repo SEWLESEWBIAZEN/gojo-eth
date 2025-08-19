@@ -3,16 +3,12 @@ import React, { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/Tabs";
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
-import { Dish } from "@/lib/utils";
 import FullMenu from "@/components/dashboard/FullMenu";
 import DailyMenu from "@/components/dashboard/DailyMenu";
 import Footer from "@/components/Footer";
 
-
 export default function MenuDashboard() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dailyMenu, setDailyMenu] = useState<Dish[]>([]);
-  
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); 
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-900">
@@ -23,7 +19,6 @@ export default function MenuDashboard() {
       >
         Skip to content
       </a>
-
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       <div className="relative flex flex-1 overflow-hidden">
         <Sidebar open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
@@ -33,14 +28,12 @@ export default function MenuDashboard() {
 
             <Tabs defaultValue="fullMenu" className="w-full">
               <TabsList className="flex flex-wrap justify-start bg-transparent">
-                <TabsTrigger value="fullMenu">Full Menu</TabsTrigger>
-                <TabsTrigger value="dailyMenu">Daily Menu</TabsTrigger>
+                <TabsTrigger value="fullMenu" className="data-[state=active]:text-indigo-800">Full Menu</TabsTrigger>
+                <TabsTrigger value="dailyMenu" className="data-[state=active]:text-indigo-800">Daily Menu</TabsTrigger>
               </TabsList>
-
               <TabsContent value="fullMenu">
                 <FullMenu />
               </TabsContent>
-
               <TabsContent value="dailyMenu">
                 <DailyMenu />
               </TabsContent>

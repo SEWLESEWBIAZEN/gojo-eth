@@ -451,8 +451,8 @@ export async function getAllTodaysMenuDishes(date: string): Promise<FormatRespon
     const { data: fetchData, error: fetchError } = await supabase
       .from("daily_menu")
       .select("id")
-      .eq("menu_date", date)
-      .maybeSingle();
+      .eq("menu_date", date);
+    
       
 
     if (fetchError || !fetchData) {
@@ -460,6 +460,15 @@ export async function getAllTodaysMenuDishes(date: string): Promise<FormatRespon
         message: fetchError?.message || "No daily menu found for today",
         isError: true,
         status: 404,
+        data: []
+      };
+    }
+
+    if(fetchData?.length===0){
+      return {
+        message: "No daily menu found for today",
+        isError: false,
+        status: 200,
         data: []
       };
     }
@@ -484,7 +493,7 @@ export async function getAllTodaysMenuDishes(date: string): Promise<FormatRespon
           )
         )
       `)
-      .eq("daily_menu_id", fetchData.id);
+      .eq("daily_menu_id", fetchData[0]?.id);
       
 
     if (error) {
