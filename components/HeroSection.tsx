@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const images = [
   "/carousel/location.webp",
-  "/carousel/beyaynet.webp",
+  "/carousel/beyaynet.avif",  
   "/carousel/yetetebabese.webp",
   "/carousel/tibsa-tibs.jpg",
   "/carousel/beyaynet-2.webp",
@@ -15,7 +15,7 @@ const images = [
   "/carousel/beyaynet-3.jpg",
   "/carousel/wotoch.webp",
   "/carousel/gored-gored.webp",
-  "/carousel/all-in-one.jpg",
+  "/carousel/beyaynet.jpeg",
   "/carousel/injera.webp",
 ];
 

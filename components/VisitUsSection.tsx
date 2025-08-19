@@ -35,7 +35,7 @@ const VisitUsSection = () => {
     },
     {
       text: 'Additional parking across the street',
-      img:  { src: '/car-parking-100.jpg', alt: 'Car parking' },
+      img:  { src: '/carousel/location.webp', alt: 'Car parking' },
     },
   ]
 
