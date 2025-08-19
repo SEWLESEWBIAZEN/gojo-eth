@@ -43,14 +43,7 @@ const VisitUsSection = () => {
     <section
       id="visit"
       className="relative py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-t bg-gradient-to-b from-white to-neutral-50 -z-10"
-    >
-      {/* <Image
-        src="/illustration-bg-1.png"
-        alt="Restaurant background"
-        fill
-        priority
-        className="object-cover object-center -z-50 opacity-5"
-      /> */}
+    >     
       <div className="container mx-auto space-y-12">
         {/* Heading */}
         <div className="max-w-3xl">

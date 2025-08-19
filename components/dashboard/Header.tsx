@@ -4,10 +4,9 @@ import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import LogoutButton from '../Logout';
+import UserAvatar from '../Avatar';
 
-const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen ,user}) => {
- 
+const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen, user }) => {
   return (
     <header
       className="
@@ -32,19 +31,28 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen ,user
           </button>
 
           {/* Logo */}
-          <Link href="/dashboard">
-            <Image src="/logo.png" alt="Gojo Logo" width={40} height={40} className="rounded-full" />
-          </Link>
+          <Link href="/dashboard" className='flex items-end'>
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+              <Image
+                src="/gojo-logo.png"
+                alt="Gojo Ethiopian Restaurant"
+                fill
+                className="rounded-full object-contain"
+                priority
+              />
+            </div>
 
-          {/* Dashboard Title */}
-          <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
-            Dashboard
-          </h1>
+
+            {/* Dashboard Title */}
+            <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
+              Dashboard
+            </h1>
+          </Link>
         </div>
 
         {/* Right: Quick actions */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link
+          {/* <Link
             href="/#settings"
             className="text-sm text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition"
           >
@@ -55,13 +63,8 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen ,user
             className="text-sm text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition"
           >
             Profile
-          </Link>
-          <div>
-            <span>
-              {user?.email}
-              </span>
-            <LogoutButton />
-          </div>
+          </Link>         */}
+          <UserAvatar user={user} />
         </nav>
       </div>
     </header>

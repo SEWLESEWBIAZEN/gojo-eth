@@ -6,6 +6,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function getInitials(name: string | undefined) {
+  if (!name) return "";
+  const parts = name.split(/[\s@.]+/); // split by space, @, or dot
+  const initials = parts
+    .map((part) => part[0]?.toUpperCase())
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("");
+  return initials;
+}
+
 export type FormatResponse = {
   data?: any;
   message?: string;

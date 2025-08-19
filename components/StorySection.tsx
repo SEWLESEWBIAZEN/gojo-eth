@@ -63,7 +63,7 @@ const StorySection = () => {
         <div className="space-y-8">
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {[
-              { title: '100%', subtitle: 'Halal meats', img: '/halal-halal-100.jpg' },
+              { title: '100%', subtitle: 'fresh meats', img: '/halal-halal-100.jpg' },
               { title: 'Vegan', subtitle: 'friendly options', img: '/vegan-vegan-100.jpg' },
               { title: 'Catering', subtitle: 'for events', img: '/catering-catering-100.jpg' },
             ].map((item, idx) => (

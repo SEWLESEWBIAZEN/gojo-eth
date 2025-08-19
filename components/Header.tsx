@@ -6,23 +6,27 @@ import Link from 'next/link';
 import { HeaderProps } from '@/lib/utils';
 const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
-      <nav className="container flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-40 bg-background/60 backdrop-blur-md ">
+      <nav className="container flex h-20 items-center justify-between px-4">
         <Link href="/#home" className="flex items-center gap-2">
-
-          <Image
-            src="/logo.png"
-            alt="Gojo Ethiopian Restaurant"
-            width={32}
-            height={32}
-            className="rounded-full"
-            priority
-          />
-          <span className="text-lg font-bold tracking-tight"></span>
+          <div className="relative w-10 h-10 sm:w-16 sm:h-16">
+            <Image
+              src="/gojo-logo.png"
+              alt="Gojo Ethiopian Restaurant"
+              fill
+              className="rounded-full object-contain"
+              priority
+            />
+          </div>
+          <span className="text-lg font-bold tracking-tight">Gojo</span>
         </Link>
+
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6">
+          <Link href="/" className="text-sm story-link">
+            Home
+          </Link>
           <Link href="/#menu" className="text-sm story-link">
             Menu
           </Link>
@@ -32,7 +36,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
           <Link href="/#visit" className="text-sm story-link">
             Visit
           </Link>
-          <Link href="/gallery" className="text-sm  bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm">
+          <Link href="/gallery" className="text-sm  bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm story-link">
             Food Gallery
           </Link>
         </div>
