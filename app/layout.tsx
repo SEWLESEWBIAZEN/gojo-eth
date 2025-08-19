@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Providers from "@/contexts/providers";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 
 const inter = Inter({
@@ -71,6 +72,7 @@ export default function RootLayout({
       <body className="bg-slate-100">
          <Providers>
           {children}
+          <ReactQueryDevtools initialIsOpen={true} />
          </Providers>
         <Toaster position="top-right" richColors />
       </body>

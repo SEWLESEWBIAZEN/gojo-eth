@@ -30,15 +30,21 @@ export function useDishesAndCategories() {
   const dishesQuery = useQuery({
     queryKey: ["dishes"],
     queryFn: fetchDishes,
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60 * 12,   // 12 hours, daily menu doesn’t change often
+    gcTime: 1000 * 60 * 60 * 24,      // 1 day, keeps cache but frees memory after that
+    refetchOnWindowFocus: false,      // save network
+    refetchOnReconnect: false,        // save network
+    refetchOnMount: true            // use cached data when possible
   });
 
   const categoriesQuery = useQuery({
     queryKey: ["dishCategories"],
     queryFn: fetchCategories,
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60 * 12,   // 12 hours, daily menu doesn’t change often
+    gcTime: 1000 * 60 * 60 * 24,      // 1 day, keeps cache but frees memory after that
+    refetchOnWindowFocus: false,      // save network
+    refetchOnReconnect: false,        // save network
+    refetchOnMount: true            // use cached data when possible
   });
 
   return {

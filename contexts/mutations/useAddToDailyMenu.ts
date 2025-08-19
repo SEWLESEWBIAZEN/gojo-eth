@@ -32,10 +32,8 @@ export function useAddToDailyMenu(selectedDate: Date = new Date()) {
   return useMutation({
     mutationFn: addToDailyMenu,
     onSuccess: () => {
-      toast.success("Dish added to daily menu!");
-      // Invalidate the dishes list if needed
-      queryClient.invalidateQueries({ queryKey: ["dishes"] });
-      // Invalidate only the daily menu for the selected date
+      toast.success("Dish added to daily menu!");    
+      queryClient.invalidateQueries({ queryKey: ["dishes"] });     
       queryClient.invalidateQueries({ queryKey: ["dailyMenu", formattedDate] });
     },
     onError: (err: any) => {

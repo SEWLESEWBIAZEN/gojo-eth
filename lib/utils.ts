@@ -114,6 +114,7 @@ export interface Video {
 export interface HeaderProps {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  user: any;
 }
 
 export interface DailyMenuDish {

@@ -4,9 +4,10 @@ import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import LogoutButton from '../LogoutButton';
+import LogoutButton from '../Logout';
 
-const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
+const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen ,user}) => {
+ 
   return (
     <header
       className="
@@ -55,7 +56,10 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
           >
             Profile
           </Link>
-          <div>            
+          <div>
+            <span>
+              {user?.email}
+              </span>
             <LogoutButton />
           </div>
         </nav>

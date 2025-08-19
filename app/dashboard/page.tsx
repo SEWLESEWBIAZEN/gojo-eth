@@ -17,6 +17,7 @@ export default function DashboardPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
 
   // Close mobile menu on ESC
   useEffect(() => {
@@ -41,18 +42,19 @@ export default function DashboardPage() {
         return;
       }
 
+      setUser(user);
+
       const { data: profile, error } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", user.id)
-        .single();
+        .single();      
 
       if (error || profile?.role !== "admin") {
         router.push("/not-authorized");
       } else {
         setIsAdmin(true);
       }
-
       setLoading(false);
     }
 
@@ -78,7 +80,7 @@ export default function DashboardPage() {
         Skip to content
       </a>
 
-      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} user={user} />
 
       <div className="relative flex flex-1 overflow-hidden">
         <Sidebar open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />

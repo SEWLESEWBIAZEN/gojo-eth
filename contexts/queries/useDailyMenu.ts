@@ -35,10 +35,10 @@ export function useDailyMenu(selectedDate: Date) {
   return useQuery({
     queryKey: ["dailyMenu", formattedDate],
     queryFn: () => fetchDailyMenu(selectedDate),
-    staleTime: 1000 * 60 * 5,  // data stays fresh for 5 minutes
-    gcTime: 1000 * 60 * 10, // cached for 10 minutes
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
+    staleTime: 1000 * 60 * 60 * 12,   // 12 hours, daily menu doesn’t change often
+    gcTime: 1000 * 60 * 60 * 24,      // 1 day, keeps cache but frees memory after that
+    refetchOnWindowFocus: false,      // save network
+    refetchOnReconnect: false,        // save network
+    refetchOnMount: true            // use cached data when possible
   });
 }
