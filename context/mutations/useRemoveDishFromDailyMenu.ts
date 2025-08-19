@@ -20,6 +20,7 @@ export function useRemoveDishFromDailyMenu(selectedDate: Date) {
       queryClient.invalidateQueries({
         queryKey: ["dailyMenu", format(selectedDate, "yyyy-MM-dd")],
       });
+      queryClient.invalidateQueries({ queryKey: ['dishes'] })
     },
     onError: (error: any) => {
       toast.error(error.message || "Error removing dish.");

@@ -15,7 +15,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import AddDishCategory from './AddDishCategory'
 import { useAddMenu } from '@/context/mutations/useAddMenu'
 
-
 interface AddNewMenuProps {
   categories: any[]
 }
