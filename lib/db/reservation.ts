@@ -41,7 +41,7 @@ export async function reserveTable(reservation: Reservation): Promise<FormatResp
     const dateTime = new Date(combined);
     // Check if in the past
     const isPast = dateTime.getTime() < new Date().getTime();
-    console.log(combined)
+ 
     if (isPast) {
         return { message: "Reservation date cannot be in the past.", isError: true, status: 400 };
     }

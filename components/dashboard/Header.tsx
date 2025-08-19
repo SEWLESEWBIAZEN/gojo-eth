@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
 
           {/* Dashboard Title */}
           <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
-            Gojo Dashboard
+            Dashboard
           </h1>
         </div>
 

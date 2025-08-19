@@ -47,7 +47,7 @@ export async function POST(request: Request) : Promise<NextResponse<FormatRespon
       const imagePaths = allFiles.map((file) => getPublicImagePath(file?.filepath));
         
       const dishData = {
-        category_id:"c83e566c-0a88-429e-85c6-1a5e33f2092b",//hard-coded category id
+        category_id:fields?.category?.[0] ?? "",
         name: fields?.name?.[0] ?? "",
         description: fields?.description?.[0] ?? "",
         price: parseFloat(fields?.price?.[0]??"0.000") || 0,

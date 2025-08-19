@@ -38,7 +38,7 @@ export function truncateText(text: string | undefined, maxLength: number) {
 export interface Dish {
   id: string;
   name: string;
-  description?: string;  
+  description?: string;
   price: number;
   spicy: boolean;
   vegan: boolean;
@@ -46,19 +46,20 @@ export interface Dish {
   rating: number;
   images: string[];
   category_id: string;
+  todays?: boolean;
 
 }
 export interface DishToBeUpdated {
   id: string;
   name?: string;
-  description?: string;  
+  description?: string;
   price?: number;
   spicy?: boolean;
   vegan?: boolean;
   featured?: boolean;
-  rating?: number;  
+  rating?: number;
   images?: string[];
-  category_id?:string;
+  category_id?: string;
 }
 
 export interface NewDish {
@@ -79,23 +80,23 @@ export interface DishCategory {
   description?: string;
 }
 
-export interface DailyMenu{
-  id?:string;
-  date: Date;  
+export interface DailyMenu {
+  id?: string;
+  date: Date;
 }
 
-export interface Reservation{
+export interface Reservation {
   id?: string;
   email: string;
   full_name: string;
   reservation_date: Date;
   reservation_time: string;
   partySize?: number;
-  phone_number:string;
+  phone_number: string;
 }
 
-export interface ReservationCancellation{
- email: string;
+export interface ReservationCancellation {
+  email: string;
 }
 
 export interface Image {
@@ -113,4 +114,17 @@ export interface Video {
 export interface HeaderProps {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface DailyMenuDish {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  featured: boolean;
+  rating: number;
+  category: string;
+  spicy: boolean;
+  vegan: boolean;
+  images: string[];
 }

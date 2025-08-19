@@ -1,42 +1,50 @@
 "use client";
-import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { PlusCircle } from "lucide-react";
 import { Dish } from "@/lib/utils";
 import DishCard from "./DishCard";
 import { useEffect, useState } from "react";
 import MenuLoading from "../menu/MenuLoading";
-
-
+import AddNewMenu from "./AddNewMenu";
+import axios from "axios";
 
 export default function FullMenu() {
     const [searchTerm, setSearchTerm] = useState("");
     const [dishes, setDishes] = useState<Dish[]>([]);
+    const [dishCategories, setDishCategories] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [refetch, setRefetch] = useState(false);
+
     useEffect(() => {
-        // Fetch dishes from an API or other source
         const fetchDishes = async () => {
-            try{
-                setIsLoading(true);
-                const response = await fetch("/api/dish/getAll");
-                const data = await response.json();
-                setDishes(data?.data ?? []);
-            } catch (error) {
-                console.error("Error fetching dishes:", error);
+            setIsLoading(true);
+            try {
+                const [dishResult, categoryResult] = await Promise.allSettled([
+                    axios.get("/api/dish/getAll"),
+                    axios.get("/api/dishCategory/getAll"),
+                ]);
+
+                if (dishResult.status === "fulfilled") {
+                    setDishes(dishResult.value.data?.data ?? []);
+                } else {
+                    console.error("Failed to fetch dishes:", dishResult.reason);
+                }
+
+                if (categoryResult.status === "fulfilled") {
+                    setDishCategories(categoryResult.value.data?.data ?? []);
+                } else {
+                    console.error("Failed to fetch categories:", categoryResult.reason);
+                }
+            } catch (err) {
+                console.error("Unexpected error fetching data:", err);
             } finally {
                 setIsLoading(false);
             }
         };
+
         fetchDishes();
-    }, []);
+    }, [refetch]);
 
-    const removeDish = (id: string) => {
-        setDishes((prevDishes) => prevDishes.filter((dish) => dish.id !== id));
-    };
-
-    const addToDailyMenu = (dish: Dish) => {
-        // Implement adding to daily menu logic
-    };
+  
 
     return (
         <>
@@ -44,14 +52,12 @@ export default function FullMenu() {
                 <Input placeholder="Search dishes..."
                     className="max-w-sm flex-1 focus-visible:border-indigo-500 focus-visible:ring-indigo-500 focus-visible:ring-[3px]"
                     value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add New Dish
-                </Button>
+                <AddNewMenu setRefetch={setRefetch} categories={dishCategories} />
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {dishes?.filter((dish) => dish.name.toLowerCase().includes(searchTerm.toLowerCase())).map((dish) => (
-                    <DishCard key={dish.id} dish={dish} removeDish={removeDish} addToDailyMenu={addToDailyMenu} />
+                    <DishCard key={dish.id} dish={dish}  setRefetch={setRefetch} />
                 ))}
             </div>
             {(dishes?.filter((dish) => dish.name.toLowerCase().includes(searchTerm.toLowerCase()))?.length === 0 && !isLoading) && (
@@ -61,7 +67,7 @@ export default function FullMenu() {
             )}
             {isLoading && (
                 <div className="col-span-3 text-center text-gray-500">
-                    <MenuLoading/>
+                    <MenuLoading />
                 </div>
             )}
         </>

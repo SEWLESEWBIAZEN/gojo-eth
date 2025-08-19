@@ -1,5 +1,5 @@
 import supabase from '../supabase';
-import { DishToBeUpdated, formatResponse, NewDish } from '../utils';
+import { DishToBeUpdated, NewDish } from '../utils';
 export interface DishInput {
   name: string;
   description?: string;
@@ -135,33 +135,92 @@ export async function uploadImageToDish(dishImages?: string[], dishId?: string) 
     status: 200,
   };
 }
-export async function getAllDishes() {
+
+
+
+export async function getAllDishesWithTodayFlag(date: Date = new Date()) {
   try {
-    const { data, error } = await supabase.from('dishes').select('*');
-    if (error) {
+    // 1. Fetch all dishes
+    const { data: dishes, error: dishesError } = await supabase
+      .from("dishes")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (dishesError) {
       return {
         data: null,
-        message: error?.code === '' ? "Connection Lost, check your connection and try again" : error.message || 'Failed to fetch dishes',
+        message: dishesError.message || "Failed to fetch dishes",
         isError: true,
         status: 500,
       };
     }
 
+    // 2. Fetch today's daily_menu entry
+    const { data: dailyMenus, error: dailyMenuError } = await supabase
+      .from("daily_menu")
+      .select("id")
+      .eq("menu_date", date.toISOString().split("T")[0]); // assuming date stored as YYYY-MM-DD
+
+    if (dailyMenuError) {
+      return {
+        data: null,
+        message: dailyMenuError.message || "Failed to fetch daily menus",
+        isError: true,
+        status: 500,
+      };
+    }
+
+    const dailyMenuIds = dailyMenus?.map((dm: any) => dm.id) ?? [];
+    if (dailyMenuIds.length === 0) {
+      // No daily menu for today, return dishes with todays: false
+      return {
+        data: dishes.map((dish: any) => ({ ...dish, todays: false })),
+        message: "Dishes fetched successfully",
+        isError: false,
+        status: 200,
+      };
+    }
+
+    // 3. Fetch daily_menu_dishes for today
+    const { data: dailyMenuDishes, error: dailyMenuDishesError } = await supabase
+      .from("daily_menu_dishes")
+      .select("dish_id")
+      .in("daily_menu_id", dailyMenuIds);
+
+    if (dailyMenuDishesError) {
+      return {
+        data: null,
+        message: dailyMenuDishesError.message || "Failed to fetch daily menu dishes",
+        isError: true,
+        status: 500,
+      };
+    }
+
+    const todayDishIds = dailyMenuDishes?.map((d: any) => d.dish_id) ?? [];
+
+    // 4. Add `todays` flag
+    const dishesWithFlag = dishes.map((dish: any) => ({
+      ...dish,
+      todays: todayDishIds.includes(dish.id),
+    }));
+
     return {
-      data,
-      message: 'Dishes fetched successfully',
+      data: dishesWithFlag,
+      message: "Dishes fetched successfully",
       isError: false,
       status: 200,
     };
-  } catch (err) {
-    console.log(err)
+  } catch (err: any) {
     return {
-
-    }
+      data: null,
+      message: err?.message || "Unexpected error",
+      isError: true,
+      status: 500,
+    };
   }
-
-
 }
+
+
 export async function getDishById(id: string) {
   const { data, error } = await supabase
     .from("dishes")

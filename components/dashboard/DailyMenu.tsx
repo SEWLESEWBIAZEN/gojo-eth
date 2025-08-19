@@ -1,58 +1,191 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { format } from "date-fns";
+import { toast } from "sonner";
+import { CalendarIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/Button";
 import { Calendar } from "@/components/ui/Calendar";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/Popover";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
-import { Dish } from "@/lib/utils";
-import { useState } from "react";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/Popover";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+  CardDescription,
+} from "@/components/ui/Card";
+import MenuLoading from "../menu/MenuLoading";
+import { DailyMenuDish } from "@/lib/utils";
 
+export default function DailyMenu() {
+  const [dailyMenu, setDailyMenu] = useState<DailyMenuDish[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [removing, setRemoving] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-interface DailyMenuProps {
-  dailyMenu: Dish[];
-  selectedDate: Date | undefined;
-  setSelectedDate: (date: Date | undefined) => void;
-}
+  // Fetch daily menu
+  useEffect(() => {
+    const fetchDailyMenu = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          `/api/dailyMenu/getDailyMenu?date=${format(
+            selectedDate,
+            "yyyy-MM-dd"
+          )}`
+        );
+        const { isError, data, message } = response.data;
 
-export default function DailyMenu({ dailyMenu, selectedDate, setSelectedDate }: DailyMenuProps) {
-   
+        if (isError) {
+          toast.error(message || "Error fetching daily menu.");
+          setDailyMenu([]);
+        } else {
+          setDailyMenu(data);
+        }
+      } catch (error: any) {
+        toast.error(
+          error?.response?.data?.message || "Error fetching daily menu."
+        );
+        setDailyMenu([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDailyMenu();
+  }, [selectedDate]);
+
+  // Remove dish from daily menu
+  async function handleRemoveFromDailyMenu(
+    e: React.FormEvent,
+    id: string
+  ) {
+    e.preventDefault();
+    setRemoving(id);
+    try {
+      const response = await axios.put(
+        `/api/dailyMenu/removeDishFromMenu/${id}`,
+        {}
+      );
+      const { isError, message } = response.data;
+
+      if (isError) {
+        toast.error(message || "Error removing dish.");
+      } else {
+        toast.success(message || "Dish removed successfully.");
+        setDailyMenu((prev) => prev.filter((dish) => dish.id !== id));
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message || "Error removing dish."
+      );
+    } finally {
+      setRemoving(null);
+    }
+  }
+
   return (
     <>
       <div className="flex flex-wrap justify-between items-center my-4 gap-3">
         <h2 className="text-xl font-semibold text-indigo-700">
-          {selectedDate ? `Daily Menu - ${format(selectedDate, "PPP")}` : "Select a date"}
+          {`Daily Menu - ${format(selectedDate, "PPP")}`}
         </h2>
 
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="outline" className="flex items-center gap-2">
               <CalendarIcon className="h-4 w-4" />
-              {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+              {format(selectedDate, "PPP")}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="p-0">
-            <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} initialFocus />
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={(date) => date && setSelectedDate(date)}
+            />
           </PopoverContent>
         </Popover>
       </div>
 
-      {dailyMenu.length === 0 ? (
-        <p className="text-gray-500">No items added to this day's menu yet.</p>
+      {isLoading && <MenuLoading />}
+
+      {!isLoading && dailyMenu.length === 0 ? (
+        <p className="text-gray-500">
+          No items added to this day's menu yet.
+        </p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {dailyMenu.map((dish) => (
-            <Card key={dish.id} className="border border-indigo-200">
+            <Card
+              key={dish.id}
+              className="border border-indigo-200 shadow-sm hover:shadow-md transition-shadow bg-indigo-100"
+            >
               <CardHeader>
                 <CardTitle className="flex justify-between items-center text-indigo-700">
-                  {dish.name}
-                  <span className="text-indigo-600 font-semibold">${dish.price}</span>
+                  <span>{dish.name}</span>
+                  <span className="text-indigo-600 font-semibold">
+                    ${dish.price.toFixed(2)}
+                  </span>
                 </CardTitle>
+                <CardDescription className="text-md text-accent">
+                  {dish.category}
+                </CardDescription>
               </CardHeader>
+
               <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{dish.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                  {dish.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {dish.featured && (
+                    <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">
+                      ⭐ Special
+                    </span>
+                  )}
+                  {dish.spicy && (
+                    <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
+                      🌶️ Spicy
+                    </span>
+                  )}
+                  {dish.vegan && (
+                    <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
+                      🌱 Vegan
+                    </span>
+                  )}
+                </div>
               </CardContent>
+
+              <CardFooter className="flex justify-between flex-wrap items-end">
+                <div className="flex items-center gap-1 text-yellow-500 text-sm">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i}>{i < dish.rating ? "★" : "☆"}</span>
+                  ))}
+                </div>
+
+                <form
+                  onSubmit={(e) => handleRemoveFromDailyMenu(e, dish.id)}
+                >
+                  <Button
+                    type="submit"
+                    size="sm"
+                    aria-label="Remove dish from today's menu"
+                    disabled={removing === dish.id}
+                    className="bg-red-800 hover:bg-red-900 text-white text-sm px-4 py-2 
+                      disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {removing === dish.id ? "Removing..." : "Remove"}
+                  </Button>
+                </form>
+              </CardFooter>
             </Card>
           ))}
         </div>

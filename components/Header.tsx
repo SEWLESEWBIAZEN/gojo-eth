@@ -18,7 +18,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
             className="rounded-full"
             priority
           />
-          <span className="text-lg font-bold tracking-tight">Gojo</span>
+          <span className="text-lg font-bold tracking-tight"></span>
         </Link>
 
         {/* Desktop nav */}

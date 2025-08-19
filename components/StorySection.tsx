@@ -11,7 +11,7 @@ const StorySection = () => {
       const playPromise = videoRef.current.play()
       if (playPromise !== undefined) {
         playPromise.catch((error: Error) => {
-          console.log('Autoplay prevented:', error)
+      
         })
       }
     }

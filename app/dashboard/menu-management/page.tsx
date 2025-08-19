@@ -10,9 +10,9 @@ import Footer from "@/components/Footer";
 
 
 export default function MenuDashboard() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dailyMenu, setDailyMenu] = useState<Dish[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-900">
@@ -34,7 +34,7 @@ export default function MenuDashboard() {
             <Tabs defaultValue="fullMenu" className="w-full">
               <TabsList className="flex flex-wrap justify-start bg-transparent">
                 <TabsTrigger value="fullMenu">Full Menu</TabsTrigger>
-                <TabsTrigger value="dailyMenu">Today's Menu</TabsTrigger>
+                <TabsTrigger value="dailyMenu">Daily Menu</TabsTrigger>
               </TabsList>
 
               <TabsContent value="fullMenu">
@@ -42,13 +42,15 @@ export default function MenuDashboard() {
               </TabsContent>
 
               <TabsContent value="dailyMenu">
-                <DailyMenu dailyMenu={dailyMenu} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                <DailyMenu />
               </TabsContent>
             </Tabs>
           </div>
         </main>
       </div>
-      <Footer />
+      <footer className="lg:ml-64 mt-auto border-t border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur">
+        <Footer />
+      </footer>
     </div>
   );
 }

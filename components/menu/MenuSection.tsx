@@ -3,7 +3,7 @@ import MenuTabs from "./MenuTabs";
 import React, { useState } from 'react'
 import Reservation from "../Reservation";
 import { Input } from "../ui/Input";
-import Image from 'next/image'
+
 const MenuSection = () => {
 
     const [searchText, setSearchText] = useState("");

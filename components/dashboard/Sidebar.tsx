@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Users, ClipboardList, Image as ImageIcon, ChartBar, SettingsIcon } from 'lucide-react'
+import { Home, Users, ClipboardList, Image as ImageIcon, ChartBar, SettingsIcon, Utensils } from 'lucide-react'
 import React from 'react'
 
 type SidebarProps = {
@@ -14,7 +14,7 @@ const nav = [
     heading: 'Admin Panel',
     items: [
       { href: '/dashboard', label: 'Overview', icon: Home },
-      { href: '/dashboard/menu-management', label: 'Menu Management', icon: SettingsIcon },
+      { href: '/dashboard/menu-management', label: 'Menu Management', icon: Utensils },
       { href: '/dashboard/reservations', label: 'Table Reservations', icon: ClipboardList },
       { href: '/dashboard/inquiries', label: 'User Inquiries', icon: Users },
     ],
@@ -41,8 +41,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         `}
         aria-hidden={!open}
         onClick={onClose}
-      />
-
+      />      
       {/* Drawer / Static sidebar */}
       <aside
         className={`

@@ -25,6 +25,7 @@ interface FullMenuGroup {
 export default function MenuTabs({ searchText }: MenuTabsProps) {
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [fullMenu, setFullMenu] = useState<FullMenuGroup[]>([]);
+  const [dailyMenu, setDailyMenu] = useState<Dish[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Pagination
@@ -32,14 +33,12 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
   const [fullMenuPage, setFullMenuPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
 
-  // Helper to calculate slice indexes
   const getStartEndIndex = (page: number) => {
     const start = (page - 1) * ITEMS_PER_PAGE;
     const end = start + ITEMS_PER_PAGE;
     return { start, end };
   };
 
-  // Filter based on search text
   const hasMatches = (items: Dish[] = []) =>
     items.some(
       (item) =>
@@ -47,13 +46,15 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
         item?.description?.toLowerCase().includes(searchText.toLowerCase())
     );
 
-  // Fetch category by ID
   const getCategoryById = async (categoryId: string) => {
-    const response = await axios.get(`/api/dishCategory/getById/${categoryId}`);
-    return response?.data?.data ?? null;
+    try {
+      const response = await axios.get(`/api/dishCategory/getById/${categoryId}`);
+      return response?.data?.data ?? null;
+    } catch {
+      return null;
+    }
   };
 
-  // Group dishes by category with description
   const groupDishesByCategory = async (dishes: Dish[]) => {
     const grouped: Record<string, Dish[]> = dishes.reduce((acc, dish) => {
       if (!acc[dish.category_id]) acc[dish.category_id] = [];
@@ -76,19 +77,33 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
     return result;
   };
 
-  // Fetch dishes and full menu
+  // Fetch dishes and daily menu in parallel
   useEffect(() => {
     setLoading(true);
     (async () => {
       try {
-        const response = await axios.get("/api/dish/getAll");
-        const fetchedDishes = response?.data?.data ?? [];
-        setDishes(fetchedDishes);
+        const [dishesResult, dailyMenuResult] = await Promise.allSettled([
+          axios.get("/api/dish/getAll"),
+          axios.get("/api/dailyMenu/getDailyMenu")
+        ]);
 
-        const groupedMenu = await groupDishesByCategory(fetchedDishes);
-        setFullMenu(groupedMenu);
+        if (dishesResult.status === "fulfilled") {
+          const fetchedDishes = dishesResult.value?.data?.data ?? [];
+          setDishes(fetchedDishes);
+          const groupedMenu = await groupDishesByCategory(fetchedDishes);
+          setFullMenu(groupedMenu);
+        } else {
+          toast.error(dishesResult.reason?.message || "Failed to fetch dishes");
+        }
+
+        if (dailyMenuResult.status === "fulfilled") {
+          const fetchedDailyMenu = dailyMenuResult.value?.data?.data ?? [];
+          setDailyMenu(fetchedDailyMenu);
+        } else {
+          toast.error(dailyMenuResult.reason?.message || "Failed to fetch daily menu");
+        }
       } catch (error: any) {
-        toast.error(error?.message || "Failed to fetch dishes");
+        toast.error(error?.message || "Unexpected error occurred");
       } finally {
         setLoading(false);
       }
@@ -97,28 +112,27 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
 
   if (loading) return <MenuLoading />;
 
-  // Paginated daily menu
-  const filteredDishes = dishes.filter((dish) => hasMatches([dish]));
+  // Daily Menu Pagination
+  const filteredDaily = dailyMenu.filter((dish) => hasMatches([dish]));
   const { start: dailyStart, end: dailyEnd } = getStartEndIndex(dailyPage);
-  const paginatedDishes = filteredDishes.slice(dailyStart, dailyEnd);
+  const paginatedDaily = filteredDaily.slice(dailyStart, dailyEnd);
 
-  // Flatten full menu for global pagination
-  const flatFullMenu = fullMenu
-    .flatMap((group) =>
-      group.dishes
-        .filter((dish) => hasMatches([dish]))
-        .map((dish) => ({
-          ...dish,
-          categoryId: group.categoryId,
-          categoryName: group.categoryName,
-          categoryDescription: group.description
-        }))
-    );
+  // Full Menu Flatten & Pagination
+  const flatFullMenu = fullMenu.flatMap((group) =>
+    group.dishes
+      .filter((dish) => hasMatches([dish]))
+      .map((dish) => ({
+        ...dish,
+        categoryId: group.categoryId,
+        categoryName: group.categoryName,
+        categoryDescription: group.description
+      }))
+  );
 
   const { start: fullStart, end: fullEnd } = getStartEndIndex(fullMenuPage);
   const paginatedFullMenu = flatFullMenu.slice(fullStart, fullEnd);
 
-  // Regroup paginated dishes by category for display
+  // Regroup paginated full menu
   const groupedPaginatedFullMenu = Object.values(
     paginatedFullMenu.reduce((acc: Record<string, any>, dish) => {
       if (!acc[dish.categoryId]) {
@@ -149,27 +163,25 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
       <TabsContent value="daily" className="animate-enter py-10">
         <section className="space-y-8 p-6 bg-transparent rounded-xl">
           <ul className="flex flex-wrap gap-6 justify-between">
-            {paginatedDishes.map((item) => (
-              <DishCard key={item.id} dish={item} />
+            {paginatedDaily?.map((dish) => (
+              <DishCard key={dish.id} dish={dish} />
             ))}
           </ul>
-
-          {filteredDishes.length > ITEMS_PER_PAGE && (
+          {filteredDaily.length > ITEMS_PER_PAGE && (
             <div className="flex flex-col md:flex-row justify-center gap-4">
               <Button onClick={() => setDailyPage((p) => Math.max(1, p - 1))} disabled={dailyPage === 1}>
                 <ArrowLeft /> Show Previous
               </Button>
               <Button
-                onClick={() => setDailyPage((p) => (dailyEnd >= filteredDishes.length ? p : p + 1))}
-                disabled={dailyEnd >= filteredDishes.length}
+                onClick={() => setDailyPage((p) => (dailyEnd >= filteredDaily.length ? p : p + 1))}
+                disabled={dailyEnd >= filteredDaily.length}
               >
                 <ArrowRight /> Show Next
               </Button>
             </div>
           )}
         </section>
-
-        {!hasMatches(dishes) && <NotFound message="Cuisine" menu />}
+        {!filteredDaily.length && <NotFound message="Cuisine" menu />}
       </TabsContent>
 
       {/* Full Menu */}
@@ -184,14 +196,13 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
                 <p className="text-sm text-gray-500 mb-6 text-justify">{group.description}</p>
               )}
               <ul className="flex flex-wrap gap-6 justify-center">
-                {group.dishes.map((item: any) => (
-                  <DishCard key={item.id} dish={item} />
+                {group.dishes.map((dish: any) => (
+                  <DishCard key={dish.id} dish={dish} />
                 ))}
               </ul>
             </section>
           ))}
 
-          {/* Full menu pagination */}
           {flatFullMenu.length > ITEMS_PER_PAGE && (
             <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
               <Button onClick={() => setFullMenuPage((p) => Math.max(1, p - 1))} disabled={fullMenuPage === 1}>
