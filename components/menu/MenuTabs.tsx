@@ -217,7 +217,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
             </div>
           )}
 
-          {!flatFullMenu.length && <NotFound message="Cuisine" menu />}
+          {!flatFullMenu.length && <NotFound message="Cuisine" menu />} 
         </div>
       </TabsContent>
     </Tabs>

@@ -36,9 +36,17 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
           <Link href="/#visit" className="text-sm story-link">
             Visit
           </Link>
-          <Link href="/gallery" className="text-sm  bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm story-link">
+          <Link href="/gallery" className="text-sm   px-3 py-1 rounded-sm story-link ">
             Food Gallery
           </Link>
+          <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
+            className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary">
+            Order Now
+          </Link>
+
         </div>
 
         {/* Call button & mobile menu toggle */}
@@ -100,14 +108,22 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
             >
               Visit
             </Link>
-            <div>
+            <div className='flex flex-row items-center space-x-4'>
               <Link
                 href="/gallery"
                 className="text-sm inline-block bg-accent hover:bg-accent/60 px-3 py-1 rounded-sm transition-colors duration-200"
               >
                 Food Gallery
               </Link>
+             <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
+            className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary">
+            Order Now
+          </Link>
             </div>
+
 
           </div>
         </div>

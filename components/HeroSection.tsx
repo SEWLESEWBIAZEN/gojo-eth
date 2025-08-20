@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "./ui/Button";
-import { Utensils, ChevronLeft, ChevronRight } from "lucide-react";
+import { Utensils, ChevronLeft, ChevronRight, Instagram, Twitter, X, Facebook } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const images = [
   "/carousel/beyaynet-2.webp",
@@ -91,8 +92,17 @@ const HeroSection = () => {
           <Button variant="outline" size="lg" asChild>
             <a href="#visit">Plan Your Visit</a>
           </Button>
+          <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.doordash.com/store/gojo-ethiopian-restaurant-san-jose-25324615/23804756/?srsltid=AfmBOopARPE0AMakeIngWooakxEN9COzyfKwvPZaN19cta8VhFNarSgs"
+            className="border border-accent border-4 px-4 py-2 bg-primary border-t border-t-4 pt-2 border-t-primary rounded-xl text-white text-md">
+            Order Now
+          </Link>
         </div>
       </div>
+      
+
     </section>
   );
 };

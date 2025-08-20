@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import Providers from "@/contexts/providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import SocialLinks from "@/components/SocialLinks";
 
 
 const inter = Inter({
@@ -74,6 +75,7 @@ export default function RootLayout({
           {children}
           <ReactQueryDevtools initialIsOpen={true} />
          </Providers>
+          <SocialLinks />
         <Toaster position="top-right" richColors />
       </body>
     </html>
