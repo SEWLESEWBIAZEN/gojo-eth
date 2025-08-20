@@ -6,15 +6,10 @@ import { Utensils, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const images = [
-  "/carousel/location.webp",
-  "/carousel/beyaynet.avif",  
-  "/carousel/yetetebabese.webp",
-  "/carousel/tibsa-tibs.jpg",
   "/carousel/beyaynet-2.webp",
-  "/carousel/atint-tbs.jpg",
-  "/carousel/beyaynet-3.jpg",
-  "/carousel/wotoch.webp",
   "/carousel/gored-gored.webp",
+  "/carousel/yetetebabese.webp",
+  "/carousel/beyaynet.avif",
   "/carousel/beyaynet.jpeg",
   "/carousel/injera.webp",
 ];
