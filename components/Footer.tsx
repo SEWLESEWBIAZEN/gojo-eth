@@ -34,12 +34,12 @@ const Footer = () => {
           >
             Food Gallery
           </Link>
-          <Link 
+          {!isDashboard && <Link
             href="#home"
             className={`border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2  rounded-xl text-white text-md ${!isDashboard ? 'bg-primary border-t-primary' : 'bg-indigo-900 border-t-indigo-900'}`}
           >
             Order Now
-          </Link>
+          </Link>}
         </nav>
       </div>
 
