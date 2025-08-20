@@ -100,10 +100,11 @@ export interface Reservation {
   id?: string;
   email: string;
   full_name: string;
-  reservation_date: Date;
+  reservation_date: string;
   reservation_time: string;
   partySize?: number;
-  phone_number: string;
+  phone_number?: string;
+  status: "pending" | "active" | "cancelled" | "inactive";
 }
 
 export interface ReservationCancellation {
@@ -151,3 +152,4 @@ export interface DishFormData {
   vegan: boolean
   images: File[]
 }
+

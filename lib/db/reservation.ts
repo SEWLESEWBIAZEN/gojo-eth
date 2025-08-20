@@ -36,12 +36,12 @@ export async function reserveTable(reservation: Reservation): Promise<FormatResp
     const dateObj = new Date(reservation_date);
     if (isNaN(dateObj.getTime())) {
         return { message: "Invalid reservation date.", isError: true, status: 400 };
-    }   
+    }
     const combined = `${reservation_date}T${reservation_time}:00`;
     const dateTime = new Date(combined);
     // Check if in the past
     const isPast = dateTime.getTime() < new Date().getTime();
- 
+
     if (isPast) {
         return { message: "Reservation date cannot be in the past.", isError: true, status: 400 };
     }
@@ -90,7 +90,6 @@ export async function reserveTable(reservation: Reservation): Promise<FormatResp
         status: 201,
     };
 }
-
 export async function cancelReservation(email: string): Promise<FormatResponse> {
     if (!email?.trim()) {
         return {
@@ -152,4 +151,129 @@ export async function cancelReservation(email: string): Promise<FormatResponse> 
         status: 200,
     };
 }
+export async function getAllReservations(
+    page: number = 1,
+    limit: number = 10
+): Promise<{
+    data: { reservations: any[]; total: number };
+    message: string;
+    isError: boolean;
+    status: number;
+}> {
+    if (page < 1 || limit < 1) {
+        return {
+            data: { reservations: [], total: 0 },
+            message: "Invalid pagination parameters",
+            isError: true,
+            status: 400,
+        };
+    }
 
+    // Get total count
+    const { count, error: countError } = await supabase
+        .from("table_reservations")
+        .select("*", { count: "exact", head: true });
+
+    if (countError) {
+        return {
+            data: { reservations: [], total: 0 },
+            message: countError.message,
+            isError: true,
+            status: countError.code === "22P02" ? 400 : 500,
+        };
+    }
+
+    // Fetch paginated reservations
+    const { data: reservations, error } = await supabase
+        .from("table_reservations")
+        .select("*")
+        .order("reservation_date", { ascending: false })
+        .order("reservation_time", { ascending: false })
+        .range((page - 1) * limit, page * limit - 1);
+
+    if (error) {
+        return {
+            data: { reservations: [], total: count || 0 },
+            message: error.message,
+            isError: true,
+            status: error.code === "22P02" ? 400 : 500,
+        };
+    }
+
+    return {
+        data: { reservations: reservations || [], total: count || 0 },
+        message: reservations?.length
+            ? "Reservations fetched successfully"
+            : "No reservations found",
+        isError: false,
+        status: 200,
+    };
+}
+
+export async function getReservationById(id: string): Promise<FormatResponse> {
+    if (!id) {
+        return {
+            message: "Reservation ID is required.",
+            isError: true,
+            status: 400,
+        };
+    }
+
+    const { data, error } = await supabase
+        .from("table_reservations")
+        .select("*")
+        .eq("id", id);
+
+    if (error || !data) {
+        return {
+            message: "Failed to fetch reservation.",
+            isError: true,
+            status: 500,
+        };
+    }
+
+    return {
+        data,
+        message: data?.length === 0 ? "No reservation found." : "Reservation fetched successfully.",
+        isError: false,
+        status: 200,
+    };
+}
+export async function updateReservationStatus(id: string, status: string): Promise<FormatResponse> {
+    if (!id || !status) {
+        return {
+            message: "ID and status are required.",
+            isError: true,
+            status: 400,
+        };
+    }
+
+    const { data, error } = await supabase
+        .from("table_reservations")
+        .update({ status })
+        .eq("id", id)
+        .select();
+
+    if (data?.length === 0) {
+        return {
+            message: "No reservation found.",
+            isError: true,
+            status: 404,
+        };
+    }
+
+    if (error || !data) {
+        return {
+            message: "Failed to update reservation status.",
+            isError: true,
+            status: 500,
+        };
+    }
+
+    return {
+        data,
+        message: "Reservation status updated successfully.",
+        isError: false,
+        status: 200,
+    };
+}
