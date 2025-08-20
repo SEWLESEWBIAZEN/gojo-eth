@@ -1,6 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import {  useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import MenuSection from "@/components/menu/MenuSection";
 import StorySection from "@/components/StorySection";

@@ -1,8 +1,11 @@
 import { Facebook, Instagram } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const isDashboard = pathname.startsWith("/dashboard");
   return (
     <footer className="border-t py-8 mt-10 ">
       <div className="container px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-muted-foreground">
@@ -12,25 +15,29 @@ const Footer = () => {
         </p>
 
         {/* Navigation */}
-        <nav className="flex flex-wrap gap-6">
-          <Link href="/#menu" className="hover:text-primary transition-colors">
+        <nav className="flex flex-wrap gap-6 items-center">
+          <Link href="/" className={` transition-colors uppercase  ${!isDashboard ? 'text-primary hover:text-primary' : 'text-indigo-900  hover:text-indigo-800'}`}>
+            Home
+          </Link>
+          <Link href="/#menu" className={` transition-colors uppercase  ${!isDashboard ? 'text-primary hover:text-primary' : 'text-indigo-900  hover:text-indigo-800'}`}>
             Menu
           </Link>
-          <Link href="/#about" className="hover:text-primary transition-colors">
+          <Link href="/#about" className={` transition-colors uppercase  ${!isDashboard ? 'text-primary hover:text-primary' : 'text-indigo-900  hover:text-indigo-800'}`}>
             About
           </Link>
-          <Link href="/#visit" className="hover:text-primary transition-colors">
+          <Link href="/#visit" className={` transition-colors uppercase  ${!isDashboard ? 'text-primary hover:text-primary' : 'text-indigo-900  hover:text-indigo-800'}`}>
             Visit
           </Link>
           <Link
             href="/gallery"
-            className="text-sm inline-block bg-accent hover:bg-accent/60 px-3 py-1 rounded-md transition-colors duration-200"
+            className={`text-sm inline-block text-center px-3 py-1 transition-colors uppercase duration-200 ${!isDashboard ? 'text-primary hover:text-primary' : 'text-indigo-900  hover:text-indigo-800'}`}
           >
             Food Gallery
           </Link>
           <Link 
             href="#home"
-            className="border border-accent border-4 px-4 py-2 bg-primary border-t border-t-4 pt-2 border-t-primary rounded-xl text-white text-md">
+            className={`border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2  rounded-xl text-white text-md ${!isDashboard ? 'bg-primary border-t-primary' : 'bg-indigo-900 border-t-indigo-900'}`}
+          >
             Order Now
           </Link>
         </nav>
@@ -44,9 +51,9 @@ const Footer = () => {
             href="https://www.facebook.com/people/Gojo-Ethiopian-restaurant/61559731198758/"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+            className={`p-2 rounded-full ${!isDashboard ? 'bg-primary/10 hover:bg-primary/20' : 'bg-indigo-900/10 hover:bg-indigo-900/20'} transition-colors`}
           >
-            <Facebook className="w-5 h-5 text-primary" />
+            <Facebook className={`w-5 h-5 ${!isDashboard ? 'text-primary' : 'text-indigo-900'}`} />
           </Link>
 
           <Link
