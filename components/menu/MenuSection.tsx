@@ -6,6 +6,8 @@ import Reservation from "../Reservation";
 import { Input } from "../ui/Input";
 import Link from "next/link";
 import { BaggageClaim } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Button } from "../ui/Button";
 
 const MenuSection = () => {
     const [searchText, setSearchText] = useState("");
@@ -65,16 +67,47 @@ const MenuSection = () => {
                 </div>
 
                 {/* Order Now Button */}
-                <div className="flex justify-center">
-                    <Link
-                        href="https://www.doordash.com/store/gojo-ethiopian-restaurant-san-jose-25324615/23804756/?srsltid=AfmBOopARPE0AMakeIngWooakxEN9COzyfKwvPZaN19cta8VhFNarSgs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex px-6 py-3 text-white font-semibold text-lg rounded-xl bg-primary shadow-lg hover:scale-105 transform transition-all duration-200"
-                    >
-                        <BaggageClaim className="mr-2 h-6 w-6"  /> <span>Order Now</span>
-                    </Link>
-                </div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild className="mx-auto">
+                        <Button
+                            className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary bg-transparent rounded-none hover:bg-transparent/20"
+                        >
+                            Order Now
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-48">
+                        <DropdownMenuItem asChild className='hover:bg-none hover:border-none '>
+                            <Link
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
+                                className='story-link hover:bg-none hover:border-none cursor-pointer py-0 mt-4'
+                            >
+                                UberEats
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className='hover:bg-none hover:border-none '>
+                            <Link
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://www.doordash.com/store/gojo-ethiopian-restaurant-san-jose-25324615/23804756/?srsltid=AfmBOopARPE0AMakeIngWooakxEN9COzyfKwvPZaN19cta8VhFNarSgs"
+                                className='story-link hover:bg-none hover:border-none cursor-pointer py-0 mt-4'
+                            >
+                                DoorDash
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className='hover:bg-none hover:border-none '>
+                            <Link
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://www.grubhub.com/restaurant/gojo-ethiopian-restaurant-1261-w-san-carlos-st-san-jose/551367"
+                                className='story-link hover:bg-none hover:border-none cursor-pointer py-0 mt-4 flex flex-1'
+                            >
+                                Grubhub
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </section>
     );

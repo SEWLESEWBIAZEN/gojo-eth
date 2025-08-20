@@ -28,10 +28,8 @@ const Footer = () => {
           >
             Food Gallery
           </Link>
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.grubhub.com/restaurant/gojo-ethiopian-restaurant-1261-w-san-carlos-st-san-jose/551367"
+          <Link 
+            href="#home"
             className="border border-accent border-4 px-4 py-2 bg-primary border-t border-t-4 pt-2 border-t-primary rounded-xl text-white text-md">
             Order Now
           </Link>

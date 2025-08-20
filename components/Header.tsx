@@ -4,6 +4,7 @@ import { LayoutDashboard, MenuIcon, Phone, X } from 'lucide-react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { HeaderProps } from '@/lib/utils';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-40 bg-background/60 backdrop-blur-md ">
@@ -39,15 +40,48 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
           <Link href="/gallery" className="text-sm   px-3 py-1 rounded-sm story-link ">
             Food Gallery
           </Link>
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
-            className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary">
-            Order Now
-          </Link>
-
-        </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary bg-transparent rounded-none hover:bg-transparent/20"
+              >
+                Order Now
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-48">
+              <DropdownMenuItem asChild className='hover:bg-none hover:border-none '>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
+                  className='story-link hover:bg-none hover:border-none cursor-pointer py-0 mt-4'
+                >
+                  UberEats
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className='hover:bg-none hover:border-none '>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.doordash.com/store/gojo-ethiopian-restaurant-san-jose-25324615/23804756/?srsltid=AfmBOopARPE0AMakeIngWooakxEN9COzyfKwvPZaN19cta8VhFNarSgs"
+                  className='story-link hover:bg-none hover:border-none cursor-pointer py-0 mt-4'
+                >
+                  DoorDash
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className='hover:bg-none hover:border-none '>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.grubhub.com/restaurant/gojo-ethiopian-restaurant-1261-w-san-carlos-st-san-jose/551367"
+                  className='story-link hover:bg-none hover:border-none cursor-pointer py-0 mt-4 flex flex-1'
+                >
+                  Grubhub
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+               </div>
 
         {/* Call button & mobile menu toggle */}
         <div className="flex items-center gap-3">
@@ -115,13 +149,13 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) => {
               >
                 Food Gallery
               </Link>
-             <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
-            className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary">
-            Order Now
-          </Link>
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.ubereats.com/store/gojo-ethiopian-restaurant/gFvsuKfjR_-U0-a0FeCQCQ?srsltid=AfmBOooCpzAv-cN_gINJ_WIJacXmEaTdnOx06xA1goeDwkL0N6m1zUPd"
+                className="text-sm story-link border border-accent border-4 px-4 py-2  border-t border-t-4 pt-2 border-t-primary">
+                Order Now
+              </Link>
             </div>
 
 
