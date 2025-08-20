@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
 
       {/* Social Links */}
-      <div className="mt-8 text-center">
+      <div className="mt-8 text-center flex-1 border-t-2 pt-4">
         <p className="mb-3 font-medium">Find us on</p>
         <div className="flex justify-center gap-4">
           <Link

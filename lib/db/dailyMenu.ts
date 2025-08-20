@@ -299,7 +299,7 @@ export async function addDishToMenu(
   dish_id: string,
   special_of_the_day: boolean,
   batch_price: number
-): Promise<FormatResponse> {
+): Promise<FormatResponse> {  
   try {
     const today = new Date().toISOString().split("T")[0];
 

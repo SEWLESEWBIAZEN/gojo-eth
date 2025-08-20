@@ -3,13 +3,25 @@ import axios from "axios";
 import { format } from "date-fns";
 import { toast } from "sonner";
 
+interface AddToDailyMenuParams {
+  dishId: string;
+  batchPrice: number;
+  specialOfTheDay: boolean;
+}
+
+interface ApiResponse {
+  isError?: boolean;
+  message?: string;
+  [key: string]: any;
+}
+
 // API call to add a dish to the daily menu
-async function addToDailyMenu(dishId: string) {
+async function addToDailyMenu({dishId, batchPrice, specialOfTheDay}: AddToDailyMenuParams):Promise<ApiResponse> {
   try {
     const { data } = await axios.post("/api/dailyMenu/addDishToMenu", {
       dish_id: dishId,
-      special_of_the_day: false,
-      batch_price: 4.02,
+      special_of_the_day: specialOfTheDay,
+      batch_price: batchPrice,
     });
 
     if (data.isError) {

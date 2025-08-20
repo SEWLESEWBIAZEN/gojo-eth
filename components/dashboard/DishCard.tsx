@@ -10,6 +10,7 @@ import {  useDeleteDish } from '@/contexts/mutations/useDishDelete'
 import EditDish from './EditDIsh'
 import { useUploadDishImages } from '@/contexts/mutations/useUploadDishImages'
 import { useAddToDailyMenu } from '@/contexts/mutations/useAddToDailyMenu'
+import AddToDailyMenu from '../AddToDailyMenu'
 
 interface DishCardProps {
   dish: Dish
@@ -145,16 +146,7 @@ export default function DishCard({ dish, setRefetch }: DishCardProps) {
         </Dialog>
 
         {/* Add to Daily Menu */}
-        {!dish.todays && (
-          <Button
-            size="sm"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white"
-            onClick={() => addMutation.mutate(dish.id)}
-            disabled={addMutation.status === 'pending'}
-          >
-            {addMutation.status === 'pending' ? 'Adding...' : "Add to Today's"}
-          </Button>
-        )}
+       <AddToDailyMenu dish={dish} addMutation={addMutation} />
       </CardFooter>
     </Card>
   )

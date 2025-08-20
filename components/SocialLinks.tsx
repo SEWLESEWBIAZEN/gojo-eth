@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Facebook, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const socialLinks = [
   {
@@ -23,8 +24,10 @@ const socialLinks = [
 ];
 
 export default function SocialLinks() {
+  const pathname = usePathname();
+const dashboard = pathname.startsWith("/dashboard");
   return (
-    <div className="fixed left-4 top-1/3 z-50 flex flex-col gap-4">
+    <div className={`${dashboard?"hidden ":""}fixed left-4 top-1/3 z-50 flex flex-col gap-4`}>
       {socialLinks.map((link, i) => (
         <motion.div
           key={i}
