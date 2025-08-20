@@ -10,12 +10,12 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  useEffect(() => {
-    const menuSection = document.getElementById("menu");
-    if (menuSection) {
-      menuSection.scrollIntoView({ behavior: "auto" });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const menuSection = document.getElementById("menu");
+  //   if (menuSection) {
+  //     menuSection.scrollIntoView({ behavior: "auto" });
+  //   }
+  // }, []);
 
   return (
     <div className="font-sans flex flex-col min-h-screen">
