@@ -46,10 +46,10 @@ const DishCard: React.FC<DishProps> = ({ dish }) => {
 
                         {/* featured? */}
                         {dish?.featured && (
-                            <Badge className="badge-featured bg-transparent absolute top-0 right-0 ">
-                                <Star className='text-accent shadow-glow' />
+                            <Badge className="px-2 py-1 text-xs mb-1 font-medium bg-yellow-100 text-primary-700 rounded-full absolute top-0 right-0 ">
+                                 ⭐ Special
                             </Badge>
-                        )}
+                        )}                        
                     </div>
                 </CollapsibleTrigger>
                 {/* Collapsible Content */}
