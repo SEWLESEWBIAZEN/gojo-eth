@@ -185,54 +185,58 @@ export default function ReservationsPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {reservations.map((res) => (
-                      <TableRow key={res.id}>
-                        <TableCell className="font-medium">{res.full_name}</TableCell>
-                        <TableCell className="text-sm">
-                          {res.email}
-                          {res.phone_number && <span> | {res.phone_number}</span>}
-                        </TableCell>
-                        <TableCell>{res.reservation_date}</TableCell>
-                        <TableCell>{res.reservation_time}</TableCell>
-                        <TableCell>{res.partySize}</TableCell>
-                        <TableCell
-                          className={`font-medium ${res.status === "active"
-                            ? "text-green-600 bg-green-100 uppercase"
-                            : res.status === "cancelled"
-                              ? "text-red-600 bg-red-100 uppercase"
-                              : "text-yellow-600 bg-yellow-100 uppercase"
-                            }`}
-                        >
-                          {res.status}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <button className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-800 transition">
-                                <MoreVertical />
-                              </button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="rounded-lg shadow-lg bg-white dark:bg-neutral-800">
-                              <DropdownMenuItem onClick={() => setEditingReservation(res)}>
-                                <Pencil size={16} className="mr-2" /> Edit
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => deleteReservation(res.id)}>
-                                <Trash2 size={16} className="mr-2" /> Delete
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => changeStatus("active", res.id)}>
-                                <CheckCircle size={16} className="mr-2" /> Active
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => changeStatus("cancelled", res.id)}>
-                                <XCircle size={16} className="mr-2" /> Cancelled
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => changeStatus("pending", res.id)}>
-                                <Dot className="-mr-4" /> <Dot className="-mr-4" /> <Dot className="-mr-2" /> Pending
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {reservations?.
+                      filter((res) =>
+                        res.full_name.toLowerCase()
+                          .includes(searchText.toLowerCase()))
+                      .map((res) => (
+                        <TableRow key={res.id}>
+                          <TableCell className="font-medium">{res.full_name}</TableCell>
+                          <TableCell className="text-sm">
+                            {res.email}
+                            {res.phone_number && <span> | {res.phone_number}</span>}
+                          </TableCell>
+                          <TableCell>{res.reservation_date}</TableCell>
+                          <TableCell>{res.reservation_time}</TableCell>
+                          <TableCell>{res.partySize}</TableCell>
+                          <TableCell
+                            className={`font-medium ${res.status === "active"
+                              ? "text-green-600 bg-green-100 uppercase"
+                              : res.status === "cancelled"
+                                ? "text-red-600 bg-red-100 uppercase"
+                                : "text-yellow-600 bg-yellow-100 uppercase"
+                              }`}
+                          >
+                            {res.status}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <button className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-800 transition">
+                                  <MoreVertical />
+                                </button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="rounded-lg shadow-lg bg-white dark:bg-neutral-800">
+                                <DropdownMenuItem onClick={() => setEditingReservation(res)}>
+                                  <Pencil size={16} className="mr-2" /> Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => deleteReservation(res.id)}>
+                                  <Trash2 size={16} className="mr-2" /> Delete
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeStatus("active", res.id)}>
+                                  <CheckCircle size={16} className="mr-2" /> Active
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeStatus("cancelled", res.id)}>
+                                  <XCircle size={16} className="mr-2" /> Cancelled
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeStatus("pending", res.id)}>
+                                  <Dot className="-mr-4" /> <Dot className="-mr-4" /> <Dot className="-mr-2" /> Pending
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
 
