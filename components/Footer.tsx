@@ -12,7 +12,7 @@ const Footer = () => {
         </p>
 
         {/* Navigation */}
-        <nav className="flex gap-6">
+        <nav className="flex flex-wrap gap-6">
           <Link href="/#menu" className="hover:text-primary transition-colors">
             Menu
           </Link>
