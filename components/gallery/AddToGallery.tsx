@@ -28,9 +28,14 @@ const AddToGallery = () => {
 
     async function handleAddToGallery(e: React.FormEvent) {
         e.preventDefault()
-        if (!title || !type || !file) {
-            toast.error('Please fill in all fields and select a file')
-            return
+        if (!title || !type || !file ) {
+            toast.error('Please fill in all fields!')
+            return;
+        }
+
+        if(file?.type?.split("/")[0] !== type) {            
+            toast.error(`Please select a valid ${type} file!`)
+            return;
         }
 
         setIsLoading(true)
