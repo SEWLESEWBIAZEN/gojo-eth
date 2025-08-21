@@ -73,7 +73,7 @@ export default function RootLayout({
       <body className="bg-slate-100">
          <Providers>
           {children}
-          <ReactQueryDevtools initialIsOpen={true} />
+          {/* <ReactQueryDevtools initialIsOpen={true} /> */}
          </Providers>
           <SocialLinks />
         <Toaster position="top-right" richColors />

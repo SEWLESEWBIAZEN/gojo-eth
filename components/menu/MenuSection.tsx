@@ -14,7 +14,7 @@ const MenuSection = () => {
 
     return (
         <section id="menu" className="py-12 px-4 border-t relative">
-            <div className="container mx-auto flex flex-col gap-10 md:gap-12">
+            <div className="sm:container mx-auto flex flex-col gap-10 md:gap-12">
                 {/* Header + Search */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
                     {/* Title & Description */}

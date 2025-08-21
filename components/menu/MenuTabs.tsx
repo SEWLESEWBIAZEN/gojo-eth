@@ -151,10 +151,10 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
   return (
     <Tabs defaultValue="daily" className="w-full relative md:px-[100px] pb-4">
       <TabsList className="mb-6 flex flex-wrap justify-center gap-2 rounded-none pt-10">
-        <TabsTrigger value="daily" className="px-6 py-4 text-sm md:text-base">
+        <TabsTrigger value="daily" className="md:px-6 md:py-4 text-sm md:text-base ">
           Today's Menu
         </TabsTrigger>
-        <TabsTrigger value="full" className="px-6 py-4 text-sm md:text-base">
+        <TabsTrigger value="full" className="md:px-6 md:py-4 text-sm md:text-base">
           Full Menu
         </TabsTrigger>
       </TabsList>
@@ -189,7 +189,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
         <div className="space-y-8 p-6 rounded-xl bg-transparent shadow-sm">
           {groupedPaginatedFullMenu.map((group) => (
             <section key={group.categoryId} className="bg-transparent rounded-xl">
-              <h3 className="text-lg md:text-xl xl:text-2xl font-semibold xl:font-bold mb-2 text-center text-white inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
+              <h3 className="text-sm sm:text-md md:text-xl xl:text-2xl font-semibold xl:font-bold mb-2 text-center text-white inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
                 {group.categoryName}
               </h3>
               {group.description && (

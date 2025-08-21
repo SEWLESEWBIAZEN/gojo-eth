@@ -69,7 +69,7 @@ const StorySection = () => {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center rounded-xl border-2 border-accent px-4 w-[140px] sm:w-[160px] md:w-[180px] text-center bg-white shadow-sm hover:shadow-lg transition-shadow"
+                className="flex flex-col items-center rounded-xl border-2 border-accent px-4 w-[240px] sm:w-[280px] md:w-[380px] text-center bg-white shadow-sm hover:shadow-lg transition-shadow"
               >
                 <div className="mb-3">
                   <span className="text-2xl sm:text-3xl font-bold block">{item.title}</span>
@@ -82,7 +82,7 @@ const StorySection = () => {
                     src={item.img}
                     alt={item.subtitle}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     priority
                   />
                 </div>
