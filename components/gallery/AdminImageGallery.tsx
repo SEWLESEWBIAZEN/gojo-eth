@@ -89,7 +89,7 @@ export default function AdminImageGallery() {
         {filteredImages?.length > 0 && !isLoading ? (
           <motion.div
             layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-14 lg:gap-20"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
             {filteredImages?.map((image, i) => (
               <motion.div

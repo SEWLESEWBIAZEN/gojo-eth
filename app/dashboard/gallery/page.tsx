@@ -86,7 +86,10 @@ export default function GalleryDashboard() {
       <div className="relative flex flex-1 overflow-hidden">
         <Sidebar open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
-        <main id="main" className="flex flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-64 items-start">
+        <main id="main" className="flex flex-col flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-64 items-start">
+          <div className="flex w-full items-center justify-end">
+            <AddToGallery />
+          </div>
           <Tabs defaultValue="image-gallery" className="w-full relative mt-4">
             <TabsList>
               <TabsTrigger  className="data-[state=active]:text-indigo-800 text-indigo-900" value="image-gallery"><Image className="mr-2 h-6 w-5 " /> Image Gallery</TabsTrigger>
@@ -100,8 +103,8 @@ export default function GalleryDashboard() {
               <AdminVideoGallery />
             </TabsContent>
           </Tabs>
-        <AddToGallery/>
         </main>
+        
       </div>
 
       <footer className="lg:ml-64 mt-auto border-t border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur">

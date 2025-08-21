@@ -71,7 +71,7 @@ const AddToGallery = () => {
     return (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-                <Button className="mt-4 bg-indigo-800 text-white hover:bg-indigo-700 flex flex-row space-x-2 ">
+                <Button className="bg-indigo-800 text-white hover:bg-indigo-700 flex flex-row space-x-2 ">
                     <Plus />
                     <span className="mr-2 hidden sm:inline-block">New</span>
                 </Button>
