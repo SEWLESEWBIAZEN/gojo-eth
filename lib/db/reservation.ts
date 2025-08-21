@@ -172,7 +172,8 @@ export async function getAllReservations(
     // Get total count
     const { count, error: countError } = await supabase
         .from("table_reservations")
-        .select("*", { count: "exact", head: true });
+        .select("*", { count: "exact", head: true })
+        .neq("status", "inactive");
 
     if (countError) {
         return {
@@ -187,6 +188,7 @@ export async function getAllReservations(
     const { data: reservations, error } = await supabase
         .from("table_reservations")
         .select("*")
+        .neq("status", "inactive")
         .order("reservation_date", { ascending: false })
         .order("reservation_time", { ascending: false })
         .range((page - 1) * limit, page * limit - 1);
