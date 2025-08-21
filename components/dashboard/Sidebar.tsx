@@ -16,7 +16,7 @@ const nav = [
       { href: '/dashboard', label: 'Overview', icon: Home },
       { href: '/dashboard/menu-management', label: 'Menu Management', icon: Utensils },
       { href: '/dashboard/reservations', label: 'Table Reservations', icon: ClipboardList },
-      { href: '/dashboard/inquiries', label: 'User Inquiries', icon: Users },
+      // { href: '/dashboard/inquiries', label: 'User Inquiries', icon: Users },
     ],
   },
   {

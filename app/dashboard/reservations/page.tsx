@@ -217,10 +217,10 @@ export default function ReservationsPage() {
                                 </button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent className="rounded-lg shadow-lg bg-white dark:bg-neutral-800">
-                                <DropdownMenuItem onClick={() => setEditingReservation(res)}>
+                                {/* <DropdownMenuItem onClick={() => setEditingReservation(res)}>
                                   <Pencil size={16} className="mr-2" /> Edit
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => deleteReservation(res.id)}>
+                                </DropdownMenuItem> */}
+                                <DropdownMenuItem onClick={() => changeStatus("inactive", res.id)}>
                                   <Trash2 size={16} className="mr-2" /> Delete
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => changeStatus("active", res.id)}>
