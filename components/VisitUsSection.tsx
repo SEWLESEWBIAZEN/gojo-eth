@@ -42,9 +42,9 @@ const VisitUsSection = () => {
   return (
     <section
       id="visit"
-      className="relative py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-t bg-gradient-to-b from-white to-neutral-50 -z-10"
+      className="relative py-10 sm:py-14 px-2 sm:px-4 lg:px-8 border-t bg-gradient-to-b from-white to-neutral-50 -z-10"
     >     
-      <div className="container mx-auto space-y-12">
+      <div className="sm:container mx-auto space-y-12">
         {/* Heading */}
         <div className="max-w-3xl">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">

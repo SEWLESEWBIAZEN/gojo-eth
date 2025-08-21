@@ -20,7 +20,7 @@ const StorySection = () => {
   return (
     <section
       id="about"
-      className="relative py-12 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-white to-neutral-50"
+      className="relative py-12 px-2 sm:px-4 md:px-8 lg:px-16 bg-gradient-to-b from-white to-neutral-50"
     >
       {/* Background */}
       <Image
@@ -31,7 +31,7 @@ const StorySection = () => {
         className="object-cover object-center -z-10 opacity-20"
       />
 
-      <div className="container mx-auto grid md:grid-cols-2 gap-10 items-start">
+      <div className="sm:container mx-auto grid md:grid-cols-2 gap-10 items-start">
         {/* Video & Story */}
         <div className="space-y-8">
           <div className="relative overflow-hidden rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
