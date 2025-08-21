@@ -5,11 +5,12 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/Tabs";
 import Header from "@/components/dashboard/Header";
 import Sidebar from "@/components/dashboard/Sidebar";
-import FullMenu from "@/components/dashboard/FullMenu";
-import DailyMenu from "@/components/dashboard/DailyMenu";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/ui/PageLoader";
-import AdminGallery from "@/components/gallery/AdminGallery";
+import { Image, Plus, Video } from "lucide-react";
+import AdminVideoGallery from "@/components/gallery/AdminVideoGallery";
+import AdminImageGallery from "@/components/gallery/AdminImageGallery";
+import { Button } from "@/components/ui/Button";
 
 export default function GalleryDashboard() {
   const supabase = createClientComponentClient();
@@ -67,7 +68,7 @@ export default function GalleryDashboard() {
     );
   }
 
-  if (!isAdmin) return null; // prevent unauthorized flash
+  if (!isAdmin) return null; 
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-neutral-950 dark:via-neutral-950 dark:to-neutral-900 animate-enter">
@@ -79,13 +80,26 @@ export default function GalleryDashboard() {
         Skip to content
       </a>
 
-      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} user={user}/>
+      <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} user={user} />
 
       <div className="relative flex flex-1 overflow-hidden">
         <Sidebar open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
-        <main id="main" className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-64">
-          <AdminGallery />
+        <main id="main" className="flex flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-64 items-start">
+          <Tabs defaultValue="image-gallery" className="w-full relative mt-4">
+            <TabsList>
+              <TabsTrigger  className="data-[state=active]:text-indigo-800 text-indigo-900" value="image-gallery"><Image className="mr-2 h-6 w-5 " /> Image Gallery</TabsTrigger>
+              <TabsTrigger  className="data-[state=active]:text-indigo-800 text-indigo-900" value="video-gallery"><Video className="mr-2 h-6 w-5 " /> Video Gallery</TabsTrigger>
+            </TabsList>
+            <br />
+            <TabsContent value="image-gallery" className="animate-enter py-4">
+              <AdminImageGallery />
+            </TabsContent>
+            <TabsContent value="video-gallery" className="animate-enter py-4">
+              <AdminVideoGallery />
+            </TabsContent>
+          </Tabs>
+          <Button  className="mt-4 bg-indigo-800 text-white hover:bg-indigo-700 flex flex-row space-x-2"> <Plus/><span className="mr-2 hidden sm:inline-block">New</span></Button>
         </main>
       </div>
 

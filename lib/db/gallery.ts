@@ -1,5 +1,7 @@
+import path from "path";
 import supabase from "../supabase";
-import { Image, Video } from "../utils";
+import { FormatResponse, Image, Video } from "../utils";
+import fs from "fs";
 
 export async function uploadImageToGallery(galleryImage?: Image) {
   if (!galleryImage) {
@@ -17,8 +19,6 @@ export async function uploadImageToGallery(galleryImage?: Image) {
 
   return { data, message: 'Image uploaded successfully', isError: false, status: 200 };
 }
-
-
 // get all gallery images based on page and limit
 export async function getAllGalleryImages(
   page: number = 1,
@@ -77,10 +77,6 @@ export async function getAllGalleryImages(
     status: 200,
   };
 }
-
-
-
-
 export async function uploadVideoToGallery(galleryVideo?: Video) {
   if (!galleryVideo) {
     return { data: null, message: 'Gallery video is required', isError: true, status: 400 };
@@ -95,12 +91,7 @@ export async function uploadVideoToGallery(galleryVideo?: Video) {
   }
 
   return { data, message: 'Video uploaded successfully', isError: false, status: 200 };
-}
-
-
-
-
-export async function getAllGalleryVideos(
+} export async function getAllGalleryVideos(
   page: number,
   limit: number
 ): Promise<{
@@ -146,4 +137,81 @@ export async function getAllGalleryVideos(
     status: 200,
   };
 }
+export async function deleteFromGallery(id: string): Promise<FormatResponse> {
+  if (!id) {
+    return {
+      data: null,
+      message: 'Gallery ID is required',
+      isError: true,
+      status: 400
+    };
+  }
 
+  try {
+    const { data: existingGallery, error: fetchError } = await supabase
+      .from('gallery')
+      .select()
+      .eq('id', id)
+      .single();
+
+    if (fetchError) {
+      return {
+        data: null,
+        message: fetchError.message || 'Failed to fetch gallery',
+        isError: true,
+        status: fetchError?.code === '22P02' ? 400 : 500
+      };
+    }
+
+    const url = existingGallery?.url;
+    const filePath = path.join(process.cwd(), "public", url);
+    fs.unlinkSync(filePath);
+
+    const { data, error } = await supabase.from('gallery').delete().eq('id', id);
+    if (error) {
+      return {
+        data: null,
+        message: error.message || 'Failed to delete from gallery',
+        isError: true,
+        status: error?.code === '22P02' ? 400 : 500,
+      };
+    }
+    return {
+      data,
+      message: "File deleted successfully!",
+      isError: false,
+      status: 200
+    };
+
+  } catch (error:any) {
+    return {
+      data: null,
+      message: error.message || 'Something went wrong!',
+      isError: true,
+      status: error?.code === '22P02' ? 400 : 500,
+    };
+  }
+}
+export async function updateGallery(gallery: { title: string; id: string }) {
+  const { data, error } = await supabase
+    .from('gallery')
+    .update(gallery)
+    .eq('id', gallery.id)
+    .select()
+    .single();
+
+  if (error) {
+    return ({
+      data: null,
+      message: error.message || 'Failed to update gallery',
+      isError: true,
+      status: error?.code === '22P02' ? 400 : 500
+    });
+  }
+  return ({
+    data,
+    message: "Gallery updated successfully",
+    isError: false,
+    status: 201
+  });
+}
