@@ -11,6 +11,7 @@ import { Image, Plus, Video } from "lucide-react";
 import AdminVideoGallery from "@/components/gallery/AdminVideoGallery";
 import AdminImageGallery from "@/components/gallery/AdminImageGallery";
 import { Button } from "@/components/ui/Button";
+import AddToGallery from "@/components/gallery/AddToGallery";
 
 export default function GalleryDashboard() {
   const supabase = createClientComponentClient();
@@ -99,7 +100,7 @@ export default function GalleryDashboard() {
               <AdminVideoGallery />
             </TabsContent>
           </Tabs>
-          <Button  className="mt-4 bg-indigo-800 text-white hover:bg-indigo-700 flex flex-row space-x-2"> <Plus/><span className="mr-2 hidden sm:inline-block">New</span></Button>
+        <AddToGallery/>
         </main>
       </div>
 

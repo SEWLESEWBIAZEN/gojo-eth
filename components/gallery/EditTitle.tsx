@@ -46,15 +46,17 @@ const EditTitle = ({ id, currentTitle }: EditTitleProps) => {
                 <DialogHeader>
                     <DialogTitle>Edit Image Title</DialogTitle>
                 </DialogHeader>
+                <form onSubmit={handleUpdate}>
                 <Input
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
                     placeholder="Enter new title"
                     className="focus:ring-2 focus:ring-indigo-500 focus-visible:ring-indigo-500"
                 />
-                <Button onClick={handleUpdate} className="mt-4 bg-indigo-800 text-white hover:bg-indigo-700" disabled={loading}>
+                <Button type="submit" className="mt-4 bg-indigo-800 text-white hover:bg-indigo-700" disabled={loading}>
                     {loading ? 'Saving...' : 'Save Changes'}
                 </Button>
+                </form>
             </DialogContent>
         </Dialog>
     )

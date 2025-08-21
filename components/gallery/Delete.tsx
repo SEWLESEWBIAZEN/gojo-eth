@@ -17,12 +17,12 @@ const Delete = ({ id }: { id: string }) => {
     try {
       const response = await axios.delete(`/api/gallery/delete/${id}`)
       if (!response?.data?.isError) {
-        toast.success('Image deleted successfully')
+        toast.success('File deleted from gallery successfully')
       } else {
-        toast.error(response?.data?.message || 'Failed to delete image')
+        toast.error(response?.data?.message || 'Failed to delete file')
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Failed to delete image')
+      toast.error(error?.response?.data?.message || 'Failed to delete file')
     }
     finally { 
       setIsDialogOpen(false);
@@ -39,8 +39,8 @@ const Delete = ({ id }: { id: string }) => {
         <DialogClose className="flex flex-1 justify-end">
           <X />
         </DialogClose>
-        <DialogTitle>Delete Dish</DialogTitle>
-        <DialogDescription>Are you sure you want to delete this dish?</DialogDescription>
+        <DialogTitle>Delete File</DialogTitle>
+        <DialogDescription>Are you sure you want to delete this file?</DialogDescription>
         <DialogFooter className="mt-4">
           <form onSubmit={handleDelete}>
             <Button
