@@ -6,7 +6,6 @@ import NotFound from '../NotFound';
 import { Button } from '../ui/Button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import axios from 'axios';
-import MenuLoading from '../menu/MenuLoading';
 import GallerySkeleton from './GallerySkeleton';
 
 interface GalleryImage {
