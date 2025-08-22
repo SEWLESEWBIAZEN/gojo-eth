@@ -68,7 +68,7 @@ const ImageGallery = () => {
                 {isLoading && <div><GallerySkeleton gallery='image'/></div>}
 
                 {/* Image Grid */}
-                {filteredImages.length > 0 && !isLoading ? (
+                {filteredImages.length > 0 && !isLoading && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                         {filteredImages.map((image, idx) => (
                             <div
@@ -92,7 +92,7 @@ const ImageGallery = () => {
                             </div>
                         ))}
                     </div>
-                ) : (
+                )}{ filteredImages.length === 0 && !isLoading && (
                     <NotFound message="Image" />
                 )}
 
