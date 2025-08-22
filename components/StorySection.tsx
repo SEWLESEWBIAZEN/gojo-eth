@@ -11,7 +11,7 @@ const StorySection = () => {
       const playPromise = videoRef.current.play()
       if (playPromise !== undefined) {
         playPromise.catch((error: Error) => {
-      
+
         })
       }
     }
@@ -57,6 +57,14 @@ const StorySection = () => {
               bringing a piece of Ethiopia to your table.
             </p>
           </div>
+
+          <Image
+            src="/What-Vegan-means-76.jpg"
+            alt="Gojo Ethiopian Restaurant"
+            width={600}
+            height={400}
+            className="rounded-xl shadow-lg w-full h-auto object-cover"
+          />
         </div>
 
         {/* Info Cards & Image */}
@@ -66,6 +74,7 @@ const StorySection = () => {
               { title: '100%', subtitle: 'fresh meats', img: '/halal-halal-100.jpg' },
               { title: 'Vegan', subtitle: 'friendly options', img: '/vegan-vegan-100.jpg' },
               { title: 'Catering', subtitle: 'for events', img: '/catering-catering-100.jpg' },
+              { title: '100% ', subtitle: 'Gluten-Free', img: '/food-food-100.jpg' },
             ].map((item, idx) => (
               <div
                 key={idx}
@@ -90,13 +99,7 @@ const StorySection = () => {
             ))}
           </div>
 
-          <Image
-            src="/What-Vegan-means-76.jpg"
-            alt="Gojo Ethiopian Restaurant"
-            width={600}
-            height={400}
-            className="rounded-xl shadow-lg w-full h-auto object-cover"
-          />
+
         </div>
       </div>
     </section>

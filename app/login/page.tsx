@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const supabase = createClientComponentClient();
@@ -78,6 +79,10 @@ export default function LoginPage() {
           <a href="/signup" className="text-indigo-600 hover:underline">
             Sign up
           </a>
+        </p>
+        <p className="mt-6 text-sm text-gray-500 dark:text-gray-400 text-center">
+          Want to go back? {" "}
+          <Link href="/" className="text-indigo-600 hover:underline"> Home </Link>
         </p>
       </div>
     </div>
