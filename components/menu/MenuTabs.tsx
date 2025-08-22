@@ -31,6 +31,8 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
   // Pagination
   const [dailyPage, setDailyPage] = useState(1);
   const [fullMenuPage, setFullMenuPage] = useState(1);
+  const [sideOrdersPage, setSideOrdersPage] = useState(1);
+  const [drinksPage, setDrinksPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
 
   const getStartEndIndex = (page: number) => {
@@ -43,40 +45,30 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
     items.some(
       (item) =>
         item?.name?.toLowerCase().includes(searchText.toLowerCase()) ||
-        item?.description?.toLowerCase().includes(searchText.toLowerCase())
+        item?.description?.toLowerCase().includes(searchText.toLowerCase()) ||
+        item?.category?.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+        item?.category?.description?.toLowerCase().includes(searchText.toLowerCase())
     );
 
-  const getCategoryById = async (categoryId: string) => {
-    try {
-      const response = await axios.get(`/api/dishCategory/getById/${categoryId}`);
-      return response?.data?.data ?? null;
-    } catch {
-      return null;
-    }
-  };
-
-  const groupDishesByCategory = async (dishes: Dish[]) => {
-    const grouped: Record<string, Dish[]> = dishes.reduce((acc, dish) => {
-      if (!acc[dish.category_id]) acc[dish.category_id] = [];
-      acc[dish.category_id].push(dish);
+  const groupDishesByCategory = (dishes: Dish[]) => {
+    const grouped: Record<string, Dish[]> = dishes?.reduce((acc, dish) => {
+      if (!acc[dish.category.id]) acc[dish.category.id] = [];
+      acc[dish.category.id].push(dish);
       return acc;
     }, {} as Record<string, Dish[]>);
 
-    const result = await Promise.all(
-      Object.entries(grouped).map(async ([categoryId, dishes]) => {
-        const category = await getCategoryById(categoryId);
-        return {
-          categoryId,
-          categoryName: category?.name ?? "Unknown Category",
-          description: category?.description ?? "No Description",
-          dishes
-        };
-      })
-    );
+    const result = Object.entries(grouped).map(([categoryId, dishes]) => {
+      const category = dishes[0]?.category;
+      return {
+        categoryId,
+        categoryName: category?.name ?? "Unknown Category",
+        description: category?.description ?? "No Description",
+        dishes
+      };
+    });
 
     return result;
   };
-
   // Fetch dishes and daily menu in parallel
   useEffect(() => {
     setLoading(true);
@@ -128,9 +120,35 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
         categoryDescription: group.description
       }))
   );
+  // Side Orders Flatten & Pagination
+  const flatSideOrders = fullMenu.flatMap((group) =>
+    group.dishes
+      .filter((dish) => hasMatches([dish]) && dish?.category?.name === "Side Orders")
+      .map((dish) => ({
+        ...dish,
+        categoryId: group.categoryId,
+        categoryName: group.categoryName,
+        categoryDescription: group.description
+      }))
+  );
+  // Side Orders Flatten & Pagination
+  const flatDrinks = fullMenu.flatMap((group) =>
+    group.dishes
+      .filter((dish) => hasMatches([dish]) && (dish?.category?.name?.toLowerCase().includes("drink")))
+      .map((dish) => ({
+        ...dish,
+        categoryId: group.categoryId,
+        categoryName: group.categoryName,
+        categoryDescription: group.description
+      }))
+  );
 
   const { start: fullStart, end: fullEnd } = getStartEndIndex(fullMenuPage);
+  const { start: sideOrdersStart, end: sideOrdersEnd } = getStartEndIndex(sideOrdersPage);
+  const { start: drinksStart, end: drinksEnd } = getStartEndIndex(drinksPage);
   const paginatedFullMenu = flatFullMenu.slice(fullStart, fullEnd);
+  const paginatedSideOrders = flatSideOrders.slice(sideOrdersStart, sideOrdersEnd);
+  const paginatedDrinks = flatDrinks.slice(drinksStart, drinksEnd);
 
   // Regroup paginated full menu
   const groupedPaginatedFullMenu = Object.values(
@@ -147,15 +165,51 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
       return acc;
     }, {})
   );
+  // Regroup paginated side orders
+  const groupedPaginatedSideOrders = Object.values(
+    paginatedSideOrders.reduce((acc: Record<string, any>, dish) => {
+      if (!acc[dish.categoryId]) {
+        acc[dish.categoryId] = {
+          categoryId: dish.categoryId,
+          categoryName: dish.categoryName,
+          description: dish.categoryDescription,
+          dishes: []
+        };
+      }
+      acc[dish.categoryId].dishes.push(dish);
+      return acc;
+    }, {})
+  );
+  // Regroup paginated drinks
+  const groupedPaginatedDrinks = Object.values(
+    paginatedDrinks.reduce((acc: Record<string, any>, dish) => {
+      if (!acc[dish.categoryId]) {
+        acc[dish.categoryId] = {
+          categoryId: dish.categoryId,
+          categoryName: dish.categoryName,
+          description: dish.categoryDescription,
+          dishes: []
+        };
+      }
+      acc[dish.categoryId].dishes.push(dish);
+      return acc;
+    }, {})
+  );
 
   return (
     <Tabs defaultValue="daily" className="w-full relative md:px-[100px] pb-4">
       <TabsList className="mb-6 flex flex-wrap justify-center gap-2 rounded-none pt-10">
+        <TabsTrigger value="full" className="md:px-6 md:py-4 text-sm md:text-base">
+          Full Menu
+        </TabsTrigger>
         <TabsTrigger value="daily" className="md:px-6 md:py-4 text-sm md:text-base ">
           Today's Menu
         </TabsTrigger>
-        <TabsTrigger value="full" className="md:px-6 md:py-4 text-sm md:text-base">
-          Full Menu
+        <TabsTrigger value="drinks" className="md:px-6 md:py-4 text-sm md:text-base">
+          Drinks
+        </TabsTrigger>
+        <TabsTrigger value="side-orders" className="md:px-6 md:py-4 text-sm md:text-base">
+          Side Orders
         </TabsTrigger>
       </TabsList>
 
@@ -195,7 +249,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
               {group.description && (
                 <p className="text-sm text-gray-500 mb-6 text-justify">{group.description}</p>
               )}
-              <ul className="flex flex-wrap gap-6 justify-center">
+              <ul className="flex flex-wrap gap-6 justify-between">
                 {group.dishes.map((dish: any) => (
                   <DishCard key={dish.id} dish={dish} />
                 ))}
@@ -217,7 +271,80 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
             </div>
           )}
 
-          {!flatFullMenu.length && <NotFound message="Cuisine" menu />} 
+          {!flatFullMenu.length && <NotFound message="Cuisine" menu />}
+        </div>
+      </TabsContent>
+
+      {/* Side orders */}
+      <TabsContent value="side-orders" className="animate-enter py-10">
+        <div className="space-y-8 p-6 rounded-xl bg-transparent shadow-sm">
+          {groupedPaginatedSideOrders?.map((group) => (
+            <section key={group.categoryId} className="bg-transparent rounded-xl">
+              <h3 className="text-sm sm:text-md md:text-xl xl:text-2xl font-semibold xl:font-bold mb-2 text-center text-white inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
+                {group.categoryName}
+              </h3>
+              {group.description && (
+                <p className="text-sm text-gray-500 mb-6 text-justify">{group.description}</p>
+              )}
+              <ul className="flex flex-wrap gap-6 justify-between">
+                {group.dishes.map((dish: any) => (
+                  <DishCard key={dish.id} dish={dish} />
+                ))}
+              </ul>
+            </section>
+          ))}
+
+          {flatSideOrders.length > ITEMS_PER_PAGE && (
+            <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
+              <Button onClick={() => setSideOrdersPage((p) => Math.max(1, p - 1))} disabled={sideOrdersPage === 1}>
+                <ArrowLeft /> Show Previous
+              </Button>
+              <Button
+                onClick={() => setSideOrdersPage((p) => (sideOrdersEnd >= flatSideOrders.length ? p : p + 1))}
+                disabled={sideOrdersEnd >= flatSideOrders.length}
+              >
+                <ArrowRight /> Show Next
+              </Button>
+            </div>
+          )}
+
+          {!flatFullMenu.length && <NotFound message="Cuisine" menu />}
+        </div>
+      </TabsContent>
+      {/* Drinks */}
+      <TabsContent value="drinks" className="animate-enter py-10">
+        <div className="space-y-8 p-6 rounded-xl bg-transparent shadow-sm">
+          {groupedPaginatedDrinks?.map((group) => (
+            <section key={group.categoryId} className="bg-transparent rounded-xl">
+              <h3 className="text-sm sm:text-md md:text-xl xl:text-2xl font-semibold xl:font-bold mb-2 text-center text-white inline-block px-2 py-1 bg-primary rounded backdrop-blur-lg ms-[45%]">
+                {group.categoryName}
+              </h3>
+              {group.description && (
+                <p className="text-sm text-gray-500 mb-6 text-justify">{group.description}</p>
+              )}
+              <ul className="flex flex-wrap gap-6 justify-between">
+                {group.dishes.map((dish: any) => (
+                  <DishCard key={dish.id} dish={dish} />
+                ))}
+              </ul>
+            </section>
+          ))}
+
+          {flatDrinks.length > ITEMS_PER_PAGE && (
+            <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
+              <Button onClick={() => setDrinksPage((p) => Math.max(1, p - 1))} disabled={drinksPage === 1}>
+                <ArrowLeft /> Show Previous
+              </Button>
+              <Button
+                onClick={() => setDrinksPage((p) => (drinksEnd >= flatDrinks.length ? p : p + 1))}
+                disabled={drinksEnd >= flatDrinks.length}
+              >
+                <ArrowRight /> Show Next
+              </Button>
+            </div>
+          )}
+
+          {!flatFullMenu.length && <NotFound message="Cuisine" menu />}
         </div>
       </TabsContent>
     </Tabs>

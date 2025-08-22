@@ -6,7 +6,6 @@ export interface DishInput {
   category_id?: string;
   images?: File[];
 }
-
 export async function createDish(dishData: NewDish) {
   // 1️⃣ Check if dish name already exists
   const { data: existingDish, error: findError } = await supabase
@@ -143,8 +142,21 @@ export async function getAllDishesWithTodayFlag(date: Date = new Date()) {
     // 1. Fetch all dishes
     const { data: dishes, error: dishesError } = await supabase
       .from("dishes")
-      .select("*")
+      .select(`
+    id,
+     name,
+    description,
+    rating,
+    images,
+    spicy,
+    vegan,
+    price,
+    featured,   
+    created_at,
+    category:category_id ( id, name,description )
+  `)
       .order("created_at", { ascending: false });
+
 
     if (dishesError) {
       return {

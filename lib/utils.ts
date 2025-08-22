@@ -56,7 +56,7 @@ export interface Dish {
   featured: boolean;
   rating: number;
   images: string[];
-  category_id: string;
+  category: Category;
   todays?: boolean;
 
 }
@@ -84,12 +84,17 @@ export interface NewDish {
   rating: number;
   images: string[];
 }
-
 export interface DishCategory {
   id?: string;
   name: string;
   description?: string;
 }
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+}
+
 
 export interface DailyMenu {
   id?: string;
