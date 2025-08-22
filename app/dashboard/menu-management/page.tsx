@@ -110,7 +110,6 @@ export default function MenuDashboard() {
           </div>
         </main>
       </div>
-
       <footer className="lg:ml-64 mt-auto border-t border-neutral-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur">
         <Footer />
       </footer>
