@@ -31,11 +31,11 @@ export default function FullMenu() {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {dishes?.filter((dish) => dish.name.toLowerCase().includes(searchTerm.toLowerCase())).map((dish) => (
+                {dishes?.filter((dish) => dish?.name.toLowerCase().includes(searchTerm.toLowerCase())).map((dish) => (
                     <DishCard key={dish.id} dish={dish} setRefetch={setRefetch} />
                 ))}
             </div>
-            {(dishes?.filter((dish) => dish.name.toLowerCase().includes(searchTerm.toLowerCase()))?.length === 0 && !isLoading) && (
+            {(dishes?.filter((dish) => dish?.name.toLowerCase().includes(searchTerm.toLowerCase()))?.length === 0 && !isLoading) && (
                 <div className="col-span-3 text-center text-gray-500">
                     No dishes found.
                 </div>

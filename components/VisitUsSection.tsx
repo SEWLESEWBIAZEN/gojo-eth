@@ -69,11 +69,19 @@ const VisitUsSection = () => {
           </div>
           <div className="rounded-xl border shadow-lg p-4 flex items-start gap-3 bg-white/80 backdrop-blur-sm">
             <Clock className="mt-1 text-primary flex-shrink-0" />
+            <div className='flex flex-col sm:flex-row justify-between w-full lg:me-20'>
+              <div className="text-sm sm:text-base leading-relaxed">
+                <p>
+                  <strong>Tuesday – Sunday</strong>
+                </p>
+                <p className="text-muted-foreground">11:00 AM – 9:00 PM</p>
+            </div>
             <div className="text-sm sm:text-base leading-relaxed">
               <p>
-                <strong>Tuesday – Sunday</strong>
+                <strong>Monday</strong>
               </p>
-              <p className="text-muted-foreground">11:00 AM – 9:00 PM</p>
+              <p className="text-red-800">Closed</p>
+            </div>
             </div>
           </div>
         </div>

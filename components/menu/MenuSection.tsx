@@ -1,17 +1,14 @@
 'use client'
-
 import React, { useState } from "react";
 import MenuTabs from "./MenuTabs";
 import Reservation from "../Reservation";
 import { Input } from "../ui/Input";
 import Link from "next/link";
-import { BaggageClaim } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/Button";
 
 const MenuSection = () => {
     const [searchText, setSearchText] = useState("");
-
     return (
         <section id="menu" className="py-12 px-4 border-t relative">
             <div className="sm:container mx-auto flex flex-col gap-10 md:gap-12">
@@ -41,8 +38,9 @@ const MenuSection = () => {
                     </div>
                 </div>
 
+
                 {/* Menu Tabs + Borders */}
-                <div className="relative overflow-auto pt-6 md:pt-4 lg:pt-0">
+                <div className="relative overflow-auto pt-6 md:pt-4 lg:pt-0 ">                    
                     <MenuTabs searchText={searchText} />
 
                     {/* Vertical borders */}
@@ -108,8 +106,11 @@ const MenuSection = () => {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            </div>
+            </div>          
+ 
         </section>
+
+        
     );
 };
 
