@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import Providers from "@/contexts/providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import SocialLinks from "@/components/SocialLinks";
+import { Analytics } from "@vercel/analytics/next"
 
 
 const inter = Inter({
@@ -77,6 +78,8 @@ export default function RootLayout({
          </Providers>
           <SocialLinks />
         <Toaster position="top-right" richColors />
+        {/* vercel analytics component */}
+        <Analytics/>
       </body>
     </html>
   );
