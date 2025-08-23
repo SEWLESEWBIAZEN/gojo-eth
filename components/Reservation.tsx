@@ -79,7 +79,7 @@ const Reservation = () => {
                 </Button>
             </DialogTrigger>
 
-            <DialogContent className="px-4 bg-white rounded-md py-6 backdrop-blur-xl w-[90%]">
+            <DialogContent className="px-4 bg-white rounded-md py-6 backdrop-blur-xl w-[90%] h-[90%] md:h-auto overflow-y-auto">
                 <DialogClose asChild>
                     <button className="w-full flex justify-end">
                         <X className="bg-primary/10 rounded-full p-2 h-8 w-8 text-black font-bold" />
@@ -94,8 +94,8 @@ const Reservation = () => {
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
-                    <div className="space-y-6 flex flex-wrap md:items-end gap-4 py-4 w-full">
-                        <div className="space-y-2 w-full md:w-[45%]">
+                    <div className="space-y-2 flex flex-wrap md:items-end py-4 w-full">
+                        <div className="space-y-4 w-full md:w-[45%]">
                             <Label htmlFor="name">Full Name<span>*</span></Label>
                             <Input id="name" type="text" placeholder="Enter your name....." className="w-full" value={reservationForm.full_name} onChange={handleChange} name="full_name" />
                         </div>
@@ -119,7 +119,7 @@ const Reservation = () => {
                         </div>
                     </div>
 
-                    <DialogFooter className="pt-4 flex flex-col md:flex-row md:justify-center">
+                    <DialogFooter className="flex flex-col md:flex-row md:justify-center">
                         <Button type="submit" disabled={isLoading} >
                             {isLoading ? <OrbitProgress style={{ width: 2, height: 2 }} /> : "Submit"}
                         </Button>
