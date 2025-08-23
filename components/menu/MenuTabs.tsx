@@ -135,7 +135,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
       </TabsContent>
 
       {/* Full Menu */}
-      <TabsContent value="full" className="animate-enter py-4">
+      <TabsContent value="full" className="animate-enter py-4 mt-20 sm:mt-10">
         {paginatedFull?.length ? (
           <>
             <MenuSection groups={fullPagination.groupByCategory(paginatedFull)} />
@@ -152,7 +152,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
       </TabsContent>
 
       {/* Drinks */}
-      <TabsContent value="drinks" className="animate-enter py-4">
+      <TabsContent value="drinks" className="animate-enter py-4 mt-20 sm:mt-10">
         {paginatedDrinks?.length ? (
           <>
             <MenuSection groups={drinksPagination.groupByCategory(paginatedDrinks)} />
@@ -169,7 +169,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
       </TabsContent>
 
       {/* Side Orders */}
-      <TabsContent value="side-orders" className="animate-enter py-4">
+      <TabsContent value="side-orders" className="animate-enter py-4 mt-20 sm:mt-10">
         {paginatedSides?.length ? (
           <>
             <MenuSection groups={sidesPagination.groupByCategory(paginatedSides)} />
