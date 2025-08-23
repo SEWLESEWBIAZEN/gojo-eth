@@ -118,7 +118,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
       </TabsList>
 
       {/* Daily Menu */}
-      <TabsContent value="daily" className="animate-enter py-4 mt-10">
+      <TabsContent value="daily" className="animate-enter py-4 mt-20 sm:mt-10">
         {paginatedDaily?.length ? (
           <>
             <DishList dishes={paginatedDaily} />
