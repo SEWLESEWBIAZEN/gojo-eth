@@ -9,11 +9,12 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 const images = [
   "/carousel/beyaynet-2.webp",
+  "/carousel/kikl.jpg",
+  "/carousel/new-image-3.jpg",
+  "/carousel/hilbet.jpg",
+  "/carousel/image-search-2.jpg",
   "/carousel/gored-gored.webp",
-  "/carousel/yetetebabese.webp",
-  "/carousel/beyaynet.avif",
-  "/carousel/beyaynet.jpeg",
-  "/carousel/injera.webp",
+  "/carousel/yetetebabese.webp", 
 ];
 
 const HeroSection = () => {
