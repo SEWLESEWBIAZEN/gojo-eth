@@ -18,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen, user
       <div className="px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
         {/* Left: Mobile toggle + Logo + Title */}
         <div className="flex items-center gap-3">
+          {/* Sidebar toggle */}
           <button
             className="
               lg:hidden inline-flex items-center justify-center p-2 rounded-xl
@@ -30,8 +31,8 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen, user
             <MenuIcon className="w-6 h-6" />
           </button>
 
-          {/* Logo */}
-          <Link href="/dashboard" className='flex items-end'>
+          {/* Logo + Title */}
+          <Link href="/dashboard" className="flex items-center gap-2">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12">
               <Image
                 src="/gojo-logo.png"
@@ -41,31 +42,17 @@ const Header: React.FC<HeaderProps> = ({ mobileMenuOpen, setMobileMenuOpen, user
                 priority
               />
             </div>
-
-
-            {/* Dashboard Title */}
-            <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
+            <h1 className="hidden sm:block text-lg sm:text-xl font-semibold tracking-tight">
               Dashboard
             </h1>
           </Link>
         </div>
 
         {/* Right: Quick actions */}
-        <nav className="hidden md:flex items-center gap-6">
-          {/* <Link
-            href="/#settings"
-            className="text-sm text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition"
-          >
-            Settings
-          </Link>
-          <Link
-            href="/#profile"
-            className="text-sm text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition"
-          >
-            Profile
-          </Link>         */}
+        <div className="flex items-center gap-4">
+          {/* Avatar always visible, smaller on mobile */}
           <UserAvatar user={user} />
-        </nav>
+        </div>
       </div>
     </header>
   );

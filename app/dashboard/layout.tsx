@@ -1,9 +1,10 @@
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  weight: ['400', '700'], // optional: specify weights you want
+    subsets: ['latin'],
+    variable: '--font-inter',
+    weight: ['400', '700'], // optional: specify weights you want
 });
 export const metadata: Metadata = {
     title: "🍴Gojo | Ethiopian | Restaurant",
@@ -52,16 +53,27 @@ export const metadata: Metadata = {
         "Ethiopian Food and Cultural Experience",
         "Explore Ethiopian Food and Recipes",
         "Ethiopian Fine Dining and Cultural Cuisine",
-        "Ethiopian Cuisine and Spices for Food Lovers"]};
+        "Ethiopian Cuisine and Spices for Food Lovers"]
+};
 export default function GalleryLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    
+
     return (
         <div className={`${inter.variable} font-sans`}>
-            {children}
+            <a
+                href="#main"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:p-2
+                   focus:bg-indigo-600 focus:text-white rounded"
+            >
+                Skip to content
+            </a>
+
+            <DashboardLayout>
+                {children}
+            </DashboardLayout>
         </div>
     );
 }

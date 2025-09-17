@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Overview = () => {
@@ -14,14 +15,14 @@ const Overview = () => {
             {/* Cards grid */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 cursor-pointer">
                 {[
-                    { title: 'Menus', desc: 'Manage your menu items and categories.' },
-                    { title: 'User Inquiries', desc: 'View, triage, and respond to messages.' },
-                    { title: 'Gallery', desc: 'Upload, tag, and organize images & videos.' },
-                    { title: 'Table Reservations', desc: 'Approve, assign, and schedule tables.' },
-                    { title: 'Feedback Analytics', desc: 'Sentiment, trends, and NPS insights.' },
-                    { title: 'More', desc: 'Integrations, roles, and settings.' },
+                    { title: 'Menus', desc: 'Manage your menu items and categories.',link:"/dashboard/menu-management" },
+                    { title: 'Gallery', desc: 'Upload, tag, and organize images & videos.' ,link:"/dashboard/gallery"},
+                    { title: 'Table Reservations', desc: 'Approve, assign, and schedule tables.' ,link:"/dashboard/reservations"},
+                    { title: 'Feedback Analytics', desc: 'Sentiment, trends, and NPS insights.' ,link:"/dashboard/"},
+                    { title: 'More', desc: 'Integrations, roles, and settings.' ,link:"/dashboard/"},
                 ].map((c, i) => (
-                    <article
+                    <Link
+                    href={c.link}
                         key={i}
                         className="
                   group rounded-2xl border border-neutral-200 dark:border-neutral-800
@@ -37,9 +38,9 @@ const Overview = () => {
 
                         {/* Subtle progress / accent */}
                         <div className="mt-4 h-1 rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-                            <div className="h-full w-0 group-hover:w-full transition-all duration-500 bg-indigo-500/70" />
+                            <div className="h-full w-[0%] group-hover:w-full transition-all duration-500 bg-indigo-500/70" />
                         </div>
-                    </article>
+                    </Link>
                 ))}
             </div>
 
