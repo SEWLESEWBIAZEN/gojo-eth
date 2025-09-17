@@ -23,7 +23,7 @@ const nav = [
     heading: 'Dashboard & Analytics',
     items: [
       { href: '/dashboard/gallery', label: 'Gallery Management', icon: ImageIcon },
-      { href: '/dashboard/feedback', label: 'Feedback Analytics', icon: ChartBar },
+      { href: '/dashboard/#feedback', label: 'Feedback Analytics', icon: ChartBar },
     ],
   },
 ]

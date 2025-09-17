@@ -58,7 +58,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   if (!isAdmin) return null; // Prevent flashing content for non-admins
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-neutral-900 w-full overflow-x-auto">     
+    <div className="flex min-h-screen bg-gray-50 dark:bg-neutral-900 w-full">     
       <Sidebar
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
@@ -71,7 +71,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         />       
         <main
           id="main"
-          className="flex-1 px-4 sm:px-6 lg:px-8 py-6 lg:ml-64 transition-all duration-200 w-full overflow-x-auto"
+          className="flex-1 px-4 sm:px-6 lg:px-8 py-6 lg:ml-64 transition-all duration-200 "
         >
           {loading ? <PageLoader /> : children}
         </main>       

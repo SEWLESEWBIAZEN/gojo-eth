@@ -1,4 +1,5 @@
-import { Facebook, Instagram } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Facebook, Instagram, PhoneForwardedIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -7,7 +8,7 @@ const Footer = () => {
   const pathname = usePathname();
   const isDashboard = pathname.startsWith("/dashboard");
   return (
-    <footer className="border-t py-8 mt-10 ">
+    <footer className="border-t  mt-10 ">
       <div className="container px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-muted-foreground">
         {/* Copyright */}
         <p className="text-center md:text-left">
@@ -44,35 +45,60 @@ const Footer = () => {
       </div>
 
       {/* Social Links */}
-      <div className="mt-8 text-center flex-1 border-t-2 pt-4">
-        <p className="mb-3 font-medium">Find us on</p>
-        <div className="flex justify-center gap-4">
-          <Link
-            href="https://www.facebook.com/people/Gojo-Ethiopian-restaurant/61559731198758/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`p-2 rounded-full ${!isDashboard ? 'bg-primary/10 hover:bg-primary/20' : 'bg-indigo-900/10 hover:bg-indigo-900/20'} transition-colors`}
-          >
-            <Facebook className={`w-5 h-5 ${!isDashboard ? 'text-primary' : 'text-indigo-900'}`} />
-          </Link>
+      <div className="flex items-end relative">
+        {/* Social Links Section */}
+        <div className="mt-8 flex-1 text-center border-t-2 pt-4">
+          <p className="mb-3 font-medium">Find us on</p>
+          <div className="flex justify-center gap-4">
+            {/* Facebook */}
+            <Link
+              href="https://www.facebook.com/people/Gojo-Ethiopian-restaurant/61559731198758/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "p-2 rounded-full transition-colors",
+                !isDashboard
+                  ? "bg-primary/10 hover:bg-primary/20"
+                  : "bg-indigo-900/10 hover:bg-indigo-900/20"
+              )}
+            >
+              <Facebook
+                className={cn(
+                  "w-5 h-5",
+                  !isDashboard ? "text-primary" : "text-indigo-900"
+                )}
+              />
+            </Link>
 
-          <Link
-            href="https://www.instagram.com/explore/locations/124599994303682/gojo-ethiopian-restaurant/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-pink-500/10 hover:bg-pink-500/20 transition-colors"
-          >
-            <Instagram className="w-5 h-5 text-pink-500" />
-          </Link>
+            {/* Instagram */}
+            <Link
+              href="https://www.instagram.com/explore/locations/124599994303682/gojo-ethiopian-restaurant/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-pink-500/10 hover:bg-pink-500/20 transition-colors"
+            >
+              <Instagram className="w-5 h-5 text-pink-500" />
+            </Link>
 
-          <Link
-            href="https://www.yelp.com/biz/gojo-ethiopian-restaurant-san-jose-2"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full bg-red-500/10 hover:bg-red-500/20 transition-colors"
-          >
-            <span className="font-semibold text-red-500">Y</span>
-          </Link>
+            {/* Yelp */}
+            <Link
+              href="https://www.yelp.com/biz/gojo-ethiopian-restaurant-san-jose-2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-red-500/10 hover:bg-red-500/20 transition-colors"
+            >
+              <span className="font-semibold text-red-500">Y</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Developer Credit Section */}
+        <div className="absolute bottom-2 right-2 flex flex-col items-start gap-2 px-4 py-1 text-indigo-800 border-s border-red-800 text-sm">
+          <p className="font-medium">Developed by: LTG</p>
+          <div className="flex items-center gap-x-2">            
+          <PhoneForwardedIcon className="w-4 h-4" />          
+          <p>+251 961 718 044 <span className="text-green-600">(WhatsApp)</span></p>
+          </div>
         </div>
       </div>
     </footer>

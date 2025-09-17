@@ -73,13 +73,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body className="bg-slate-100">
          <Providers>
-          {children}
-          {/* <ReactQueryDevtools initialIsOpen={true} /> */}
+          {children}        
          </Providers>
           <SocialLinks />
-        <Toaster position="top-right" richColors />
-        {/* vercel analytics component */}
-        <Analytics/>
+        <Toaster position="top-right" richColors />       
       </body>
     </html>
   );
