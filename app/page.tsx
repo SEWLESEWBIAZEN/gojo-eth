@@ -9,8 +9,6 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-
   return (
     <div className="font-sans flex flex-col min-h-screen">
       <a
