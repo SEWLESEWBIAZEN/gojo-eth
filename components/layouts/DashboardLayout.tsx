@@ -54,7 +54,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
     checkRole();
   }, [router, supabase]);
-
+if(loading){
+  return <PageLoader/>
+}
   if (!isAdmin) return null; // Prevent flashing content for non-admins
 
   return (
