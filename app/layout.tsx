@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Gojo Ethiopia Restaurant | Authentic Cuisine in San Jose, CA",
+  title: "Gojo Ethiopia Restaurant | Authentic Cuisine in San Jose",
   description:
     "Gojo Ethiopia Restaurant in San Jose offers authentic Ethiopian cuisine, vegan-friendly dishes, and traditional flavors in a warm and cultural dining experience.",
   keywords: [
@@ -91,10 +91,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://www.gojoethiopiarestaurantsj.com/",
-    title: "Gojo Ethiopia Restaurant | Authentic Cuisine in San Jose, CA",
+    title: "Gojo Ethiopia Restaurant | Authentic Cuisine in San Jose, CA | Gojo Ethiopia Restaurant in san jose",
     description:
       "Enjoy authentic Ethiopia food in San Jose, CA. Gojo offers vegan-friendly dishes, traditional flavors, and a cozy cultural dining experience.",
-    siteName: "Gojo Ethiopia Restaurant",
+    siteName: "Gojo Ethiopia Restaurant in sj",
     locale: "en_US",
     images: [
       {
