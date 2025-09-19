@@ -73,7 +73,7 @@ export default function RootLayout({
         <meta name="ICBM" content="37.3269, -121.9119" />
         <meta name="geo.streetAddress" content="1261 W San Carlos St" />
         <meta name="geo.postalCode" content="95126" />
-        {/* JSON-LD for Restaurant Schema */}   
+        {/* JSON-LD for Restaurant Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

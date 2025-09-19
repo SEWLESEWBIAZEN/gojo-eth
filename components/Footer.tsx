@@ -45,7 +45,7 @@ const Footer = () => {
       </div>
 
       {/* Social Links */}
-      <div className="flex items-end relative">
+      <div className="flex flex-col md:flex-row md:items-end relative space-y-2 md:space-y-0">
         {/* Social Links Section */}
         <div className="mt-8 flex-1 text-center border-t-2 pt-4">
           <p className="mb-3 font-medium">Find us on</p>
