@@ -17,6 +17,7 @@ export default function Home() {
       >
         Skip to content
       </a>
+      <h1 hidden>Gojo Ethiopian Restaurant</h1>
 
       {/* Header */}
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
