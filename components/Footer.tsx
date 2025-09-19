@@ -45,7 +45,7 @@ const Footer = () => {
       </div>
 
       {/* Social Links */}
-      <div className="flex flex-col md:flex-row md:items-end relative space-y-2 md:space-y-0">
+      <div className="flex flex-col md:flex-row md:items-end relative space-y-4 md:space-y-0">
         {/* Social Links Section */}
         <div className="mt-8 flex-1 text-center border-t-2 pt-4">
           <p className="mb-3 font-medium">Find us on</p>
@@ -93,7 +93,7 @@ const Footer = () => {
         </div>
 
         {/* Developer Credit Section */}
-        <div className="absolute bottom-2 right-2 flex flex-col items-start gap-2 px-4 py-1 text-indigo-800 border-s border-red-800 text-sm">
+        <div className="md:absolute mx-auto items-center w-full md:w-auto bottom-2 right-2 flex flex-col items-start gap-2 px-4 py-1 text-indigo-800 border-t md:border-t-0 md:border-s  border-red-800 text-sm">
           <p className="font-medium">Developed by: LTG</p>
           <div className="flex items-center gap-x-2">            
           <PhoneForwardedIcon className="w-4 h-4" />          
