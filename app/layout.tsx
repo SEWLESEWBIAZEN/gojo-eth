@@ -67,6 +67,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         {/* Local SEO (legacy meta tags) */}
+        <meta name="google-site-verification" content="IZIuvMqQuBvscZQ7BBzhPtkt_Ha53UqeD8VMVSpwe4Y" />
         <meta name="geo.region" content="US-CA" />
         <meta name="geo.placename" content="San Jose" />
         <meta name="geo.position" content="37.3269;-121.9119" />
