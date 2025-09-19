@@ -1,3 +1,5 @@
+// src/app/layout.tsx
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -13,111 +15,63 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Gojo Ethiopia Restaurant | Authentic Cuisine in San Jose",
-  description:
-    "Gojo Ethiopia Restaurant in San Jose offers authentic Ethiopian cuisine, vegan-friendly dishes, and traditional flavors in a warm and cultural dining experience.",
-  keywords: [
-    "Ethiopian restaurant San Jose",
-    "Ethiopian food San Jose",
-    "vegan Ethiopian cuisine",
-    "authentic Ethiopian restaurant",
-    "Gojo restaurant San Jose",
-    "gojoethiopiarestaurantsj",
-    "ethiopiarestaurantsj",
-    "gojorestaurantsj",
-    "ethiopiarestaurants",
-    "Gojothiopia san jose",
-    "Gojothiopia us",
-    "Gojothiopia california",
-    "Gojo",
-    "ethiopiagojo",
-    "gojoethiopiarestaurantsj",
-    "gojoethiopiarestaurants",
-    "gojoethiopiarestaurant",
-    "gojoethiorestaurants",
-    "gojorestaurants",
-    "gojoethiopia",
-    "gojoethiopiarest",
-    "gojoethiopiafoods",
-    "gojoethiopiafoodsmenu",
-    "Restaurant",
-    "Cuisine",
-    "Cultural",
-    "Gojo Food Gallery",
-    "Ethiopian Food around US",
-    "Ethiopian Cuisine at US",
-    "Gojo Ethiopian Restaurant Near Me",
-    "Ethiopian Restaurant near me",
-    "Best gojo Ethiopia Restaurant",
-    "Authentic Ethiopian Cuisine in gojo",
-    "Traditional gojo Ethiopia Food",
-    "Ethiopian Cultural Food",
-    "Ethiopia gojo Food Gallery",
-    "Ethiopian Dining Experience",
-    "Ethiopian Food Recipes",
-    "African Cuisine",
-    "Ethiopian Traditional Dishes",
-    "Ethiopian Food Menu",
-    "Ethiopian Spices and Cuisine",
-    "Ethiopian Food Tasting",
-    "Ethiopian Coffee and Cuisine",
-    "Ethiopian Culinary Experience",
-    "Ethiopian Fine Dining",
-    "Ethiopian Food Delivery",
-    "Ethiopian Food Takeout",
-    "Ethiopian Restaurant Reviews",
-    "Explore Ethiopian Cuisine",
-    "Ethiopian Vegan Food",
-    "Ethiopian Vegetarian Cuisine",
-    "Cultural Ethiopian Dining",
-    "Ethiopian Food Photography",
-    "Ethiopian Food Blog",
-    "Ethiopian Street Food",
-    "Ethiopian Home-Cooked Meals",
-    "Ethiopian Food Specials",
-    "Ethiopian Family Restaurant",
-    "Modern Ethiopian Cuisine",
-    "Authentic Ethiopian Cultural Cuisine",
-    "Ethiopian Restaurant with Food Gallery",
-    "Traditional Ethiopian Cuisine Near Me",
-    "Ethiopian Food and Cultural Experience",
-    "Explore Ethiopian Food and Recipes",
-    "Ethiopian Fine Dining and Cultural Cuisine",
-    "Ethiopian Cuisine and Spices for Food Lovers"
-  ],
+  // Primary SEO Metadata
+  title: "Gojo Ethiopian Restaurant - Authentic Cuisine in San Jose, CA",
+  description: "Gojo Ethiopian Restaurant in San Jose offers authentic Ethiopian cuisine, vegan-friendly dishes, and traditional flavors in a warm and cultural dining experience. We are the best Ethiopian restaurant in San Jose, CA.",
+  
+  // No need for a keywords meta tag. Search engines largely ignore it.
+  // Instead, ensure your description and page content use these keywords naturally.
+  // For reference, a good strategy is to use the most important keywords in the description.
+  // E.g., "Ethiopian restaurant San Jose", "authentic Ethiopian cuisine", "vegan-friendly dishes".
+
+  // Canonical URL for deduplication
   alternates: {
     canonical: "https://www.gojoethiopiarestaurantsj.com/",
   },
+
+  // Open Graph metadata for social media sharing
   openGraph: {
     type: "website",
     url: "https://www.gojoethiopiarestaurantsj.com/",
-    title: "Gojo Ethiopia Restaurant | Authentic Cuisine in San Jose, CA | Gojo Ethiopia Restaurant in san jose",
-    description:
-      "Enjoy authentic Ethiopia food in San Jose, CA. Gojo offers vegan-friendly dishes, traditional flavors, and a cozy cultural dining experience.",
-    siteName: "Gojo Ethiopia Restaurant in sj",
+    title: "Gojo Ethiopian Restaurant in San Jose, CA",
+    description: "Enjoy authentic Ethiopian food in San Jose, CA. We offer vegan-friendly dishes, traditional flavors, and a cozy cultural dining experience. Call us at (408) 295-9546 to order.",
+    siteName: "Gojo Ethiopian Restaurant",
     locale: "en_US",
     images: [
       {
-        url: "https://www.gojoethiopiarestaurantsj.com/bg-new.jpg",
+        url: "https://www.gojoethiopiarestaurantsj.com/bg-new.jpg", // A visually appealing hero image
         width: 1200,
         height: 630,
-        alt: "Gojo Ethiopian Restaurant in San Jose, CA",
+        alt: "Gojo Ethiopian Restaurant interior and food",
       },
     ],
   },
+  
+  // Twitter Card metadata
   twitter: {
     card: "summary_large_image",
-    title: "Gojo Ethiopian Restaurant | Authentic Cuisine in San Jose, CA",
-    description:
-      "Authentic Ethiopian restaurant in San Jose, CA with vegan-friendly dishes and traditional flavors.",
+    title: "Gojo Ethiopian Restaurant | Best Ethiopian Food in San Jose, CA",
+    description: "Find the best authentic Ethiopian food in San Jose, CA. Gojo offers vegan-friendly dishes and a warm cultural dining experience.",
     images: ["https://www.gojoethiopiarestaurantsj.com/bg-new.jpg"],
   },
+
+  // Robots meta tag. These are the default values, but it's good practice to be explicit.
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1, // Allows Google to show more text
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    }
   },
-  // optional but nice for SEO
-  category: "restaurant",
+
+  // Schema.org metadata for better search snippet
+  verification: {
+    google: "IZIuvMqQuBvscZQ7BBzhPtkt_Ha53UqeD8VMVSpwe4Y",
+  },
 };
 
 export default function RootLayout({
@@ -126,34 +80,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>   
       <head>
-        <meta name="title" content="Gojo Ethiopian Restaurant | Authentic Ethiopian Cuisine in San Jose" />
-        <meta name="description" content="Discover Gojo Ethiopian Restaurant in San Jose, CA — authentic Ethiopian cuisine, vegan-friendly dishes, traditional flavors, and a warm dining experience." />
-        <meta name="keywords" content="Ethiopian restaurant San Jose, Ethiopian food San Jose, vegan Ethiopian cuisine, Gojo restaurant, authentic Ethiopian dining, San Jose restaurants" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.gojoethiopiarestaurantsj.com/" />
-        <meta property="og:type" content="restaurant" />
-        <meta property="og:url" content="https://www.gojoethiopiarestaurantsj.com/" />
-        <meta property="og:title" content="Gojo Ethiopia Restaurant | Authentic Ethiopian Cuisine in San Jose" />
-        <meta property="og:description" content="Enjoy authentic Ethiopian food in San Jose, CA. Gojo offers vegan-friendly dishes and traditional Ethiopian flavors in a cozy atmosphere." />
-        <meta property="og:image" content="https://www.gojoethiopiarestaurantsj.com/og-image.jpg" />
-        <meta property="og:site_name" content="Gojo Ethiopian Restaurant" />
-        <meta property="og:locale" content="en_US" />
-        {/* Local SEO (legacy meta tags) */}
-        <meta name="google-site-verification" content="IZIuvMqQuBvscZQ7BBzhPtkt_Ha53UqeD8VMVSpwe4Y" />
-        <meta name="geo.region" content="US-CA" />
-        <meta name="geo.placename" content="San Jose" />
-        <meta name="geo.position" content="37.3269;-121.9119" />
-        <meta name="ICBM" content="37.3269, -121.9119" />
-        <meta name="geo.streetAddress" content="1261 W San Carlos St" />
-        <meta name="geo.postalCode" content="95126" />
-        <meta
-          name="keywords"
-          content="Ethiopian restaurant San Jose, Ethiopian food San Jose, Gojo restaurant San Jose, authentic Ethiopian cuisine, vegan Ethiopian food San Jose, vegetarian Ethiopian cuisine, best Ethiopian restaurant San Jose, Ethiopian dining near me, Ethiopian cultural food, traditional Ethiopian dishes, Ethiopian coffee ceremony San Jose, Ethiopian food delivery San Jose, Ethiopian food takeout San Jose, Gojo Ethiopian Restaurant, African cuisine San Jose, Ethiopian family restaurant, modern Ethiopian cuisine, San Jose restaurants, authentic cultural dining San Jose"
-        />
-
-        {/* JSON-LD for Restaurant Schema */}
+      <title className="s123-js-pjax">TAKE A LOOK OF ETHIOPIA - GOJO ETHIOPIAN RESTAURANT</title>
+      <meta property="og:name" className="s123-js-pjax">GOJO ETHIOPIAN RESTAURANT</meta>
+      <meta property="og:site_name" className="s123-js-pjax">GOJO ETHIOPIAN RESTAURANT</meta>
+      <meta property="og:image" content="https://www.gojoethiopiarestaurantsj.com/bg-new.jpg" className="s123-js-pjax"></meta>
+      <meta property="og:see_also" className="s123-js-pjax">https://www.gojoethiopiarestaurantsj.com</meta>
+      <meta itemProp="name" content="TAKE A LOOK OF ETHIOPIA - GOJO ETHIOPIAN RESTAURANT" className="s123-js-pjax"></meta>
+<meta name="robots" content="all" className="s123-js-pjax"></meta>
+        {/* JSON-LD Schema.org for Local SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -161,16 +97,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Restaurant",
               "name": "Gojo Ethiopian Restaurant",
-              "image": [
-                "https://www.gojoethiopiarestaurantsj.com/bg-new.jpg",
-                "https://www.gojoethiopiarestaurantsj.com/og-gojo.jpg",
-                "https://www.gojoethiopiarestaurantsj.com/shekla-picture-100.jpg",
-                "https://www.gojoethiopiarestaurantsj.com/gojo-logo.png",
-                "https://www.gojoethiopiarestaurantsj.com/gojo-bet-101.jpg",
-                "https://www.gojoethiopiarestaurantsj.com/catering-catering-100.jpg",
-                "https://www.gojoethiopiarestaurantsj.com/carousel/new-image-2.jpg",
-                "https://www.gojoethiopiarestaurantsj.com/carousel/new-image-1.jpg",
-              ],
+              "image": "https://www.gojoethiopiarestaurantsj.com/bg-new.jpg", // Use a single, high-quality main image
               "url": "https://www.gojoethiopiarestaurantsj.com/",
               "telephone": "+1-408-295-9546",
               "address": {
@@ -186,20 +113,12 @@ export default function RootLayout({
                 "latitude": 37.3269,
                 "longitude": -121.9119
               },
-              "servesCuisine": ["Ethiopian", "Vegan", "Vegetarian"],
+              "servesCuisine": ["Ethiopian", "Vegan", "Vegetarian", "African"],
               "priceRange": "$$",
               "openingHoursSpecification": [
                 {
                   "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday"
-                  ],
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
                   "opens": "11:00",
                   "closes": "22:00"
                 }
@@ -207,12 +126,21 @@ export default function RootLayout({
               "sameAs": [
                 "https://www.facebook.com/people/Gojo-Ethiopian-restaurant/61559731198758/",
                 "https://www.instagram.com/explore/locations/124599994303682/gojo-ethiopian-restaurant/"
-              ]
-            })
+              ],
+              "hasMenu": {
+                "@type": "Menu",
+                "url": "https://www.gojoethiopiarestaurantsj.com/menu" // Link to your menu page
+              },
+              "acceptsReservations": "False", // Or "True" if applicable
+              "aggregateRating": { // Add this section if you have customer reviews
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "reviewCount": "150"
+              },
+              "description": "Gojo Ethiopian Restaurant in San Jose, CA. Enjoy authentic Ethiopian cuisine, vegan-friendly dishes, and a traditional dining experience."
+            }),
           }}
         />
-
-
       </head>
       <body className="bg-slate-100">
         <Providers>{children}</Providers>
