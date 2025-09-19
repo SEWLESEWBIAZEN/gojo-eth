@@ -82,20 +82,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>   
       <head>
-      <title className="s123-js-pjax">TAKE A LOOK OF ETHIOPIA - GOJO ETHIOPIAN RESTAURANT</title>
-      <meta property="og:name" className="s123-js-pjax" content="GOJO ETHIOPIAN RESTAURANT"/>
-      <meta property="og:site_name" className="s123-js-pjax" content="GOJO ETHIOPIAN RESTAURANT"></meta>
+      <title className="s123-js-pjax">GOJO ETHIOPIAN RESTAURANT</title>
+      <meta property="og:name" className="s123-js-pjax" content="GOJO ETHIOPIA RESTAURANT"/>
+      <meta property="og:site_name" className="s123-js-pjax" content="GOJO ETHIOPIAN RESTAURANT"/>
       <meta property="og:image" content="https://www.gojoethiopiarestaurantsj.com/bg-new.jpg" className="s123-js-pjax"/>
       <meta property="og:see_also" className="s123-js-pjax" content="https://www.gojoethiopiarestaurantsj.com"/>
-      <meta itemProp="name" content="TAKE A LOOK OF ETHIOPIA - GOJO ETHIOPIAN RESTAURANT" className="s123-js-pjax"></meta>
-<meta name="robots" content="all" className="s123-js-pjax"></meta>
+      <meta itemProp="name" content="GOJO ETHIOPIA RESTAURANT" className="s123-js-pjax"/>
+      <meta name="robots" content="all" className="s123-js-pjax"/>
         {/* JSON-LD Schema.org for Local SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Restaurant",
+              "@type": "Ethiopian Restaurant",
               "name": "Gojo Ethiopian Restaurant",
               "image": "https://www.gojoethiopiarestaurantsj.com/bg-new.jpg", // Use a single, high-quality main image
               "url": "https://www.gojoethiopiarestaurantsj.com/",
@@ -131,7 +131,7 @@ export default function RootLayout({
                 "@type": "Menu",
                 "url": "https://www.gojoethiopiarestaurantsj.com/menu" // Link to your menu page
               },
-              "acceptsReservations": "False", // Or "True" if applicable
+              "acceptsReservations": "True", // Or "True" if applicable
               "aggregateRating": { // Add this section if you have customer reviews
                 "@type": "AggregateRating",
                 "ratingValue": "4.8",
