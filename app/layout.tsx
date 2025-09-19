@@ -17,8 +17,19 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "🍴Gojo | Ethiopian | Restaurant",
   description: "🥄 Savor the rich and diverse flavors of Ethiopian cuisine without leaving the city. 🍴 Our restaurant brings you a carefully curated menu of authentic dishes, highlighting the bold spices, wholesome ingredients, and traditional cooking techniques of Ethiopia. Whether you’re enjoying a hearty platter, sampling our signature vegetarian specialties, or experiencing a traditional coffee ceremony, every visit is a journey into Ethiopia’s food culture. Experience the heart and soul of Ethiopian cuisine in a vibrant city setting. Our chefs prepare each dish with authentic recipes, combining fresh ingredients and aromatic spices to create a culinary experience that is both rich and memorable. From classic stews to traditional breads and flavorful sides, our restaurant offers an inviting space to enjoy the warmth, culture, and flavors of Ethiopia.",
-  keywords: ["🍴","🥄",
+  keywords: ["🍴", "🥄",
     "Ethiopian",
+    "Gojo",
+    "gojo",
+    "gojoethiopianrestaurantsj",
+    "gojoethiopianrestaurants",
+    "gojoethiopianrestaurant",
+    "gojoethiorestaurants",
+    "gojorestaurants",
+    "gojoethiopian",
+    "gojoethiopianrest",
+    "gojoethiopianfoods",
+    "gojoethiopiafoodsmenu",
     "Restaurant",
     "Cuisine",
     "Cultural",
@@ -68,16 +79,51 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
+      <head>
+        {/* <!-- Basic SEO --> */}
+        <meta name="title" content="Gojo Ethiopian Restaurant | Authentic Ethiopian Cuisine in San Jose" />
+        <meta name="description" content="Discover Gojo Ethiopian Restaurant in San Jose, CA — authentic Ethiopian cuisine, vegan-friendly dishes, traditional flavors, and a warm dining experience." />
+        <meta name="keywords" content="Ethiopian restaurant San Jose, Ethiopian food San Jose, vegan Ethiopian cuisine, Gojo restaurant, authentic Ethiopian dining, San Jose restaurants" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.gojoethiopiarestaurantsj.com/" />
+
+        {/* <!-- Open Graph (Social SEO) --> */}
+        <meta property="og:type" content="restaurant" />
+        <meta property="og:url" content="https://www.gojoethiopiarestaurantsj.com/" />
+        <meta property="og:title" content="Gojo Ethiopian Restaurant | Authentic Ethiopian Cuisine in San Jose" />
+        <meta property="og:description" content="Enjoy authentic Ethiopian food in San Jose, CA. Gojo offers vegan-friendly dishes and traditional Ethiopian flavors in a cozy atmosphere." />
+        {/*  <!-- replace with real image --> */}
+        <meta property="og:image" content="https://www.gojoethiopiarestaurantsj.com/bg-new.jpg" />
+        <meta property="og:site_name" content="Gojo Ethiopian Restaurant" />
+        <meta property="og:locale" content="en_US" />
+
+        {/* <!-- Twitter (Social SEO) --> */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Gojo Ethiopian Restaurant | Authentic Ethiopian Cuisine in San Jose" />
+        <meta name="twitter:description" content="Authentic Ethiopian restaurant in San Jose, CA with vegan-friendly options and traditional cuisine." />
+        {/*  <!-- replace with real image --> */}
+        <meta name="twitter:image" content="https://www.gojoethiopiarestaurantsj.com/bg-new.jpg" />
+
+        {/* <!-- Local SEO (Google Maps / Restaurant Schema) --> */}       
+        <meta name="geo.region" content="US-CA" />
+        <meta name="geo.placename" content="San Jose" />
+        <meta name="geo.position" content="37.3269;-121.9119" />
+        <meta name="ICBM" content="37.3269, -121.9119" />
+        <meta name="geo.streetAddress" content="1261 W San Carlos St" />
+        <meta name="geo.postalCode" content="95126" />
+
+      </head>
       <body className="bg-slate-100">
-         <Providers>
-          {children}        
-         </Providers>
-          <SocialLinks />
-        <Toaster position="top-right" richColors />       
+        <Providers>
+          {children}
+        </Providers>
+        <SocialLinks />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
+
+
   );
 }
