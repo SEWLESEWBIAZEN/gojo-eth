@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     "vegan Ethiopian cuisine",
     "authentic Ethiopian restaurant",
     "Gojo restaurant San Jose",
+    "gojoethiopianrestaurantsj",
+    "ethiopianrestaurantsj",
+    "gojorestaurantsj",
+    "ethiopianrestaurants"
   ],
   alternates: {
     canonical: "https://www.gojoethiopiarestaurantsj.com/",
