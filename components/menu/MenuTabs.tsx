@@ -109,7 +109,7 @@ export default function MenuTabs({ searchText }: MenuTabsProps) {
   const paginatedSides = sidesPagination.paginate(filteredSides);
 
   return (
-    <Tabs defaultValue="daily" className="w-full relative px-14 md:px-[100px] pb-2">
+    <Tabs defaultValue="full" className="w-full relative px-14 md:px-[100px] pb-2">
       <TabsList className="flex flex-wrap justify-center gap-2 py-2 md:pt-14 mb-6 md:mb-0">
         <TabsTrigger value="full">Full Menu</TabsTrigger>
         <TabsTrigger value="daily">Today's Menu</TabsTrigger>

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     ]
 
 };
-export default function GalleryLayout({
+export default function PageLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
