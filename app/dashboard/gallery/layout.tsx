@@ -1,4 +1,3 @@
-import DashboardLayout from "@/components/layouts/DashboardLayout";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({
@@ -61,10 +60,8 @@ export default function PageLayout({
             >
                 Skip to content
             </a>
-
-            <DashboardLayout>
                 {children}
-            </DashboardLayout>
+           
         </div>
     );
 }

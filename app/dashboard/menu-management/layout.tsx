@@ -1,4 +1,3 @@
-import DashboardLayout from "@/components/layouts/DashboardLayout";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({
@@ -60,11 +59,8 @@ export default function PageLayout({
                    focus:bg-indigo-600 focus:text-white rounded"
             >
                 Skip to content
-            </a>
-
-            <DashboardLayout>
-                {children}
-            </DashboardLayout>
+            </a>           
+                {children}            
         </div>
     );
 }
