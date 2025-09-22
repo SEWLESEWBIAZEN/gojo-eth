@@ -27,7 +27,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://gojoethiopiarestaurantsj.com",
   },
-
+  icons: {
+    icon: "/favicon.png", // points to public/favicon.png
+  },
   // Open Graph metadata for social media sharing
   openGraph: {
     type: "website",
@@ -83,7 +85,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <meta name="theme-color" content="#ffffff" />
 
         <title className="s123-js-pjax">GOJO ETHIOPIAN RESTAURANT</title>
@@ -101,7 +103,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Restaurant",
               "name": "Gojo Ethiopian Restaurant San Jose",
-              "logo": "https://gojoethiopiarestaurantsj.com/logo.png",
+              "logo": "https://gojoethiopiarestaurantsj.com/favicon.png",
               "image": "https://gojoethiopiarestaurantsj.com/bg-new.jpg", // Use a single, high-quality main image
               "url": "https://gojoethiopiarestaurantsj.com/",
               "telephone": "+1-408-295-9546",
@@ -118,7 +120,7 @@ export default function RootLayout({
                 "latitude": 37.3269,
                 "longitude": -121.9119
               },
-              "servesCuisine": ["Ethiopian", "Vegan", "Vegetarian", "African"],
+              "servesCuisine": ["Ethiopian", "Vegan", "Vegetarian", "African","Gojo","cultural"],
               "priceRange": "$$",
               "openingHoursSpecification": [
                 {
