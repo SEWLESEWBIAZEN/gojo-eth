@@ -91,7 +91,7 @@ export default function RootLayout({
         <title className="s123-js-pjax">GOJO ETHIOPIAN RESTAURANT</title>
         <meta property="og:name" className="s123-js-pjax" content="GOJO ETHIOPIA RESTAURANT" />
         <meta property="og:site_name" className="s123-js-pjax" content="GOJO ETHIOPIAN RESTAURANT" />
-        <meta property="og:image" content="https://gojoethiopiarestaurantsj.com/favicon.ico" />
+        <meta property="og:image" content="/favicon.ico" />
         <meta property="og:see_also" className="s123-js-pjax" content="https://gojoethiopiarestaurantsj.com" />
         <meta itemProp="name" content="GOJO ETHIOPIA RESTAURANT" className="s123-js-pjax" />
         <meta name="robots" content="all" className="s123-js-pjax" />
