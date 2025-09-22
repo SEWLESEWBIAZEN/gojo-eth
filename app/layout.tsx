@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   // Open Graph metadata for social media sharing
   openGraph: {
-    type: "website",    
+    type: "website",
     url: "https://gojoethiopiarestaurantsj.com",
     title: "Gojo Ethiopian Restaurant in San Jose",
     description: "Enjoy authentic Ethiopian food in San Jose. We offer vegan-friendly dishes, traditional flavors, and a cozy cultural dining experience. Call us at (408) 295-9546 to order.",
@@ -91,7 +91,13 @@ export default function RootLayout({
         <title className="s123-js-pjax">GOJO ETHIOPIAN RESTAURANT</title>
         <meta property="og:name" className="s123-js-pjax" content="GOJO ETHIOPIA RESTAURANT" />
         <meta property="og:site_name" className="s123-js-pjax" content="GOJO ETHIOPIAN RESTAURANT" />
-        <meta property="og:image" content="/favicon.ico" />
+        
+        <meta property="og:image" content="/favicon.png" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="400" />
+        <meta property="og:image:alt" content="Gojoethiopiarestaurantsj, Ethiopian restaurant at san jose ca" />
+        <meta property="og:image:type" content="image/png" />
+        
         <meta property="og:see_also" className="s123-js-pjax" content="https://gojoethiopiarestaurantsj.com" />
         <meta itemProp="name" content="GOJO ETHIOPIA RESTAURANT" className="s123-js-pjax" />
         <meta name="robots" content="all" className="s123-js-pjax" />
@@ -120,7 +126,7 @@ export default function RootLayout({
                 "latitude": 37.3269,
                 "longitude": -121.9119
               },
-              "servesCuisine": ["Ethiopian", "Vegan", "Vegetarian", "African","Gojo","cultural"],
+              "servesCuisine": ["Ethiopian", "Vegan", "Vegetarian", "African", "Gojo", "cultural"],
               "priceRange": "$$",
               "openingHoursSpecification": [
                 {
@@ -147,7 +153,7 @@ export default function RootLayout({
               "description": "Gojo Ethiopian Restaurant in San Jose, CA. Enjoy authentic Ethiopian cuisine, vegan-friendly dishes, and a traditional dining experience."
             }),
           }}
-        />      
+        />
 
       </head>
       <body className="bg-slate-100">
