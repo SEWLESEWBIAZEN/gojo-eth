@@ -20,7 +20,7 @@ const ImageGallery = () => {
     const [page, setPage] = useState<number>(1);
     const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
     const [totalImages, setTotalImages] = useState<number>(0);
-    const ITEMS_PER_PAGE = 10;
+    const ITEMS_PER_PAGE = 12;
 
     useEffect(() => {
         setIsLoading(true);

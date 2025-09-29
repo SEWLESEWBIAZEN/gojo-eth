@@ -19,7 +19,7 @@ export default function VideoGallery() {
   const [page, setPage] = useState<number>(1);
   const [galleryVideos, setGalleryVideos] = useState<GalleryVideo[]>([]);
   const [totalVideos, setTotalVideos] = useState<number>(0);
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 12;
 
 
   useEffect(() => {
