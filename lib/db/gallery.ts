@@ -1,7 +1,5 @@
-import path from "path";
 import supabase from "../supabase";
 import { FormatResponse, Image, Video } from "../utils";
-import fs from "fs";
 
 export async function uploadImageToGallery(galleryImage?: Image) {
   if (!galleryImage) {
@@ -141,57 +139,79 @@ export async function deleteFromGallery(id: string): Promise<FormatResponse> {
   if (!id) {
     return {
       data: null,
-      message: 'Gallery ID is required',
+      message: "Gallery ID is required",
       isError: true,
-      status: 400
+      status: 400,
     };
   }
 
   try {
+    // Fetch the gallery record
     const { data: existingGallery, error: fetchError } = await supabase
-      .from('gallery')
+      .from("gallery")
       .select()
-      .eq('id', id)
+      .eq("id", id)
       .single();
 
-    if (fetchError) {
+    if (fetchError || !existingGallery) {
       return {
         data: null,
-        message: fetchError.message || 'Failed to fetch gallery',
+        message: fetchError?.message || "Gallery not found",
         isError: true,
-        status: fetchError?.code === '22P02' ? 400 : 500
+        status: fetchError?.code === "22P02" ? 400 : 404,
       };
     }
 
-    const url = existingGallery?.url;
-    const filePath = path.join(process.cwd(), "public", url);
-    fs.unlinkSync(filePath);
+    const fileUrl: string = existingGallery.url;
 
-    const { data, error } = await supabase.from('gallery').delete().eq('id', id);
+    // Extract the file path in the bucket from the public URL
+    // Assumes your public URL is like: https://xyz.supabase.co/storage/v1/object/public/bucket-name/file-path
+    const bucketFilePath = fileUrl.split("/object/public/")[1]?.split("/").slice(1).join("/");
+
+    if (bucketFilePath) {
+      // Delete the file from Supabase Storage
+      const { error: storageError } = await supabase.storage
+        .from("galleryImages") // your bucket name
+        .remove([bucketFilePath]);
+
+      if (storageError) {
+        return {
+          data: null,
+          message: storageError.message || "Failed to delete file from storage",
+          isError: true,
+          status: 500,
+        };
+      }
+    }
+
+    // Delete the gallery record from DB
+    const { data, error } = await supabase.from("gallery").delete().eq("id", id);
+
     if (error) {
       return {
         data: null,
-        message: error.message || 'Failed to delete from gallery',
+        message: error.message || "Failed to delete gallery record",
         isError: true,
-        status: error?.code === '22P02' ? 400 : 500,
+        status: error?.code === "22P02" ? 400 : 500,
       };
     }
+
     return {
       data,
       message: "File deleted successfully!",
       isError: false,
-      status: 200
+      status: 200,
     };
-
-  } catch (error:any) {
+  } catch (error: any) {
     return {
       data: null,
-      message: error.message || 'Something went wrong!',
+      message: error.message || "Something went wrong!",
       isError: true,
-      status: error?.code === '22P02' ? 400 : 500,
+      status: 500,
     };
   }
 }
+
 export async function updateGallery(gallery: { title: string; id: string }) {
   const { data, error } = await supabase
     .from('gallery')
