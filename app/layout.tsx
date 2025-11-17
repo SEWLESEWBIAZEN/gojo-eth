@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import Providers from "@/contexts/providers";
 import SocialLinks from "@/components/SocialLinks";
 import { Analytics } from "@vercel/analytics/next";
+import NoFreeLunch from "@/components/NoFreeLunch";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -158,7 +159,8 @@ export default function RootLayout({
       </head>
       <body className="bg-slate-100">
 
-        <Providers>{children}</Providers>
+        {/* <Providers>{children}</Providers> */}
+        <NoFreeLunch/>
         <SocialLinks />
         <Toaster position="top-right" richColors />
         <Analytics />
