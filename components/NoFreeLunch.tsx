@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Sparkles, Coffee, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 
