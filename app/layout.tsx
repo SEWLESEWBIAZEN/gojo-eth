@@ -159,8 +159,8 @@ export default function RootLayout({
       </head>
       <body className="bg-slate-100">
 
-         <Providers>{children}</Providers> 
-        {/*  <NoFreeLunch/>*/}
+         {/* <Providers>{children}</Providers>  */}
+         <NoFreeLunch/>
         <SocialLinks />
         <Toaster position="top-right" richColors />
         <Analytics />
