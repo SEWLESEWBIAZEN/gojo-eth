@@ -161,7 +161,7 @@ export default function RootLayout({
 
          {/* <Providers>{children}</Providers>  */}
          <NoFreeLunch/>
-        <SocialLinks />
+        {/* <SocialLinks /> */}
         <Toaster position="top-right" richColors />
         <Analytics />
       </body>

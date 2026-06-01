@@ -32,6 +32,9 @@ export default function NoFreeLunch() {
             <AlertTriangle className="w-5 h-5" />
             <span>Be kind. They debug for a living.</span>
           </div>
+          <div>You're seeing this because the developer has not yet paid for his time and effort to build this website. 
+            Please consider supporting him by buying him a coffee or a meal. Thank you!</div>
+            <p>Developed by: +251 961 718 044 (WhatsApp)</p>
         </CardContent>
       </Card>
     </motion.div>
